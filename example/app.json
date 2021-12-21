@@ -1,0 +1,22 @@
+{
+  "name": "rn-smartsuite-big-calendar-example",
+  "displayName": "RnSmartsuiteBigCalendar Example",
+  "expo": {
+    "name": "rn-smartsuite-big-calendar-example",
+    "slug": "rn-smartsuite-big-calendar-example",
+    "description": "Example app for rn-smartsuite-big-calendar",
+    "privacy": "public",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
