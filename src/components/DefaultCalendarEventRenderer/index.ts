@@ -1,0 +1,1 @@
+export { DefaultCalendarEventRenderer } from './DefaultCalendarEventRenderer';

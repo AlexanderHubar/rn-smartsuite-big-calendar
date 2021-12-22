@@ -2,15 +2,15 @@ import type dayjs from 'dayjs';
 import * as React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import { u } from '../commonStyles';
-import { useCalendarTouchableOpacityProps } from '../hooks/useCalendarTouchableOpacityProps';
+import { u } from '../../commonStyles';
+import { useCalendarTouchableOpacityProps } from '../../hooks/useCalendarTouchableOpacityProps';
 import type {
   EventCellStyle,
   EventRenderer,
   ICalendarEvent,
-} from '../interfaces';
-import { useTheme } from '../theme/ThemeContext';
-import { getEventSpanningInfo, typedMemo } from '../utils';
+} from '../../interfaces';
+import { useTheme } from '../../theme/ThemeContext';
+import { getEventSpanningInfo, typedMemo } from '../../utils';
 
 interface CalendarEventProps<T> {
   event: ICalendarEvent<T>;

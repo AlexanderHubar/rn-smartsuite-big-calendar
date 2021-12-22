@@ -3,12 +3,15 @@ import isBetween from 'dayjs/plugin/isBetween';
 import { merge } from 'merge-anything';
 import React from 'react';
 
-import { defaultTheme } from '../theme/defaultTheme';
-import { ThemeContext } from '../theme/ThemeContext';
-import type { ThemeInterface } from '../theme/ThemeInterface';
-import type { DeepPartial } from '../utility-types';
-import { typedMemo } from '../utils';
-import { CalendarContainer, CalendarContainerProps } from './CalendarContainer';
+import { defaultTheme } from '../../theme/defaultTheme';
+import { ThemeContext } from '../../theme/ThemeContext';
+import type { ThemeInterface } from '../../theme/ThemeInterface';
+import type { DeepPartial } from '../../utility-types';
+import { typedMemo } from '../../utils';
+import {
+  CalendarContainer,
+  CalendarContainerProps,
+} from '../CalendarContainer';
 
 export interface CalendarProps<T> extends CalendarContainerProps<T> {
   theme?: DeepPartial<ThemeInterface>;

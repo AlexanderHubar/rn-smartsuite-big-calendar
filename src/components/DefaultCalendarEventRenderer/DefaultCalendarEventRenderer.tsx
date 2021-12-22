@@ -4,9 +4,9 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import type {
   CalendarTouchableOpacityProps,
   ICalendarEvent,
-} from '../interfaces';
-import { useTheme } from '../theme/ThemeContext';
-import { formatStartEnd } from '../utils';
+} from '../../interfaces';
+import { useTheme } from '../../theme/ThemeContext';
+import { formatStartEnd } from '../../utils';
 
 interface DefaultCalendarEventRendererProps<T> {
   touchableOpacityProps: CalendarTouchableOpacityProps;

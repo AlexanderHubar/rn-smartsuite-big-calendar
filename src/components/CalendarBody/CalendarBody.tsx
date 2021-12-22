@@ -9,16 +9,16 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import { u } from '../commonStyles';
-import { useNow } from '../hooks/useNow';
-import { usePanResponder } from '../hooks/usePanResponder';
+import { u } from '../../commonStyles';
+import { useNow } from '../../hooks/useNow';
+import { usePanResponder } from '../../hooks/usePanResponder';
 import type {
   EventCellStyle,
   EventRenderer,
   HorizontalDirection,
   ICalendarEvent,
-} from '../interfaces';
-import { useTheme } from '../theme/ThemeContext';
+} from '../../interfaces';
+import { useTheme } from '../../theme/ThemeContext';
 import {
   getCountOfEventsAtEvent,
   getOrderOfEvent,
@@ -26,10 +26,10 @@ import {
   hours,
   isToday,
   typedMemo,
-} from '../utils';
-import { CalendarEvent } from './CalendarEvent';
-import { HourGuideCell } from './HourGuideCell';
-import { HourGuideColumn } from './HourGuideColumn';
+} from '../../utils';
+import { CalendarEvent } from '../CalendarEvents';
+import { HourGuideCell } from '../HourGuideCell';
+import { HourGuideColumn } from '../HourGuideColumn';
 
 const styles = StyleSheet.create({
   nowIndicator: {

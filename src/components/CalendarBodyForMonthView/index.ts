@@ -1,0 +1,1 @@
+export { CalendarBodyForMonthView } from './CalendarBodyForMonthView';

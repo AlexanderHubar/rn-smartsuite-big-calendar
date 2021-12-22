@@ -2,10 +2,10 @@ import dayjs from 'dayjs';
 import * as React from 'react';
 import { Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 
-import { u } from '../commonStyles';
-import type { ICalendarEvent } from '../interfaces';
-import { useTheme } from '../theme/ThemeContext';
-import { isToday, stringHasContent, typedMemo } from '../utils';
+import { u } from '../../commonStyles';
+import type { ICalendarEvent } from '../../interfaces';
+import { useTheme } from '../../theme/ThemeContext';
+import { isToday, stringHasContent, typedMemo } from '../../utils';
 
 export interface CalendarHeaderProps<T> {
   dateRange: dayjs.Dayjs[];

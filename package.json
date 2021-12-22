@@ -51,7 +51,8 @@
     "calendarize": "^1.1.1",
     "dayjs": "^1.10.7",
     "merge-anything": "^4.0.2",
-    "remeda": "^0.0.32"
+    "remeda": "^0.0.32",
+    "styled-components": "^5.3.3"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^11.0.0",

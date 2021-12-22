@@ -10,7 +10,7 @@ dayjs.extend(isBetween);
 export * from './components/Calendar';
 export * from './components/CalendarBody';
 export * from './components/CalendarBodyForMonthView';
-export * from './components/CalendarEvent';
+export * from './components/CalendarEvents';
 export * from './components/CalendarEventForMonthView';
 export * from './components/CalendarHeader';
 export * from './components/CalendarHeaderForMonthView';

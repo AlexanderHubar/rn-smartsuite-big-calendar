@@ -2,9 +2,9 @@ import type dayjs from 'dayjs';
 import * as React from 'react';
 import { TouchableWithoutFeedback, View } from 'react-native';
 
-import { u } from '../commonStyles';
-import { useTheme } from '../theme/ThemeContext';
-import { isPair } from '../utils';
+import { u } from '../../commonStyles';
+import { useTheme } from '../../theme/ThemeContext';
+import { isPair } from '../../utils';
 
 interface HourGuideCellProps {
   cellHeight: number;

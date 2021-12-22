@@ -2,10 +2,10 @@ import dayjs from 'dayjs';
 import * as React from 'react';
 import { Text, View, ViewStyle } from 'react-native';
 
-import { u } from '../commonStyles';
-import type { WeekNum } from '../interfaces';
-import { useTheme } from '../theme/ThemeContext';
-import { getDatesInWeek, typedMemo } from '../utils';
+import { u } from '../../commonStyles';
+import type { WeekNum } from '../../interfaces';
+import { useTheme } from '../../theme/ThemeContext';
+import { getDatesInWeek, typedMemo } from '../../utils';
 
 export interface CalendarHeaderForMonthViewProps {
   weekStartsOn: WeekNum;
