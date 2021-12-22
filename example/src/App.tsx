@@ -1,31 +1,108 @@
-import * as React from 'react';
+import React from 'react';
+import { Dimensions, SafeAreaView, StatusBar } from 'react-native';
 
-import { StyleSheet, View, Text } from 'react-native';
-import RnSmartsuiteBigCalendar from 'rn-smartsuite-big-calendar';
+import { Calendar } from 'rn-smartsuite-big-calendar';
 
-export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
+const events = [
+  {
+    start: new Date(2021, 11, 22, 0, 0),
+    end: new Date(2021, 11, 22, 13, 0),
+    color: '#0C41F3',
+    fieldLabel: 'Date Range',
+    fieldType: 'daterangefield',
+    fromDate: {
+      date: new Date(2021, 11, 22, 0, 0),
+      include_time: false,
+    },
+    is_overdue: null,
+    recordId: '61a4be445622b50278992a11',
+    title: 'Event 1',
+    slug: 's7580ffd43',
+    toDate: {
+      date: new Date(2021, 11, 22, 13, 0),
+      include_time: false,
+    },
+  },
+  {
+    start: new Date(2021, 11, 22, 13, 0),
+    end: new Date(2021, 11, 22, 13, 30),
+    color: '#3EAC40',
+    fieldLabel: 'Date',
+    fieldType: 'datefield',
+    fromDate: {
+      date: new Date(2021, 11, 22, 13, 0),
+      include_time: false,
+    },
+    is_overdue: null,
+    recordId: '61a4be445622b50278992a11',
+    title: 'Event 1',
+    slug: 's4f9aed784',
+    toDate: null,
+  },
+  {
+    start: new Date(2021, 11, 22, 1, 0),
+    end: new Date(2021, 11, 22, 2, 0),
+    color: '#673DB6',
+    fieldLabel: 'Due Date',
+    fieldType: 'duedatefield',
+    fromDate: {
+      date: null,
+      include_time: false,
+    },
+    is_overdue: false,
+    recordId: '61a4be445622b50278992a11',
+    title: 'Event 1',
+    slug: 'due_date',
+    toDate: {
+      date: new Date(2021, 11, 22, 1, 0),
+      include_time: true,
+    },
+  },
+  {
+    start: new Date(2021, 11, 22, 14, 0),
+    end: new Date(2021, 11, 22, 14, 50),
+    color: '#2D2D2D',
+    fieldLabel: 'First Created',
+    fieldType: 'datefield',
+    fromDate: {
+      date: new Date(2021, 11, 22, 14, 0),
+      include_time: true,
+    },
+    is_overdue: null,
+    recordId: '61a4be445622b50278992a11',
+    title: 'Event 1',
+    slug: 'first_created',
+    toDate: null,
+  },
+  {
+    start: new Date(2021, 11, 22, 15, 0),
+    end: new Date(2021, 11, 22, 17, 0),
+    color: '#CD286A',
+    fieldLabel: 'Last Updated',
+    fieldType: 'datefield',
+    fromDate: {
+      date: new Date(2021, 11, 22, 15, 0),
+      include_time: true,
+    },
+    is_overdue: null,
+    recordId: '61a4be445622b50278992a11',
+    title: 'Event 1',
+    slug: 'last_updated',
+    toDate: null,
+  },
+];
 
-  React.useEffect(() => {
-    RnSmartsuiteBigCalendar.multiply(3, 7).then(setResult);
-  }, []);
-
+export const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Result: {result}</Text>
-    </View>
+    <React.Fragment>
+      <StatusBar barStyle="light-content" />
+      <SafeAreaView style={{ backgroundColor: '#FAFAFA' }}>
+        <Calendar
+          height={Dimensions.get('window').height}
+          events={events}
+          mode={'day'}
+        />
+      </SafeAreaView>
+    </React.Fragment>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
-  },
-});
+};

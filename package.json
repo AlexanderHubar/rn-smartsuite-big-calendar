@@ -46,6 +46,13 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
+  "dependencies": {
+    "@types/mockdate": "^3.0.0",
+    "calendarize": "^1.1.1",
+    "dayjs": "^1.10.7",
+    "merge-anything": "^4.0.2",
+    "remeda": "^0.0.32"
+  },
   "devDependencies": {
     "@commitlint/config-conventional": "^11.0.0",
     "@react-native-community/eslint-config": "^2.0.0",
