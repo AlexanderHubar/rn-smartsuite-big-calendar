@@ -5,8 +5,8 @@ import { Calendar } from 'rn-smartsuite-big-calendar';
 
 const events = [
   {
-    start: new Date(2021, 11, 22, 0, 0),
-    end: new Date(2021, 11, 22, 13, 0),
+    start: new Date(2021, 11, 23, 0, 0),
+    end: new Date(2021, 11, 25, 0, 0),
     color: '#0C41F3',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
@@ -15,7 +15,7 @@ const events = [
       include_time: false,
     },
     is_overdue: null,
-    recordId: '61a4be445622b50278992a11',
+    recordId: '61a4be445622b50278992a15',
     title: 'Event 1',
     slug: 's7580ffd43',
     toDate: {
@@ -24,8 +24,8 @@ const events = [
     },
   },
   {
-    start: new Date(2021, 11, 22, 13, 0),
-    end: new Date(2021, 11, 22, 13, 30),
+    start: new Date(2021, 11, 22, 0, 0),
+    end: new Date(2021, 11, 22, 0, 0),
     color: '#3EAC40',
     fieldLabel: 'Date',
     fieldType: 'datefield',
@@ -34,14 +34,14 @@ const events = [
       include_time: false,
     },
     is_overdue: null,
-    recordId: '61a4be445622b50278992a11',
+    recordId: '61a4be445622b50278992a14',
     title: 'Event 1',
     slug: 's4f9aed784',
     toDate: null,
   },
   {
-    start: new Date(2021, 11, 22, 1, 0),
-    end: new Date(2021, 11, 22, 2, 0),
+    start: new Date(2021, 11, 22, 0, 0),
+    end: new Date(2021, 11, 22, 0, 0),
     color: '#673DB6',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
@@ -50,7 +50,7 @@ const events = [
       include_time: false,
     },
     is_overdue: false,
-    recordId: '61a4be445622b50278992a11',
+    recordId: '61a4be445622b50278992a13',
     title: 'Event 1',
     slug: 'due_date',
     toDate: {
@@ -59,8 +59,8 @@ const events = [
     },
   },
   {
-    start: new Date(2021, 11, 22, 14, 0),
-    end: new Date(2021, 11, 22, 14, 50),
+    start: new Date(2021, 11, 22, 0, 0),
+    end: new Date(2021, 11, 22, 0, 0),
     color: '#2D2D2D',
     fieldLabel: 'First Created',
     fieldType: 'datefield',
@@ -69,7 +69,7 @@ const events = [
       include_time: true,
     },
     is_overdue: null,
-    recordId: '61a4be445622b50278992a11',
+    recordId: '61a4be445622b50278992a12',
     title: 'Event 1',
     slug: 'first_created',
     toDate: null,
@@ -100,7 +100,7 @@ export const App = () => {
         <Calendar
           height={Dimensions.get('window').height}
           events={events}
-          mode={'day'}
+          mode={'3days'}
         />
       </SafeAreaView>
     </React.Fragment>

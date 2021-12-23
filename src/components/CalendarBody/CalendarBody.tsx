@@ -1,13 +1,6 @@
 import dayjs from 'dayjs';
 import * as React from 'react';
-import {
-  Platform,
-  ScrollView,
-  StyleSheet,
-  TextStyle,
-  View,
-  ViewStyle,
-} from 'react-native';
+import { Platform, ScrollView, TextStyle, View, ViewStyle } from 'react-native';
 
 import { u } from '../../commonStyles';
 import { useNow } from '../../hooks/useNow';
@@ -31,14 +24,7 @@ import { CalendarEvent } from '../CalendarEvents';
 import { HourGuideCell } from '../HourGuideCell';
 import { HourGuideColumn } from '../HourGuideColumn';
 
-const styles = StyleSheet.create({
-  nowIndicator: {
-    position: 'absolute',
-    zIndex: 10000,
-    height: 1,
-    width: '100%',
-  },
-});
+import { NowIndicatorTriangle, NowIndicator } from './styled';
 
 interface CalendarBodyProps<T> {
   cellHeight: number;
@@ -240,23 +226,9 @@ function _CalendarBody<T>({
                 .map(_renderMappedEvent)}
 
               {isToday(date) && !hideNowIndicator && (
-                <View
-                  style={[
-                    styles.nowIndicator,
-                    { backgroundColor: theme.palette.nowIndicator },
-                    { top: `${getRelativeTopInDay(now)}%` },
-                  ]}
-                >
-                  <View
+                <NowIndicator top={getRelativeTopInDay(now)}>
+                  <NowIndicatorTriangle
                     style={{
-                      width: 0,
-                      height: 0,
-                      backgroundColor: 'transparent',
-                      borderStyle: 'solid',
-                      borderRightWidth: 8,
-                      borderTopWidth: 8,
-                      borderRightColor: 'transparent',
-                      borderTopColor: '#FF5757',
                       transform: [
                         { rotate: '135deg' },
                         { translateX: 1 },
@@ -264,7 +236,7 @@ function _CalendarBody<T>({
                       ],
                     }}
                   />
-                </View>
+                </NowIndicator>
               )}
             </View>
           ))}

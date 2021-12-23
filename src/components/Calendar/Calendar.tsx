@@ -26,6 +26,7 @@ function _Calendar<T>({
   ...props
 }: CalendarProps<T>) {
   const _theme = merge(defaultTheme, theme, { isRTL }) as ThemeInterface;
+
   return (
     <ThemeContext.Provider value={_theme}>
       <CalendarContainer {...props} />
