@@ -78,7 +78,7 @@ function _CalendarEventForMonthView<T>({
               ]}
               numberOfLines={1}
             >
-              {event.title}
+              {event.recordTitle}
             </Text>
           </TouchableOpacity>
         )
