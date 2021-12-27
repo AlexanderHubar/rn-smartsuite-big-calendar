@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
-import * as React from 'react';
+import React from 'react';
+import { find } from 'remeda';
 import { TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import { u } from '../../commonStyles';
@@ -14,7 +15,7 @@ import {
   CircleLabel,
   DayLabel,
 } from './styled';
-import { useRef } from 'react';
+import { getEventsByDay, getWeekTimeLine } from './helpers';
 
 export interface CalendarHeaderProps<T> {
   dateRange: dayjs.Dayjs[];
@@ -38,8 +39,6 @@ function _CalendarHeader<T>({
   activeDate,
   showAllDayEventCell = true,
 }: CalendarHeaderProps<T>) {
-  const eventsCoords = useRef({}).current;
-
   const _onPress = React.useCallback(
     (date: Date) => {
       onPressDateHeader && onPressDateHeader(date);
@@ -50,11 +49,10 @@ function _CalendarHeader<T>({
   const theme = useTheme();
 
   const borderColor = { borderColor: theme.palette.gray['200'] };
-  const arr = [
-    [true, true, true],
-    [false, true, true],
-    [false, true, false],
-  ];
+
+  const eventsByDay = getEventsByDay(allDayEvents, dateRange);
+
+  const weekTimeLine = getWeekTimeLine(eventsByDay);
 
   return (
     <View style={[theme.isRTL ? u['flex-row-reverse'] : u['flex-row'], style]}>
@@ -98,15 +96,10 @@ function _CalendarHeader<T>({
 
                     return (
                       <AllDayEventPill
-                        style={{ opacity: 0 }}
-                        onLayout={(e) => console.log(e.nativeEvent.layout)}
+                        style={{ opacity: 0.5 }}
                         backgroundColor={event.color}
                         key={event.recordId}
-                      >
-                        <AllDayEventLabel>
-                          {event.title} • {event.fieldLabel}
-                        </AllDayEventLabel>
-                      </AllDayEventPill>
+                      />
                     );
                   })}
                 </AllDayEventCell>
@@ -119,36 +112,38 @@ function _CalendarHeader<T>({
           style={{
             top: 53.4,
             borderRadius: 4,
-            height: 30,
-            width: '100%',
             flex: 1,
+            right: 1,
+            left: 1,
             position: 'absolute',
           }}
         >
-          {arr.map((event) => (
+          {weekTimeLine.map((timeLine) => (
             <View style={{ flexDirection: 'row' }}>
-              {event.map((hasEvent) =>
-                hasEvent ? (
+              {timeLine.map((dayLine) => {
+                const [eventId, eventCount] =
+                  typeof dayLine === 'string' ? dayLine.split('|') : [];
+
+                const event = find(
+                  allDayEvents,
+                  (_event) => _event.recordId === eventId
+                );
+
+                return dayLine ? (
                   <AllDayEventPill
-                    style={{ flex: 1 }}
-                    backgroundColor={'wheat'}
+                    style={{ width: 113 * Number(eventCount) }}
+                    backgroundColor={event?.color || 'red'}
                   >
-                    <AllDayEventLabel />
+                    <AllDayEventLabel>
+                      {event?.title} • {event?.fieldLabel}
+                    </AllDayEventLabel>
                   </AllDayEventPill>
                 ) : (
-                  <View style={{ width: 114 }} />
-                )
-              )}
+                  <View style={{ width: 113 }} />
+                );
+              })}
             </View>
           ))}
-          {/*<View style={{ flexDirection: 'row' }}>*/}
-          {/*<View style={{ flexDirection: 'row' }}>*/}
-          {/*  <View style={{ width: 113 }} />*/}
-          {/*  <AllDayEventPill style={{ width: 113 }} backgroundColor={'red'}>*/}
-          {/*    <AllDayEventLabel />*/}
-          {/*  </AllDayEventPill>*/}
-          {/*  <View style={{ width: 113 }} />*/}
-          {/*</View>*/}
         </View>
       </View>
     </View>

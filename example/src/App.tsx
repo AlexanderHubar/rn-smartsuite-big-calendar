@@ -24,9 +24,9 @@ const events = [
     },
   },
   {
-    start: new Date(2021, 11, 22, 0, 0),
-    end: new Date(2021, 11, 22, 0, 0),
-    color: '#3EAC40',
+    start: new Date(2021, 11, 20, 0, 0),
+    end: new Date(2021, 11, 20, 0, 0),
+    color: '#ec911b',
     fieldLabel: 'Date',
     fieldType: 'datefield',
     fromDate: {
@@ -40,8 +40,8 @@ const events = [
     toDate: null,
   },
   {
-    start: new Date(2021, 11, 22, 0, 0),
-    end: new Date(2021, 11, 22, 0, 0),
+    start: new Date(2021, 11, 20, 0, 0),
+    end: new Date(2021, 11, 21, 0, 0),
     color: '#673DB6',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',

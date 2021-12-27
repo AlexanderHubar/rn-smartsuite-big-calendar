@@ -41,6 +41,7 @@ export const AllDayEventPill = styled.View<{ backgroundColor: string }>`
   padding: 5px 8px;
   height: 24px;
   margin-bottom: 2px;
+  border-radius: 4px;
   background-color: ${({ backgroundColor }) => backgroundColor};
   justify-content: center;
 `;
