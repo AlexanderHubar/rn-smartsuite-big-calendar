@@ -272,6 +272,7 @@ function _CalendarContainer<T>({
           events={events}
           dateRange={dateRange}
           activeColor={activeColor}
+          onEventPress={onPressEvent}
           onSwipeHorizontal={onSwipeHorizontal}
         />
       </React.Fragment>

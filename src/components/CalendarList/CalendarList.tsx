@@ -17,6 +17,7 @@ function _CalendarList<T>({
   events,
   dateRange,
   activeColor,
+  onEventPress,
   onSwipeHorizontal,
 }: CalendarListProps<T>) {
   const scrollView = React.useRef(null);
@@ -56,7 +57,7 @@ function _CalendarList<T>({
       scrollEventThrottle={32}
       nestedScrollEnabled
       renderItem={({ item: data }) => (
-        <CalendarEventItem event={data} onPress={() => {}} />
+        <CalendarEventItem event={data} onPress={onEventPress} />
       )}
       renderSectionHeader={({ section: { section } }) => (
         <ListHeader date={section} color={activeColor} />

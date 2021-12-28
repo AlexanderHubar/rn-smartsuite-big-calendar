@@ -14,6 +14,7 @@ export const App = () => {
           activeColor={'#127ee8'}
           height={Dimensions.get('window').height}
           onViewModePress={(mode) => console.log(mode)}
+          onPressEvent={(event) => console.log(event)}
         />
       </SafeAreaView>
     </React.Fragment>
