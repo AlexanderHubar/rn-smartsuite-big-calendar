@@ -26,9 +26,11 @@ import {
   typedMemo,
 } from '../../utils';
 import { CalendarBody } from '../CalendarBody';
-import { CalendarBodyForMonthView } from '../CalendarBodyForMonthView';
+import { CalendarBodyForMonthView } from 'rn-smartsuite-big-calendar';
 import { CalendarHeader } from '../CalendarHeader';
-import { CalendarHeaderForMonthView } from '../CalendarHeaderForMonthView';
+import { CalendarHeaderForMonthView } from 'rn-smartsuite-big-calendar';
+import { CalendarList } from '../CalendarList';
+import { CalendarDateRangeHeader } from '../CalendarDateRangeHeader';
 
 export interface CalendarContainerProps<T> {
   /**
@@ -156,6 +158,8 @@ function _CalendarContainer<T>({
         return getDatesInNextThreeDays(targetDate, locale);
       case 'day':
         return getDatesInNextOneDay(targetDate, locale);
+      case 'list':
+        return getDatesInWeek(targetDate, weekStartsOn, locale);
       case 'custom':
         return getDatesInNextCustomDays(
           targetDate,
@@ -240,6 +244,24 @@ function _CalendarContainer<T>({
     );
   }
 
+  if (mode === 'list') {
+    return (
+      <React.Fragment>
+        <CalendarDateRangeHeader
+          mode={mode}
+          dateRange={dateRange}
+          onChangeRange={onSwipeHorizontal}
+          onChangeMode={() => {}}
+        />
+        <CalendarList
+          events={events}
+          dateRange={dateRange}
+          onSwipeHorizontal={onSwipeHorizontal}
+        />
+      </React.Fragment>
+    );
+  }
+
   const headerProps = {
     ...commonProps,
     style: headerContainerStyle,
@@ -255,6 +277,12 @@ function _CalendarContainer<T>({
 
   return (
     <React.Fragment>
+      <CalendarDateRangeHeader
+        mode={mode}
+        dateRange={dateRange}
+        onChangeRange={onSwipeHorizontal}
+        onChangeMode={() => {}}
+      />
       <HeaderComponent {...headerProps} />
       <CalendarBody
         {...commonProps}

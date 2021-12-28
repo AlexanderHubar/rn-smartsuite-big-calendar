@@ -50,7 +50,8 @@ export function DefaultCalendarEventRenderer<T>({
           </View>
         )}
         <Text style={eventTitleStyle} numberOfLines={1}>
-          {formatStartEnd(event, timeFormat)} {event.title} • {event.fieldLabel}
+          {formatStartEnd(event, timeFormat)} {event.recordTitle} •{' '}
+          {event.fieldLabel}
         </Text>
       </View>
     </TouchableOpacity>

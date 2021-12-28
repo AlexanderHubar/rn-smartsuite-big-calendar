@@ -14,7 +14,6 @@ import {
   CircleLabel,
   DayLabel,
 } from './styled';
-import { useRef } from 'react';
 
 export interface CalendarHeaderProps<T> {
   dateRange: dayjs.Dayjs[];
@@ -38,8 +37,6 @@ function _CalendarHeader<T>({
   activeDate,
   showAllDayEventCell = true,
 }: CalendarHeaderProps<T>) {
-  const eventsCoords = useRef({}).current;
-
   const _onPress = React.useCallback(
     (date: Date) => {
       onPressDateHeader && onPressDateHeader(date);
@@ -104,7 +101,7 @@ function _CalendarHeader<T>({
                         key={event.recordId}
                       >
                         <AllDayEventLabel>
-                          {event.title} • {event.fieldLabel}
+                          {event.recordTitle} • {event.fieldLabel}
                         </AllDayEventLabel>
                       </AllDayEventPill>
                     );
