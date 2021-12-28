@@ -283,7 +283,7 @@ function _CalendarContainer<T>({
         onChangeRange={onSwipeHorizontal}
         onChangeMode={() => {}}
       />
-      <HeaderComponent {...headerProps} />
+      <HeaderComponent {...headerProps} mode={mode} />
       <CalendarBody
         {...commonProps}
         style={bodyContainerStyle}
