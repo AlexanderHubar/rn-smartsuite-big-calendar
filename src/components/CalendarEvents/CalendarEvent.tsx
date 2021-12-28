@@ -17,7 +17,10 @@ import {
 } from '../../utils';
 import { DefaultCalendarEventRenderer } from '../DefaultCalendarEventRenderer';
 
-const getEventCellPositionStyle = (start: Date, end: Date) => {
+const getEventCellPositionStyle = (
+  start?: Date | string | null,
+  end?: Date | string | null
+) => {
   const relativeHeight =
     100 * (1 / DAY_MINUTES) * dayjs(end).diff(start, 'minute');
   const relativeTop = getRelativeTopInDay(dayjs(start));
@@ -62,7 +65,7 @@ function _CalendarEvent<T>({
     eventCellStyle,
     onPressEvent,
     injectedStyles: [
-      getEventCellPositionStyle(event.start, event.end),
+      getEventCellPositionStyle(event.fromDate.date, event.toDate?.date),
       getStyleForOverlappingEvent(eventOrder, overlapOffset, palettes),
       u.absolute,
       {

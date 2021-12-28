@@ -59,7 +59,7 @@ function _CalendarHeader<T>({
 
   const weekTimeLine = getWeekTimeLine(eventsByDay, mode);
 
-  const isDayMode = mode === 'day';
+  const isDayMode = mode === 'timeGrid';
 
   return (
     <View style={[theme.isRTL ? u['flex-row-reverse'] : u['flex-row'], style]}>
@@ -94,8 +94,8 @@ function _CalendarHeader<T>({
                 <AllDayEventCell isFirstDay={isFirstDay}>
                   {allDayEvents.map((event) => {
                     const isDateBetweenEvent = dayjs(date).isBetween(
-                      event.start,
-                      event.end,
+                      event.fromDate.date,
+                      event.toDate?.date,
                       'day',
                       '[]'
                     );

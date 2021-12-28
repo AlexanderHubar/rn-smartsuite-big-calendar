@@ -28,8 +28,6 @@ export interface DueDateStatus {
 }
 
 export interface ICalendarEventBase {
-  start: Date;
-  end: Date;
   recordTitle: string;
   fieldLabel: string;
   color: string;
@@ -52,7 +50,16 @@ export type CalendarTouchableOpacityProps = {
 
 export type ICalendarEvent<T = {}> = ICalendarEventBase & T;
 
-export type Mode = '3days' | 'week' | 'day' | 'custom' | 'month' | 'list';
+// export type Mode = '3days' | 'week' | 'day' | 'custom' | 'month' | 'list';
+
+export type Mode =
+  | 'timeGrid'
+  | 'timeThreeDays'
+  | 'timeGridWeek'
+  | 'dayGridMonth'
+  | 'monthGridYear'
+  | 'listWeek'
+  | 'custom';
 
 export type EventCellStyle<T> =
   | ViewStyle

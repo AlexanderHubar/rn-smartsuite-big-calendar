@@ -33,8 +33,8 @@ export function useCalendarTouchableOpacityProps<T>({
   const plainJsEvent = React.useMemo(
     () => ({
       ...event,
-      start: dayjs(event.start).toDate(),
-      end: dayjs(event.end).toDate(),
+      start: dayjs(event.fromDate.date).toDate(),
+      end: dayjs(event.toDate?.date).toDate(),
     }),
     [event]
   );
@@ -45,7 +45,7 @@ export function useCalendarTouchableOpacityProps<T>({
 
   const touchableOpacityProps: CalendarTouchableOpacityProps = {
     delayPressIn: 20,
-    key: event.start.toString(),
+    key: String(event.fromDate?.date),
     style: [eventCellCss.style, ...injectedStyles, getEventStyle(plainJsEvent)],
     onPress: _onPress,
     disabled: !onPressEvent,

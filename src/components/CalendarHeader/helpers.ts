@@ -13,8 +13,8 @@ export const getEventsByDay = <T>(
   allDayEvents.reduce((eventsObject, event) => {
     const eventsRange = dateRange.map((date, dateIndex) => {
       const isDateBetweenEvent = dayjs(date).isBetween(
-        event.start,
-        event.end,
+        event.fromDate.date,
+        event.toDate?.date,
         'day',
         '[]'
       );
@@ -75,7 +75,7 @@ export const getWeekTimeLine = (
   mode: Mode
 ) =>
   reduce(
-    getEventsByRangeArray(eventsByDay, mode === 'week' ? 7 : 3),
+    getEventsByRangeArray(eventsByDay, mode === 'timeGridWeek' ? 7 : 3),
     (rangeTimeLine: WeekTimeLine, timeLine) => {
       const dayEvents = reduce(
         timeLine,
