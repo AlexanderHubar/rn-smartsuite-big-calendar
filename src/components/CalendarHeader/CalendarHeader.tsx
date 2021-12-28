@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
-import * as React from 'react';
-import { TouchableOpacity, View, ViewStyle } from 'react-native';
+import React, { useState } from 'react';
+import { find } from 'remeda';
+import { Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import { u } from '../../commonStyles';
 import type { ICalendarEvent } from '../../interfaces';
@@ -14,6 +15,8 @@ import {
   CircleLabel,
   DayLabel,
 } from './styled';
+import { getEventsByDay, getWeekTimeLine } from './helpers';
+import type { Mode } from '../../interfaces';
 
 export interface CalendarHeaderProps<T> {
   dateRange: dayjs.Dayjs[];
@@ -27,6 +30,7 @@ export interface CalendarHeaderProps<T> {
   dayHeaderHighlightColor?: string;
   weekDayHeaderHighlightColor?: string;
   showAllDayEventCell?: boolean;
+  mode: Mode;
 }
 
 function _CalendarHeader<T>({
@@ -35,8 +39,11 @@ function _CalendarHeader<T>({
   allDayEvents,
   onPressDateHeader,
   activeDate,
+  mode,
   showAllDayEventCell = true,
 }: CalendarHeaderProps<T>) {
+  const [cellWidth, setCellWidth] = useState(0);
+
   const _onPress = React.useCallback(
     (date: Date) => {
       onPressDateHeader && onPressDateHeader(date);
@@ -47,11 +54,12 @@ function _CalendarHeader<T>({
   const theme = useTheme();
 
   const borderColor = { borderColor: theme.palette.gray['200'] };
-  const arr = [
-    [true, true, true],
-    [false, true, true],
-    [false, true, false],
-  ];
+
+  const eventsByDay = getEventsByDay(allDayEvents, dateRange);
+
+  const weekTimeLine = getWeekTimeLine(eventsByDay, mode);
+
+  const isDayMode = mode === 'timeGrid';
 
   return (
     <View style={[theme.isRTL ? u['flex-row-reverse'] : u['flex-row'], style]}>
@@ -65,6 +73,9 @@ function _CalendarHeader<T>({
 
           return (
             <TouchableOpacity
+              onLayout={({ nativeEvent }) =>
+                setCellWidth(nativeEvent.layout.width)
+              }
               style={[u['flex-1'], u['pt-2']]}
               onPress={() => _onPress(date.toDate())}
               disabled={onPressDateHeader === undefined}
@@ -95,13 +106,12 @@ function _CalendarHeader<T>({
 
                     return (
                       <AllDayEventPill
-                        style={{ opacity: 0 }}
-                        onLayout={(e) => console.log(e.nativeEvent.layout)}
+                        style={{ opacity: isDayMode ? 1 : 0 }}
                         backgroundColor={event.color}
                         key={event.recordId}
                       >
                         <AllDayEventLabel>
-                          {event.recordTitle} • {event.fieldLabel}
+                          {event?.recordTitle} • {event?.fieldLabel}
                         </AllDayEventLabel>
                       </AllDayEventPill>
                     );
@@ -112,41 +122,67 @@ function _CalendarHeader<T>({
           );
         })}
 
-        <View
-          style={{
-            top: 53.4,
-            borderRadius: 4,
-            height: 30,
-            width: '100%',
-            flex: 1,
-            position: 'absolute',
-          }}
-        >
-          {arr.map((event) => (
-            <View style={{ flexDirection: 'row' }}>
-              {event.map((hasEvent) =>
-                hasEvent ? (
-                  <AllDayEventPill
-                    style={{ flex: 1 }}
-                    backgroundColor={'wheat'}
-                  >
-                    <AllDayEventLabel />
-                  </AllDayEventPill>
-                ) : (
-                  <View style={{ width: 114 }} />
-                )
-              )}
-            </View>
-          ))}
-          {/*<View style={{ flexDirection: 'row' }}>*/}
-          {/*<View style={{ flexDirection: 'row' }}>*/}
-          {/*  <View style={{ width: 113 }} />*/}
-          {/*  <AllDayEventPill style={{ width: 113 }} backgroundColor={'red'}>*/}
-          {/*    <AllDayEventLabel />*/}
-          {/*  </AllDayEventPill>*/}
-          {/*  <View style={{ width: 113 }} />*/}
-          {/*</View>*/}
-        </View>
+        {!isDayMode && (
+          <View
+            style={{
+              top: 53.4,
+              borderRadius: 4,
+              flex: 1,
+              right: 1,
+              left: 1,
+              position: 'absolute',
+            }}
+          >
+            {weekTimeLine.map((timeLine) => (
+              <View style={{ flexDirection: 'row' }}>
+                {timeLine.map((dayLine) => {
+                  const [eventId, eventCount] =
+                    typeof dayLine === 'string' ? dayLine.split('|') : [];
+
+                  const event = find(
+                    allDayEvents,
+                    (_event) => _event.recordId === eventId
+                  );
+
+                  return dayLine ? (
+                    <AllDayEventPill
+                      key={event?.recordId}
+                      onPress={() => _onPress(event as any)}
+                      style={{
+                        width: cellWidth * Number(eventCount) - 1,
+                      }}
+                      backgroundColor={event?.color}
+                    >
+                      {event?.fieldType === 'duedatefield' && (
+                        <View
+                          style={{
+                            width: 14,
+                            height: 14,
+                            borderRadius: 4,
+                            backgroundColor: '#FFB938',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            marginRight: 4,
+                          }}
+                        >
+                          <Text style={{ color: 'white', fontSize: 10 }}>
+                            0
+                          </Text>
+                        </View>
+                      )}
+
+                      <AllDayEventLabel>
+                        {event?.recordTitle} • {event?.fieldLabel}
+                      </AllDayEventLabel>
+                    </AllDayEventPill>
+                  ) : (
+                    <View style={{ width: cellWidth }} />
+                  );
+                })}
+              </View>
+            ))}
+          </View>
+        )}
       </View>
     </View>
   );
