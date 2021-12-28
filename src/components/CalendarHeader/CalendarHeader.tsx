@@ -83,8 +83,8 @@ function _CalendarHeader<T>({
                 <AllDayEventCell isFirstDay={isFirstDay}>
                   {allDayEvents.map((event) => {
                     const isDateBetweenEvent = dayjs(date).isBetween(
-                      event.start,
-                      event.end,
+                      event.fromDate.date,
+                      event.toDate?.date,
                       'day',
                       '[]'
                     );

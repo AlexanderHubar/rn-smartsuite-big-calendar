@@ -139,12 +139,18 @@ function _CalendarContainer<T>({
   }, [date]);
 
   const allDayEvents = React.useMemo(
-    () => events.filter((event) => isAllDayEvent(event.start, event.end)),
+    () =>
+      events.filter((event) =>
+        isAllDayEvent(event.fromDate.date, event.toDate?.date)
+      ),
     [events]
   );
 
   const daytimeEvents = React.useMemo(
-    () => events.filter((event) => !isAllDayEvent(event.start, event.end)),
+    () =>
+      events.filter(
+        (event) => !isAllDayEvent(event.fromDate.date, event.toDate?.date)
+      ),
     [events]
   );
 

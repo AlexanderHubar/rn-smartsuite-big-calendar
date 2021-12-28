@@ -101,7 +101,7 @@ function _CalendarBody<T>({
 
   const _renderMappedEvent = (event: ICalendarEvent<T>) => (
     <CalendarEvent
-      key={`${event.start}${event.recordTitle}${event.end}`}
+      key={`${event.fromDate.date}${event.recordTitle}${event.toDate?.date}`}
       event={event}
       onPressEvent={onPressEvent}
       eventCellStyle={eventCellStyle}
@@ -179,8 +179,8 @@ function _CalendarBody<T>({
               {/* M  T  (W)  T  F  S  S */}
               {/*       S-E             */}
               {events
-                .filter(({ start }) =>
-                  dayjs(start).isBetween(
+                .filter((event) =>
+                  dayjs(event.fromDate.date).isBetween(
                     date.startOf('day'),
                     date.endOf('day'),
                     null,
@@ -194,9 +194,9 @@ function _CalendarBody<T>({
               {/* S------E              */}
               {events
                 .filter(
-                  ({ start, end }) =>
-                    dayjs(start).isBefore(date.startOf('day')) &&
-                    dayjs(end).isBetween(
+                  (event) =>
+                    dayjs(event.fromDate.date).isBefore(date.startOf('day')) &&
+                    dayjs(event.toDate?.date).isBetween(
                       date.startOf('day'),
                       date.endOf('day'),
                       null,
@@ -205,7 +205,7 @@ function _CalendarBody<T>({
                 )
                 .map((event) => ({
                   ...event,
-                  start: dayjs(event.end).startOf('day'),
+                  start: dayjs(event.toDate?.date).startOf('day'),
                 }))
                 .map(_renderMappedEvent)}
 
@@ -214,14 +214,14 @@ function _CalendarBody<T>({
               {/*    S-------E          */}
               {events
                 .filter(
-                  ({ start, end }) =>
-                    dayjs(start).isBefore(date.startOf('day')) &&
-                    dayjs(end).isAfter(date.endOf('day'))
+                  (event) =>
+                    dayjs(event.fromDate.date).isBefore(date.startOf('day')) &&
+                    dayjs(event.toDate?.date).isAfter(date.endOf('day'))
                 )
                 .map((event) => ({
                   ...event,
-                  start: dayjs(event.end).startOf('day'),
-                  end: dayjs(event.end).endOf('day'),
+                  start: dayjs(event.toDate?.date).startOf('day'),
+                  end: dayjs(event.toDate?.date).endOf('day'),
                 }))
                 .map(_renderMappedEvent)}
 

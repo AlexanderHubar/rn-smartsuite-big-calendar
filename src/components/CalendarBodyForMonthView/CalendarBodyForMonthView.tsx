@@ -134,21 +134,30 @@ function _CalendarBodyForMonthView<T>({
                 {date &&
                   events
                     .sort((a, b) => {
-                      if (dayjs(a.start).isSame(b.start, 'day')) {
+                      if (
+                        dayjs(a.fromDate.date).isSame(b.fromDate.date, 'day')
+                      ) {
                         const aDuration = dayjs
-                          .duration(dayjs(a.end).diff(dayjs(a.start)))
+                          .duration(
+                            dayjs(a.toDate?.date).diff(dayjs(a.fromDate.date))
+                          )
                           .days();
                         const bDuration = dayjs
-                          .duration(dayjs(b.end).diff(dayjs(b.start)))
+                          .duration(
+                            dayjs(b.toDate?.date).diff(dayjs(b.fromDate.date))
+                          )
                           .days();
                         return bDuration - aDuration;
                       }
-                      return a.start.getTime() - b.start.getTime();
+                      return (
+                        dayjs(a.fromDate.date).valueOf() -
+                        dayjs(b.fromDate.date).valueOf()
+                      );
                     })
-                    .filter(({ start, end }) =>
+                    .filter((event) =>
                       date.isBetween(
-                        dayjs(start).startOf('day'),
-                        dayjs(end).endOf('day'),
+                        dayjs(event.fromDate.date).startOf('day'),
+                        dayjs(event.toDate?.date).endOf('day'),
                         null,
                         '[)'
                       )

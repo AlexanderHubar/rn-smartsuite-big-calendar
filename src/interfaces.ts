@@ -28,8 +28,6 @@ export interface DueDateStatus {
 }
 
 export interface ICalendarEventBase {
-  start: Date;
-  end: Date;
   recordTitle: string;
   fieldLabel: string;
   color: string;

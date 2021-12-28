@@ -63,7 +63,7 @@ function _CalendarEventForMonthView<T>({
 
   return (
     <View style={{ minHeight: eventMinHeightForMonthView }}>
-      {(!isMultipleDays && date.isSame(event.start, 'day')) ||
+      {(!isMultipleDays && date.isSame(event.fromDate.date, 'day')) ||
       (isMultipleDays && isMultipleDaysStart) ? (
         renderEvent ? (
           renderEvent(event, touchableOpacityProps)
