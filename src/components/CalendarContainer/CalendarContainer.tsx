@@ -82,6 +82,7 @@ export interface CalendarContainerProps<T> {
   onPressCell?: (date: Date) => void;
   onPressDateHeader?: (date: Date) => void;
   onPressEvent?: (event: ICalendarEvent<T>) => void;
+  onViewModePress?: (mode: Mode) => void;
   weekEndsOn?: WeekNum;
   maxVisibleEventCount?: number;
   eventMinHeightForMonthView?: number;
@@ -117,6 +118,7 @@ function _CalendarContainer<T>({
   onPressCell,
   onPressDateHeader,
   onPressEvent,
+  onViewModePress,
   renderEvent,
   renderHeader: HeaderComponent = CalendarHeader,
   renderHeaderForMonthView:
@@ -256,8 +258,9 @@ function _CalendarContainer<T>({
         <CalendarDateRangeHeader
           mode={mode}
           dateRange={dateRange}
+          onToday={() => {}}
           onChangeRange={onSwipeHorizontal}
-          onChangeMode={() => {}}
+          onChangeMode={onViewModePress}
         />
         <CalendarList
           events={events}
@@ -286,8 +289,9 @@ function _CalendarContainer<T>({
       <CalendarDateRangeHeader
         mode={mode}
         dateRange={dateRange}
+        onToday={() => {}}
         onChangeRange={onSwipeHorizontal}
-        onChangeMode={() => {}}
+        onChangeMode={onViewModePress}
       />
       <HeaderComponent {...headerProps} />
       <CalendarBody

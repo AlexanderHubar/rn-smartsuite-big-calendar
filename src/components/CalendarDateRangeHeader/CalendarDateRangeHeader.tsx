@@ -82,12 +82,13 @@ const getDateRange = (mode: Mode, dateRange: dayjs.Dayjs[]): string => {
 function _CalendarDateRangeHeader({
   mode,
   dateRange,
+  onToday,
   onChangeRange,
   onChangeMode,
 }: CalendarDateRangeHeaderProps) {
   return (
     <HeaderContainer>
-      <TodayButtonContainer>
+      <TodayButtonContainer onPress={onToday}>
         <HeaderText>{'Today'}</HeaderText>
       </TodayButtonContainer>
       <DateRangeContainer>
@@ -99,7 +100,7 @@ function _CalendarDateRangeHeader({
           <ArrowRight />
         </ArrowContainer>
       </DateRangeContainer>
-      <ViewModeContainer onPress={onChangeMode}>
+      <ViewModeContainer onPress={() => onChangeMode && onChangeMode(mode)}>
         <HeaderText>{getModeLabel(mode)}</HeaderText>
         <ArrowContainer disabled>
           <ArrowDown />

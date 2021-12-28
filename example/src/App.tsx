@@ -11,7 +11,8 @@ export const App = () => {
         <Calendar
           height={Dimensions.get('window').height}
           events={[]}
-          mode={'listWeek'}
+          mode={'timeThreeDays'}
+          onViewModePress={(mode) => console.log(mode)}
         />
       </SafeAreaView>
     </React.Fragment>
