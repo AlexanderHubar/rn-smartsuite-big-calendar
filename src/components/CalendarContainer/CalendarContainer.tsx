@@ -212,6 +212,8 @@ function _CalendarContainer<T>({
     [swipeEnabled, targetDate, mode, theme.isRTL]
   );
 
+  const onTodayPress = () => setTargetDate(dayjs(date));
+
   const commonProps = {
     cellHeight,
     dateRange,
@@ -258,7 +260,7 @@ function _CalendarContainer<T>({
         <CalendarDateRangeHeader
           mode={mode}
           dateRange={dateRange}
-          onToday={() => {}}
+          onToday={onTodayPress}
           onChangeRange={onSwipeHorizontal}
           onChangeMode={onViewModePress}
         />
@@ -289,7 +291,7 @@ function _CalendarContainer<T>({
       <CalendarDateRangeHeader
         mode={mode}
         dateRange={dateRange}
-        onToday={() => {}}
+        onToday={onTodayPress}
         onChangeRange={onSwipeHorizontal}
         onChangeMode={onViewModePress}
       />
