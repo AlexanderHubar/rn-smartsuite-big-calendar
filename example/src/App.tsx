@@ -9,9 +9,10 @@ export const App = () => {
       <StatusBar barStyle="light-content" />
       <SafeAreaView style={{ backgroundColor: '#FAFAFA' }}>
         <Calendar
-          height={Dimensions.get('window').height}
           events={[]}
-          mode={'timeThreeDays'}
+          mode={'timeGridWeek'}
+          activeColor={'#127ee8'}
+          height={Dimensions.get('window').height}
           onViewModePress={(mode) => console.log(mode)}
         />
       </SafeAreaView>

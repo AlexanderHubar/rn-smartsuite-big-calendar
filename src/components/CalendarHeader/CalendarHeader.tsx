@@ -31,6 +31,7 @@ export interface CalendarHeaderProps<T> {
   weekDayHeaderHighlightColor?: string;
   showAllDayEventCell?: boolean;
   mode: Mode;
+  activeColor: string;
 }
 
 function _CalendarHeader<T>({
@@ -41,6 +42,7 @@ function _CalendarHeader<T>({
   activeDate,
   mode,
   showAllDayEventCell = true,
+  activeColor,
 }: CalendarHeaderProps<T>) {
   const [cellWidth, setCellWidth] = useState(0);
 
@@ -83,7 +85,10 @@ function _CalendarHeader<T>({
             >
               <View style={[u['justify-between'], u['items-center']]}>
                 <DayLabel>{date.format('dd')}</DayLabel>
-                <ActiveDateCircle shouldHighlight={shouldHighlight}>
+                <ActiveDateCircle
+                  shouldHighlight={shouldHighlight}
+                  color={activeColor}
+                >
                   <CircleLabel shouldHighlight={shouldHighlight}>
                     {date.format('D')}
                   </CircleLabel>

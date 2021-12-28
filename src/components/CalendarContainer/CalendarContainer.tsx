@@ -92,6 +92,7 @@ export interface CalendarContainerProps<T> {
   hourStyle?: TextStyle;
   showAllDayEventCell?: boolean;
   showDaysHeader?: boolean;
+  activeColor: string;
 }
 
 function _CalendarContainer<T>({
@@ -133,6 +134,7 @@ function _CalendarContainer<T>({
   hourStyle = {},
   showAllDayEventCell = true,
   showDaysHeader = true,
+  activeColor,
 }: CalendarContainerProps<T>) {
   const [targetDate, setTargetDate] = React.useState(dayjs(date));
 
@@ -269,6 +271,7 @@ function _CalendarContainer<T>({
         <CalendarList
           events={events}
           dateRange={dateRange}
+          activeColor={activeColor}
           onSwipeHorizontal={onSwipeHorizontal}
         />
       </React.Fragment>
@@ -286,6 +289,7 @@ function _CalendarContainer<T>({
     dayHeaderHighlightColor: dayHeaderHighlightColor,
     weekDayHeaderHighlightColor: weekDayHeaderHighlightColor,
     showAllDayEventCell: showAllDayEventCell,
+    activeColor: activeColor,
   };
 
   return (
