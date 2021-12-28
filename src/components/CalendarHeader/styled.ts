@@ -37,13 +37,16 @@ export const AllDayEventCell = styled.View<{ isFirstDay: boolean }>`
   padding-top: 2px;
 `;
 
-export const AllDayEventPill = styled.View<{ backgroundColor: string }>`
+export const AllDayEventPill = styled.TouchableOpacity<{
+  backgroundColor?: string;
+}>`
   padding: 5px 8px;
   height: 24px;
   margin-bottom: 2px;
   border-radius: 4px;
-  background-color: ${({ backgroundColor }) => backgroundColor};
-  justify-content: center;
+  background-color: ${({ backgroundColor }) => backgroundColor || 'red'};
+  align-items: center;
+  flex-direction: row;
 `;
 
 export const AllDayEventLabel = styled.Text`

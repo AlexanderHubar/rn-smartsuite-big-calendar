@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import type { ICalendarEvent } from '../../interfaces';
 import { filter, reduce } from 'remeda';
+import type { Mode } from '../../interfaces';
 
 type WeekTimeLine = any[][];
 type DayTimeLine = any[];
@@ -31,7 +32,10 @@ export const getEventsByDay = <T>(
     return { ...eventsObject, [event.recordId]: filteredDaysId };
   }, {});
 
-export const getEventsByRangeArray = (eventsObj: Record<string, any[]>) => {
+export const getEventsByRangeArray = (
+  eventsObj: Record<string, any[]>,
+  countOfDays = 3
+) => {
   let eventsRangeArr: any[] = [];
 
   const eventIds = Object.keys(eventsObj);
@@ -51,7 +55,7 @@ export const getEventsByRangeArray = (eventsObj: Record<string, any[]>) => {
           if (eventsRangeArr[i]) {
             eventsRangeArr[i][dayKey] = eventId;
           } else {
-            const newSubArr: any[] = new Array(3).fill(false);
+            const newSubArr: any[] = new Array(countOfDays).fill(false);
 
             newSubArr[dayKey as any] = eventId;
             eventsRangeArr[i] = newSubArr;
@@ -63,12 +67,15 @@ export const getEventsByRangeArray = (eventsObj: Record<string, any[]>) => {
     }
   });
 
-  return eventsRangeArr;
+  return eventsRangeArr.slice(0, 4);
 };
 
-export const getWeekTimeLine = (eventsByDay: Record<string, any[]>) =>
+export const getWeekTimeLine = (
+  eventsByDay: Record<string, any[]>,
+  mode: Mode
+) =>
   reduce(
-    getEventsByRangeArray(eventsByDay),
+    getEventsByRangeArray(eventsByDay, mode === 'week' ? 7 : 3),
     (rangeTimeLine: WeekTimeLine, timeLine) => {
       const dayEvents = reduce(
         timeLine,

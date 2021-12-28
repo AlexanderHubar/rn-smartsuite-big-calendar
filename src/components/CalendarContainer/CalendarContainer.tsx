@@ -255,7 +255,7 @@ function _CalendarContainer<T>({
 
   return (
     <React.Fragment>
-      <HeaderComponent {...headerProps} />
+      <HeaderComponent {...headerProps} mode={mode} />
       <CalendarBody
         {...commonProps}
         style={bodyContainerStyle}
