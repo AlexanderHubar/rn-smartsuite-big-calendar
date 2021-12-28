@@ -91,6 +91,7 @@ export interface CalendarContainerProps<T> {
   headerComponentStyle?: ViewStyle;
   hourStyle?: TextStyle;
   showAllDayEventCell?: boolean;
+  showDaysHeader?: boolean;
 }
 
 function _CalendarContainer<T>({
@@ -131,6 +132,7 @@ function _CalendarContainer<T>({
   headerComponentStyle = {},
   hourStyle = {},
   showAllDayEventCell = true,
+  showDaysHeader = true,
 }: CalendarContainerProps<T>) {
   const [targetDate, setTargetDate] = React.useState(dayjs(date));
 
@@ -295,7 +297,7 @@ function _CalendarContainer<T>({
         onChangeRange={onSwipeHorizontal}
         onChangeMode={onViewModePress}
       />
-      <HeaderComponent {...headerProps} mode={mode} />
+      {showDaysHeader && <HeaderComponent {...headerProps} mode={mode} />}
       <CalendarBody
         {...commonProps}
         style={bodyContainerStyle}
