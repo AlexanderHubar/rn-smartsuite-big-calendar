@@ -146,7 +146,7 @@ function _CalendarHeader<T>({
 
                   return dayLine ? (
                     <AllDayEventPill
-                      key={event?.recordId}
+                      key={`${event?.recordId}${event?.slug}`}
                       onPress={() => _onPress(event as any)}
                       style={{
                         width: cellWidth * Number(eventCount) - 1,
