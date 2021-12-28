@@ -1,0 +1,9 @@
+import type { ICalendarEvent } from 'rn-smartsuite-big-calendar';
+import type { HorizontalDirection } from 'rn-smartsuite-big-calendar';
+import type dayjs from 'dayjs';
+
+export interface CalendarListProps<T> {
+  events: ICalendarEvent<T>[];
+  dateRange: dayjs.Dayjs[];
+  onSwipeHorizontal?: (d: HorizontalDirection) => void;
+}

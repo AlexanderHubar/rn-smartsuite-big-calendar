@@ -111,7 +111,7 @@ function _CalendarHeader<T>({
                         key={event.recordId}
                       >
                         <AllDayEventLabel>
-                          {event?.title} • {event?.fieldLabel}
+                          {event?.recordTitle} • {event?.fieldLabel}
                         </AllDayEventLabel>
                       </AllDayEventPill>
                     );
@@ -172,7 +172,7 @@ function _CalendarHeader<T>({
                       )}
 
                       <AllDayEventLabel>
-                        {event?.title} • {event?.fieldLabel}
+                        {event?.recordTitle} • {event?.fieldLabel}
                       </AllDayEventLabel>
                     </AllDayEventPill>
                   ) : (

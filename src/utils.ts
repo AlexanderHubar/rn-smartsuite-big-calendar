@@ -122,6 +122,7 @@ export function modeToNum(mode: Mode, current?: dayjs.Dayjs | Date): number {
     case '3days':
       return 3;
     case 'week':
+    case 'list':
     case 'custom':
       return 7;
     default:

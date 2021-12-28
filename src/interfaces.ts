@@ -4,15 +4,33 @@ import type { RecursiveArray, ViewStyle } from 'react-native';
 import type { CalendarHeaderProps } from './components/CalendarHeader';
 import type { CalendarHeaderForMonthViewProps } from './components/CalendarHeaderForMonthView';
 
+export enum FieldType {
+  firstcreatedfield = 'firstcreatedfield',
+  lastupdatedfield = 'lastupdatedfield',
+  datefield = 'datefield',
+  daterangefield = 'daterangefield',
+  duedatefield = 'duedatefield',
+}
+
 export interface DateObject {
   date: string | null;
   include_time: boolean;
 }
 
+export interface StatusResult {
+  value: string;
+  updated_on: string;
+}
+
+export interface DueDateStatus {
+  statusResult: StatusResult;
+  isComplete: boolean;
+}
+
 export interface ICalendarEventBase {
   start: Date;
   end: Date;
-  title: string;
+  recordTitle: string;
   fieldLabel: string;
   color: string;
   fieldType: string;
@@ -21,6 +39,7 @@ export interface ICalendarEventBase {
   slug: string;
   recordId: string;
   children?: ReactElement | null;
+  dueDateStatus?: DueDateStatus;
 }
 
 export type CalendarTouchableOpacityProps = {
@@ -33,7 +52,7 @@ export type CalendarTouchableOpacityProps = {
 
 export type ICalendarEvent<T = {}> = ICalendarEventBase & T;
 
-export type Mode = '3days' | 'week' | 'day' | 'custom' | 'month';
+export type Mode = '3days' | 'week' | 'day' | 'custom' | 'month' | 'list';
 
 export type EventCellStyle<T> =
   | ViewStyle
