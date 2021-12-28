@@ -50,7 +50,16 @@ export type CalendarTouchableOpacityProps = {
 
 export type ICalendarEvent<T = {}> = ICalendarEventBase & T;
 
-export type Mode = '3days' | 'week' | 'day' | 'custom' | 'month' | 'list';
+// export type Mode = '3days' | 'week' | 'day' | 'custom' | 'month' | 'list';
+
+export type Mode =
+  | 'timeGrid'
+  | 'timeThreeDays'
+  | 'timeGridWeek'
+  | 'dayGridMonth'
+  | 'monthGridYear'
+  | 'listWeek'
+  | 'custom';
 
 export type EventCellStyle<T> =
   | ViewStyle

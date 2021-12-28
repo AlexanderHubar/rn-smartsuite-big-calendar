@@ -18,13 +18,15 @@ import dayjs from 'dayjs';
 
 const getModeLabel = (mode: Mode) => {
   switch (mode) {
-    case 'day':
+    case 'timeGrid':
       return 'Day';
-    case '3days':
+    case 'timeThreeDays':
       return '3 Days';
-    case 'week':
+    case 'timeGridWeek':
       return 'Week';
-    case 'list':
+    case 'dayGridMonth':
+      return 'Month';
+    case 'listWeek':
       return 'List';
     default:
       return 'Week';
@@ -39,7 +41,7 @@ const headerDateFormat = (
   isStartCurrYear: boolean,
   isEndCurrYear: boolean
 ): HeaderDateFormat => {
-  if (mode === 'day') {
+  if (mode === 'timeGrid') {
     return {
       startDateFormat: isStartCurrYear ? 'dddd, MMM D' : 'dddd, MMM D, YYYY',
       endDateFormat: '',
@@ -56,7 +58,7 @@ const headerDateFormat = (
 };
 
 const getDateRange = (mode: Mode, dateRange: dayjs.Dayjs[]): string => {
-  if (mode === 'day') {
+  if (mode === 'timeGrid') {
     const { startDateFormat } = headerDateFormat(
       mode,
       isCurrentYear(dateRange[0]),

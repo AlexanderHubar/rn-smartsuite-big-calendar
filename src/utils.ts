@@ -103,7 +103,7 @@ export function todayInMinutes() {
 }
 
 export function modeToNum(mode: Mode, current?: dayjs.Dayjs | Date): number {
-  if (mode === 'month') {
+  if (mode === 'dayGridMonth') {
     if (!current) {
       throw new Error('You must specify current date if mode is month');
     }
@@ -113,12 +113,12 @@ export function modeToNum(mode: Mode, current?: dayjs.Dayjs | Date): number {
     return current.daysInMonth() - current.date() + 1;
   }
   switch (mode) {
-    case 'day':
+    case 'timeGrid':
       return 1;
-    case '3days':
+    case 'timeThreeDays':
       return 3;
-    case 'week':
-    case 'list':
+    case 'timeGridWeek':
+    case 'listWeek':
     case 'custom':
       return 7;
     default:

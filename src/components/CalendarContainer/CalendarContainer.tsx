@@ -101,7 +101,7 @@ function _CalendarContainer<T>({
   eventCellStyle,
   locale = 'en',
   hideNowIndicator = false,
-  mode = 'week',
+  mode = 'timeGridWeek',
   overlapOffset,
   scrollOffsetMinutes = 0,
   showTime = true,
@@ -156,15 +156,15 @@ function _CalendarContainer<T>({
 
   const dateRange = React.useMemo(() => {
     switch (mode) {
-      case 'month':
-        return getDatesInMonth(targetDate, locale);
-      case 'week':
-        return getDatesInWeek(targetDate, weekStartsOn, locale);
-      case '3days':
-        return getDatesInNextThreeDays(targetDate, locale);
-      case 'day':
+      case 'timeGrid':
         return getDatesInNextOneDay(targetDate, locale);
-      case 'list':
+      case 'timeThreeDays':
+        return getDatesInNextThreeDays(targetDate, locale);
+      case 'timeGridWeek':
+        return getDatesInWeek(targetDate, weekStartsOn, locale);
+      case 'dayGridMonth':
+        return getDatesInMonth(targetDate, locale);
+      case 'listWeek':
         return getDatesInWeek(targetDate, weekStartsOn, locale);
       case 'custom':
         return getDatesInNextCustomDays(
@@ -216,7 +216,7 @@ function _CalendarContainer<T>({
     mode,
   };
 
-  if (mode === 'month') {
+  if (mode === 'dayGridMonth') {
     const headerProps = {
       style: headerContainerStyle,
       locale: locale,
@@ -250,7 +250,7 @@ function _CalendarContainer<T>({
     );
   }
 
-  if (mode === 'list') {
+  if (mode === 'listWeek') {
     return (
       <React.Fragment>
         <CalendarDateRangeHeader
