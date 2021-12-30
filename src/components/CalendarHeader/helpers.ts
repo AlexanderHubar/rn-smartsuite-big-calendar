@@ -12,8 +12,8 @@ export const getEventsByDay = <T>(
   allDayEvents.reduce((eventsObject, event) => {
     const eventsRange = dateRange.map((date, dateIndex) => {
       const isDateBetweenEvent = dayjs(date).isBetween(
-        event.start,
-        event.end,
+        event.fromDate.date,
+        event.toDate?.date,
         'day',
         '[]'
       );

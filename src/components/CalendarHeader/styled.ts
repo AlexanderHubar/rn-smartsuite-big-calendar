@@ -7,15 +7,18 @@ export const DayLabel = styled.Text`
   color: #878b92;
 `;
 
-export const ActiveDateCircle = styled.View<{ shouldHighlight: boolean }>`
+export const ActiveDateCircle = styled.View<{
+  shouldHighlight: boolean;
+  color: string;
+}>`
   width: 28px;
   height: 28px;
   border-radius: 14px;
   margin-bottom: 4px;
   justify-content: center;
   align-items: center;
-  background: ${({ shouldHighlight }) =>
-    shouldHighlight ? 'rgb(66, 133, 244)' : 'transparent'};
+  background: ${({ shouldHighlight, color }) =>
+    shouldHighlight ? color : 'transparent'};
 `;
 
 export const CircleLabel = styled.Text<{ shouldHighlight: boolean }>`

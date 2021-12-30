@@ -5,5 +5,7 @@ import type dayjs from 'dayjs';
 export interface CalendarListProps<T> {
   events: ICalendarEvent<T>[];
   dateRange: dayjs.Dayjs[];
+  activeColor: string;
+  onEventPress?: (event: ICalendarEvent<T>) => void;
   onSwipeHorizontal?: (d: HorizontalDirection) => void;
 }

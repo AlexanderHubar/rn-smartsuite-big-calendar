@@ -7,7 +7,10 @@ import dayjs from 'dayjs';
 
 const iconSize = { height: 14, width: 14 };
 
-const ListHeader: React.FC<{ date: string }> = ({ date }) => {
+const ListHeader: React.FC<{ date: string; color: string }> = ({
+  date,
+  color,
+}) => {
   const day = dayjs(date).format('dddd');
   const month = dayjs(date).format('MMM DD, YYYY');
 
@@ -17,11 +20,7 @@ const ListHeader: React.FC<{ date: string }> = ({ date }) => {
         <DayTitle>{day}</DayTitle>, <DateTitle>{month}</DateTitle>
       </DateTitle>
       <PlusButton>
-        <Plus
-          width={iconSize.width}
-          height={iconSize.height}
-          fill={'#12CCCC'}
-        />
+        <Plus width={iconSize.width} height={iconSize.height} fill={color} />
       </PlusButton>
     </HeaderContainer>
   );

@@ -15,12 +15,11 @@ export function getDatesInMonth(
   locale = 'en'
 ) {
   const subject = dayjs(date);
-  const days = Array(subject.daysInMonth() - 1)
+  return Array(subject.daysInMonth() - 1)
     .fill(0)
     .map((_, i) => {
       return subject.date(i + 1).locale(locale);
     });
-  return days;
 }
 
 export function getDatesInWeek(
@@ -30,7 +29,7 @@ export function getDatesInWeek(
 ) {
   const subject = dayjs(date);
   const subjectDOW = subject.day();
-  const days = Array(7)
+  return Array(7)
     .fill(0)
     .map((_, i) => {
       return subject
@@ -42,7 +41,6 @@ export function getDatesInWeek(
         )
         .locale(locale);
     });
-  return days;
 }
 
 export function getDatesInNextThreeDays(
@@ -50,12 +48,11 @@ export function getDatesInNextThreeDays(
   locale = 'en'
 ) {
   const subject = dayjs(date).locale(locale);
-  const days = Array(3)
+  return Array(3)
     .fill(0)
     .map((_, i) => {
       return subject.add(i, 'day');
     });
-  return days;
 }
 
 export function getDatesInNextOneDay(
@@ -63,12 +60,11 @@ export function getDatesInNextOneDay(
   locale = 'en'
 ) {
   const subject = dayjs(date).locale(locale);
-  const days = Array(1)
+  return Array(1)
     .fill(0)
     .map((_, i) => {
       return subject.add(i, 'day');
     });
-  return days;
 }
 
 export const hours = [
@@ -107,7 +103,7 @@ export function todayInMinutes() {
 }
 
 export function modeToNum(mode: Mode, current?: dayjs.Dayjs | Date): number {
-  if (mode === 'month') {
+  if (mode === 'dayGridMonth') {
     if (!current) {
       throw new Error('You must specify current date if mode is month');
     }
@@ -117,12 +113,12 @@ export function modeToNum(mode: Mode, current?: dayjs.Dayjs | Date): number {
     return current.daysInMonth() - current.date() + 1;
   }
   switch (mode) {
-    case 'day':
+    case 'timeGrid':
       return 1;
-    case '3days':
+    case 'timeThreeDays':
       return 3;
-    case 'week':
-    case 'list':
+    case 'timeGridWeek':
+    case 'listWeek':
     case 'custom':
       return 7;
     default:
@@ -148,7 +144,10 @@ export function formatStartEnd(event: ICalendarEvent, format: string) {
   return '';
 }
 
-export function isAllDayEvent(start: Date, end: Date) {
+export function isAllDayEvent(
+  start?: Date | string | null,
+  end?: Date | string | null
+) {
   const _start = dayjs(start);
   const _end = dayjs(end);
 
@@ -166,8 +165,18 @@ export function getCountOfEventsAtEvent(
 ) {
   return eventList.filter(
     (e) =>
-      dayjs(event.start).isBetween(e.start, e.end, 'minute', '[)') ||
-      dayjs(e.start).isBetween(event.start, event.end, 'minute', '[)')
+      dayjs(event.fromDate.date).isBetween(
+        e.fromDate.date,
+        e.toDate?.date,
+        'minute',
+        '[)'
+      ) ||
+      dayjs(e.fromDate.date).isBetween(
+        event.fromDate.date,
+        event.toDate?.date,
+        'minute',
+        '[)'
+      )
   ).length;
 }
 
@@ -178,14 +187,27 @@ export function getOrderOfEvent(
   const events = eventList
     .filter(
       (e) =>
-        dayjs(event.start).isBetween(e.start, e.end, 'minute', '[)') ||
-        dayjs(e.start).isBetween(event.start, event.end, 'minute', '[)')
+        dayjs(event.fromDate.date).isBetween(
+          e.fromDate.date,
+          e.toDate?.date,
+          'minute',
+          '[)'
+        ) ||
+        dayjs(e.fromDate.date).isBetween(
+          event.fromDate.date,
+          event.toDate?.date,
+          'minute',
+          '[)'
+        )
     )
     .sort((a, b) => {
-      if (dayjs(a.start).isSame(b.start)) {
-        return dayjs(a.start).diff(a.end) < dayjs(b.start).diff(b.end) ? -1 : 1;
+      if (dayjs(a.fromDate.date).isSame(b.fromDate.date)) {
+        return dayjs(a.fromDate.date).diff(a.toDate?.date) <
+          dayjs(b.fromDate.date).diff(b.toDate?.date)
+          ? -1
+          : 1;
       } else {
-        return dayjs(a.start).isBefore(b.start) ? -1 : 1;
+        return dayjs(a.fromDate.date).isBefore(b.fromDate.date) ? -1 : 1;
       }
     });
   const index = events.indexOf(event);
@@ -219,12 +241,11 @@ export function getDatesInNextCustomDays(
 ) {
   const subject = dayjs(date);
   const subjectDOW = subject.day();
-  const days = Array(weekDaysCount(weekStartsOn, weekEndsOn))
+  return Array(weekDaysCount(weekStartsOn, weekEndsOn))
     .fill(0)
     .map((_, i) => {
       return subject.add(i - subjectDOW + weekStartsOn, 'day').locale(locale);
     });
-  return days;
 }
 
 // TODO: This method should be unit-tested
@@ -264,8 +285,11 @@ export function getEventSpanningInfo(
 
   // adding + 1 because durations start at 0
   const eventDuration =
-    dayjs.duration(dayjs(event.end).diff(dayjs(event.start))).days() + 1;
-  const eventDaysLeft = dayjs.duration(dayjs(event.end).diff(date)).days() + 1;
+    dayjs
+      .duration(dayjs(event.toDate?.date).diff(dayjs(event.fromDate.date)))
+      .days() + 1;
+  const eventDaysLeft =
+    dayjs.duration(dayjs(event.toDate?.date).diff(date)).days() + 1;
   const weekDaysLeft = 7 - dayOfTheWeek;
   const isMultipleDays = eventDuration > 1;
   // This is to determine how many days from the event to show during a week
@@ -277,8 +301,8 @@ export function getEventSpanningInfo(
       : eventDuration;
   const isMultipleDaysStart =
     isMultipleDays &&
-    (date.isSame(event.start, 'day') ||
-      (dayOfTheWeek === 0 && date.isAfter(event.start)) ||
+    (date.isSame(event.fromDate.date, 'day') ||
+      (dayOfTheWeek === 0 && date.isAfter(event.fromDate.date)) ||
       date.get('date') === 1);
   // - 6 to take in account the padding
   const eventWidth = dayWidth * eventWeekDuration - 6;

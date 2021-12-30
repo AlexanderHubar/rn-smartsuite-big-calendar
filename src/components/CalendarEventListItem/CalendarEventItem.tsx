@@ -16,11 +16,11 @@ import {
 import { DueDateBadge } from '../DueDateBadge';
 import { getOverdueDays, getRecordTimeRange } from '../../date-utils';
 
-function _CalendarEventItem({ event, onPress }: CalendarEventItemProps) {
+function _CalendarEventItem<T>({ event, onPress }: CalendarEventItemProps<T>) {
   const isDueDate = event.fieldType === FieldType.duedatefield;
 
   return (
-    <ItemContainer onPress={onPress}>
+    <ItemContainer onPress={() => onPress && onPress(event)}>
       <ItemColor color={event.color} />
       <DetailsContainer>
         <TitleContainer>

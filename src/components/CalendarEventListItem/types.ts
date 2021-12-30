@@ -1,4 +1,6 @@
-export interface CalendarEventItemProps {
+import type { ICalendarEvent } from 'rn-smartsuite-big-calendar';
+
+export interface CalendarEventItemProps<T> {
   event: any;
-  onPress: () => void;
+  onPress?: (event: ICalendarEvent<T>) => void;
 }

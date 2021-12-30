@@ -36,6 +36,7 @@ export interface CalendarHeaderProps<T> {
   weekDayHeaderHighlightColor?: string;
   showAllDayEventCell?: boolean;
   mode: Mode;
+  activeColor: string;
 }
 
 function _CalendarHeader<T>({
@@ -46,6 +47,7 @@ function _CalendarHeader<T>({
   activeDate,
   mode,
   showAllDayEventCell = true,
+  activeColor,
 }: CalendarHeaderProps<T>) {
   const [cellWidth, setCellWidth] = useState(0);
 
@@ -64,12 +66,12 @@ function _CalendarHeader<T>({
 
   const eventsByRangeArray = getEventsByRangeArray(
     eventsByDay,
-    mode === 'week' ? 7 : 3
+    mode === 'timeGridWeek' ? 7 : 3
   );
 
   const weekTimeLine = getWeekTimeLine(eventsByRangeArray);
 
-  const isDayMode = mode === 'day';
+  const isDayMode = mode === 'timeGrid';
 
   const renderAllDayEvents = (date: any) => {
     const eventsArr = [];
@@ -78,15 +80,20 @@ function _CalendarHeader<T>({
       const event = allDayEvents[i];
 
       const isDateBetweenEvent = dayjs(date).isBetween(
-        event.start,
-        event.end,
+        event.fromDate.date,
+        event.toDate?.date,
         'day',
         '[]'
       );
 
       if (eventsArr.length > 2) {
         const countOfEventPerDay = allDayEvents.filter((_event) =>
-          dayjs(date).isBetween(_event.start, _event.end, 'day', '[]')
+          dayjs(date).isBetween(
+            _event.fromDate.date,
+            _event.toDate?.date,
+            'day',
+            '[]'
+          )
         ).length;
 
         const eventsLeft = countOfEventPerDay - 3;
@@ -147,7 +154,10 @@ function _CalendarHeader<T>({
             >
               <View style={[u['justify-between'], u['items-center']]}>
                 <DayLabel>{date.format('dd')}</DayLabel>
-                <ActiveDateCircle shouldHighlight={shouldHighlight}>
+                <ActiveDateCircle
+                  shouldHighlight={shouldHighlight}
+                  color={activeColor}
+                >
                   <CircleLabel shouldHighlight={shouldHighlight}>
                     {date.format('D')}
                   </CircleLabel>
