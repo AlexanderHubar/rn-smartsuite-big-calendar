@@ -14,8 +14,13 @@ import {
   AllDayEventPill,
   CircleLabel,
   DayLabel,
+  WeekTimeLine,
 } from './styled';
-import { getEventsByDay, getWeekTimeLine } from './helpers';
+import {
+  getEventsByDay,
+  getEventsByRangeArray,
+  getWeekTimeLine,
+} from './helpers';
 import type { Mode } from '../../interfaces';
 
 export interface CalendarHeaderProps<T> {
@@ -57,9 +62,68 @@ function _CalendarHeader<T>({
 
   const eventsByDay = getEventsByDay(allDayEvents, dateRange);
 
-  const weekTimeLine = getWeekTimeLine(eventsByDay, mode);
+  const eventsByRangeArray = getEventsByRangeArray(
+    eventsByDay,
+    mode === 'week' ? 7 : 3
+  );
+
+  const weekTimeLine = getWeekTimeLine(eventsByRangeArray);
 
   const isDayMode = mode === 'day';
+
+  const renderAllDayEvents = (date: any) => {
+    const eventsArr = [];
+
+    for (let i = 0; i < allDayEvents.length; i++) {
+      const event = allDayEvents[i];
+
+      const isDateBetweenEvent = dayjs(date).isBetween(
+        event.start,
+        event.end,
+        'day',
+        '[]'
+      );
+
+      if (eventsArr.length > 2) {
+        const countOfEventPerDay = allDayEvents.filter((_event) =>
+          dayjs(date).isBetween(_event.start, _event.end, 'day', '[]')
+        ).length;
+
+        const eventsLeft = countOfEventPerDay - 3;
+
+        if (eventsLeft > 0) {
+          eventsArr.push(
+            <AllDayEventPill
+              style={{ opacity: isDayMode ? 1 : 1 }}
+              backgroundColor={'#E9E9E9'}
+              key={event.recordId}
+            >
+              <AllDayEventLabel style={{ color: 'black' }}>
+                + {eventsLeft}
+              </AllDayEventLabel>
+            </AllDayEventPill>
+          );
+        }
+        break;
+      }
+
+      if (isDateBetweenEvent) {
+        eventsArr.push(
+          <AllDayEventPill
+            style={{ opacity: isDayMode ? 1 : 0 }}
+            backgroundColor={event.color}
+            key={event.recordId}
+          >
+            <AllDayEventLabel>
+              {event?.recordTitle} • {event?.fieldLabel}
+            </AllDayEventLabel>
+          </AllDayEventPill>
+        );
+      }
+    }
+
+    return eventsArr;
+  };
 
   return (
     <View style={[theme.isRTL ? u['flex-row-reverse'] : u['flex-row'], style]}>
@@ -91,49 +155,21 @@ function _CalendarHeader<T>({
               </View>
 
               {showAllDayEventCell ? (
-                <AllDayEventCell isFirstDay={isFirstDay}>
-                  {allDayEvents.map((event) => {
-                    const isDateBetweenEvent = dayjs(date).isBetween(
-                      event.start,
-                      event.end,
-                      'day',
-                      '[]'
-                    );
-
-                    if (!isDateBetweenEvent) {
-                      return null;
-                    }
-
-                    return (
-                      <AllDayEventPill
-                        style={{ opacity: isDayMode ? 1 : 0 }}
-                        backgroundColor={event.color}
-                        key={event.recordId}
-                      >
-                        <AllDayEventLabel>
-                          {event?.recordTitle} • {event?.fieldLabel}
-                        </AllDayEventLabel>
-                      </AllDayEventPill>
-                    );
-                  })}
-                </AllDayEventCell>
+                <>
+                  <AllDayEventCell isFirstDay={isFirstDay}>
+                    {renderAllDayEvents(date).map((event) =>
+                      event ? event : null
+                    )}
+                  </AllDayEventCell>
+                </>
               ) : null}
             </TouchableOpacity>
           );
         })}
 
         {!isDayMode && (
-          <View
-            style={{
-              top: 53.4,
-              borderRadius: 4,
-              flex: 1,
-              right: 1,
-              left: 1,
-              position: 'absolute',
-            }}
-          >
-            {weekTimeLine.map((timeLine) => (
+          <WeekTimeLine>
+            {weekTimeLine.map((timeLine, index) => (
               <View style={{ flexDirection: 'row' }}>
                 {timeLine.map((dayLine) => {
                   const [eventId, eventCount] =
@@ -144,7 +180,7 @@ function _CalendarHeader<T>({
                     (_event) => _event.recordId === eventId
                   );
 
-                  return dayLine ? (
+                  return dayLine && index < 3 ? (
                     <AllDayEventPill
                       key={`${event?.recordId}${event?.slug}`}
                       onPress={() => _onPress(event as any)}
@@ -181,7 +217,7 @@ function _CalendarHeader<T>({
                 })}
               </View>
             ))}
-          </View>
+          </WeekTimeLine>
         )}
       </View>
     </View>

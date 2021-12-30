@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import type { ICalendarEvent } from '../../interfaces';
 import { filter, reduce } from 'remeda';
-import type { Mode } from '../../interfaces';
 
 type WeekTimeLine = any[][];
 type DayTimeLine = any[];
@@ -91,12 +90,9 @@ export const getEventsByRangeArray = (
   return eventsRangeArr.slice(0, 4);
 };
 
-export const getWeekTimeLine = (
-  eventsByDay: Record<string, any[]>,
-  mode: Mode
-) =>
+export const getWeekTimeLine = (eventsByRangeArray: (string | false)[][]) =>
   reduce(
-    getEventsByRangeArray(eventsByDay, mode === 'week' ? 7 : 3),
+    eventsByRangeArray,
     (rangeTimeLine: WeekTimeLine, timeLine) => {
       const dayEvents = reduce(
         timeLine,

@@ -53,3 +53,13 @@ export const AllDayEventLabel = styled.Text`
   font-size: 12px;
   color: white;
 `;
+
+export const WeekTimeLine = styled.View`
+  top: 53.4px;
+  border-radius: 4px;
+  flex: 1;
+  right: 1px;
+  left: 1px;
+  background-color: transparent;
+  position: absolute;
+`;

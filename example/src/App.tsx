@@ -107,6 +107,82 @@ const events = [
     },
   },
   {
+    start: new Date(2021, 11, 25, 0, 0),
+    end: new Date(2021, 11, 25, 0, 0),
+    color: '#673DB6',
+    fieldLabel: 'Due Date',
+    fieldType: 'duedatefield',
+    fromDate: {
+      date: null,
+      include_time: false,
+    },
+    is_overdue: false,
+    recordId: '61a4be445622b50278992aaa13',
+    title: 'Event 1',
+    slug: 'due_date',
+    toDate: {
+      date: new Date(2021, 11, 22, 1, 0),
+      include_time: true,
+    },
+  },
+  {
+    start: new Date(2021, 11, 24, 0, 0),
+    end: new Date(2021, 11, 24, 0, 0),
+    color: '#673DB6',
+    fieldLabel: 'Due Date',
+    fieldType: 'duedatefield',
+    fromDate: {
+      date: null,
+      include_time: false,
+    },
+    is_overdue: false,
+    recordId: '61a4be445622b50278992aaaaaa13',
+    title: 'Event 1',
+    slug: 'due_date',
+    toDate: {
+      date: new Date(2021, 11, 22, 1, 0),
+      include_time: true,
+    },
+  },
+  {
+    start: new Date(2021, 11, 24, 0, 0),
+    end: new Date(2021, 11, 24, 0, 0),
+    color: '#673DB6',
+    fieldLabel: 'Due Date',
+    fieldType: 'duedatefield',
+    fromDate: {
+      date: null,
+      include_time: false,
+    },
+    is_overdue: false,
+    recordId: '61a4be445622b50278992avaaaa13',
+    title: 'Event 1',
+    slug: 'due_date',
+    toDate: {
+      date: new Date(2021, 11, 22, 1, 0),
+      include_time: true,
+    },
+  },
+  {
+    start: new Date(2021, 11, 24, 0, 0),
+    end: new Date(2021, 11, 24, 0, 0),
+    color: '#673DB6',
+    fieldLabel: 'Due Date',
+    fieldType: 'duedatefield',
+    fromDate: {
+      date: null,
+      include_time: false,
+    },
+    is_overdue: false,
+    recordId: '61a4be445622b50278992avbaaa13',
+    title: 'Event 1',
+    slug: 'due_date',
+    toDate: {
+      date: new Date(2021, 11, 22, 1, 0),
+      include_time: true,
+    },
+  },
+  {
     start: new Date(2021, 11, 22, 0, 0),
     end: new Date(2021, 11, 24, 0, 0),
     color: '#2D2D2D',
@@ -148,7 +224,7 @@ export const App = () => {
         <Calendar
           height={Dimensions.get('window').height}
           events={events}
-          mode={'3days'}
+          mode={'day'}
         />
       </SafeAreaView>
     </React.Fragment>
