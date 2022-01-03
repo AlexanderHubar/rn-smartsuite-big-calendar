@@ -29,6 +29,7 @@ export interface CalendarHeaderProps<T> {
   style: ViewStyle;
   allDayEvents: ICalendarEvent<T>[];
   onPressDateHeader?: (date: Date) => void;
+  onPressEvent?: (event: ICalendarEvent<T>) => void;
   activeDate?: Date;
   headerContentStyle?: ViewStyle;
   dayHeaderStyle?: ViewStyle;
@@ -37,6 +38,7 @@ export interface CalendarHeaderProps<T> {
   showAllDayEventCell?: boolean;
   mode: Mode;
   activeColor: string;
+  onShowAllDayEvents: (date: Date) => void;
 }
 
 function _CalendarHeader<T>({
@@ -44,10 +46,12 @@ function _CalendarHeader<T>({
   style,
   allDayEvents,
   onPressDateHeader,
+  onPressEvent,
   activeDate,
   mode,
   showAllDayEventCell = true,
   activeColor,
+  onShowAllDayEvents,
 }: CalendarHeaderProps<T>) {
   const [cellWidth, setCellWidth] = useState(0);
 
@@ -57,6 +61,14 @@ function _CalendarHeader<T>({
     },
     [onPressDateHeader]
   );
+
+  const onAllDayEventPress = (event: ICalendarEvent<T>) => {
+    onPressEvent && onPressEvent(event);
+  };
+
+  const handleShowAllDayEvents = (date: Date) => {
+    onShowAllDayEvents && onShowAllDayEvents(date);
+  };
 
   const theme = useTheme();
 
@@ -68,6 +80,8 @@ function _CalendarHeader<T>({
     eventsByDay,
     mode === 'timeGridWeek' ? 7 : 3
   );
+
+  // TODO: fix uniq value of event
 
   const weekTimeLine = getWeekTimeLine(eventsByRangeArray);
 
@@ -101,6 +115,7 @@ function _CalendarHeader<T>({
         if (eventsLeft > 0) {
           eventsArr.push(
             <AllDayEventPill
+              onPress={() => handleShowAllDayEvents(date)}
               style={{ opacity: isDayMode ? 1 : 1 }}
               backgroundColor={'#E9E9E9'}
               key={event.recordId}
@@ -117,6 +132,7 @@ function _CalendarHeader<T>({
       if (isDateBetweenEvent) {
         eventsArr.push(
           <AllDayEventPill
+            onPress={() => onAllDayEventPress(event)}
             style={{ opacity: isDayMode ? 1 : 0 }}
             backgroundColor={event.color}
             key={event.recordId}
@@ -193,7 +209,7 @@ function _CalendarHeader<T>({
                   return dayLine && index < 3 ? (
                     <AllDayEventPill
                       key={`${event?.recordId}${event?.slug}`}
-                      onPress={() => _onPress(event as any)}
+                      onPress={() => onAllDayEventPress(event!)}
                       style={{
                         width: cellWidth * Number(eventCount) - 1,
                       }}
