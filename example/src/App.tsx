@@ -295,11 +295,11 @@ const events = [
     dueDateStatus: { isComplete: undefined, statusResult: undefined },
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    fromDate: { date: '2022-01-03T10:25:57.924Z', include_time: true },
+    fromDate: { date: '2022-01-03T10:25:57.924Z', include_time: false },
     recordId: '61d2cf352d72e8aa3829a63f',
     recordTitle: 'due date with time',
     slug: 'first_created',
-    toDate: { date: '2022-01-03T11:25:57.924Z', include_time: true },
+    toDate: { date: '2022-01-03T11:25:57.924Z', include_time: false },
   },
   {
     color: '#FFD5B3',
@@ -387,51 +387,51 @@ const events = [
     recordId: '61cae86887dd0daa2cdb05e0',
     recordTitle: 'Due Date',
     slug: 'last_updated',
-    toDate: { date: '2021-12-28T11:35:23.647Z', include_time: true },
+    toDate: { date: '2021-12-28T11:35:23.647Z', include_time: false },
   },
   {
     color: '#FFD5B3',
     dueDateStatus: { isComplete: undefined, statusResult: undefined },
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    fromDate: { date: '2022-01-03T10:06:39.895Z', include_time: true },
+    fromDate: { date: '2022-01-03T10:06:39.895Z', include_time: false },
     recordId: '61d2caaf107a3c40fa1fb044',
     recordTitle: 'test',
     slug: 'last_updated',
-    toDate: { date: '2022-01-03T11:06:39.895Z', include_time: true },
+    toDate: { date: '2022-01-03T11:06:39.895Z', include_time: false },
   },
   {
     color: '#FFD5B3',
     dueDateStatus: { isComplete: undefined, statusResult: undefined },
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    fromDate: { date: '2022-01-03T10:08:27.981Z', include_time: true },
+    fromDate: { date: '2022-01-03T10:08:27.981Z', include_time: false },
     recordId: '61d2cb1b772a16c081b48d2d',
     recordTitle: 'date without time',
     slug: 'last_updated',
-    toDate: { date: '2022-01-03T11:08:27.981Z', include_time: true },
+    toDate: { date: '2022-01-03T11:08:27.981Z', include_time: false },
   },
   {
     color: '#FFD5B3',
     dueDateStatus: { isComplete: undefined, statusResult: undefined },
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    fromDate: { date: '2022-01-03T10:16:50.359Z', include_time: true },
+    fromDate: { date: '2022-01-03T10:16:50.359Z', include_time: false },
     recordId: '61d2cb9d1c63c842945ae7d9',
     recordTitle: 'date range with time',
     slug: 'last_updated',
-    toDate: { date: '2022-01-03T11:16:50.359Z', include_time: true },
+    toDate: { date: '2022-01-03T11:16:50.359Z', include_time: false },
   },
   {
     color: '#FFD5B3',
     dueDateStatus: { isComplete: undefined, statusResult: undefined },
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    fromDate: { date: '2022-01-03T10:32:06.123Z', include_time: true },
+    fromDate: { date: '2022-01-03T10:32:06.123Z', include_time: false },
     recordId: '61d2cf352d72e8aa3829a63f',
     recordTitle: 'due date with time',
     slug: 'last_updated',
-    toDate: { date: '2022-01-03T11:32:06.123Z', include_time: true },
+    toDate: { date: '2022-01-03T11:32:06.123Z', include_time: false },
   },
 ];
 
@@ -443,10 +443,11 @@ export const App = () => {
         <Calendar
           onShowAllDayEvents={(date) => console.log(date)}
           events={events as any}
-          // mode={'timeThreeDays'}
-          mode={'timeGrid'}
+          mode={'timeThreeDays'}
+          // mode={'timeGrid'}
           // mode={'timeGridWeek'}
           activeColor={'#127ee8'}
+          showDaysHeader={true}
           height={Dimensions.get('window').height}
           onViewModePress={(mode) => console.log(mode)}
           onPressEvent={(event) => console.log(event)}
