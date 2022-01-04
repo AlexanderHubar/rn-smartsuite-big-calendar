@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import React, { useState } from 'react';
 import { find } from 'remeda';
-import { Text, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import { u } from '../../commonStyles';
 import type { ICalendarEvent } from '../../interfaces';
@@ -9,6 +9,7 @@ import { useTheme } from '../../theme/ThemeContext';
 import { isToday, typedMemo } from '../../utils';
 import {
   ActiveDateCircle,
+  AllDayEventBoldLabel,
   AllDayEventCell,
   AllDayEventLabel,
   AllDayEventPill,
@@ -22,6 +23,8 @@ import {
   getWeekTimeLine,
 } from './helpers';
 import type { Mode } from '../../interfaces';
+import { DueDateBadge } from '../DueDateBadge';
+import { getOverdueDays } from '../../date-utils';
 
 export interface CalendarHeaderProps<T> {
   dateRange: dayjs.Dayjs[];
@@ -83,8 +86,6 @@ function _CalendarHeader<T>({
 
   const weekTimeLine = getWeekTimeLine(eventsByRangeArray);
 
-  console.log(weekTimeLine);
-
   const isDayMode = mode === 'timeGrid';
 
   const renderAllDayEvents = (date: any) => {
@@ -133,13 +134,20 @@ function _CalendarHeader<T>({
         eventsArr.push(
           <AllDayEventPill
             onPress={() => onAllDayEventPress(event)}
-            style={{ opacity: isDayMode ? 1 : 0 }}
+            style={{ opacity: isDayMode ? 1 : 1 }}
             backgroundColor={event.color}
             key={`${event.slug}.${event.recordId}`}
           >
-            <AllDayEventLabel>
-              {event?.recordTitle} • {event?.fieldLabel}
-            </AllDayEventLabel>
+            {event?.fieldType === 'duedatefield' && (
+              <DueDateBadge
+                overdueDays={getOverdueDays(event)}
+                isComplete={event.dueDateStatus?.isComplete || false}
+              />
+            )}
+            <AllDayEventBoldLabel>
+              {event?.recordTitle} •{' '}
+              <AllDayEventLabel>{event?.fieldLabel}</AllDayEventLabel>
+            </AllDayEventBoldLabel>
           </AllDayEventPill>
         );
       }
@@ -201,17 +209,18 @@ function _CalendarHeader<T>({
                   const [eventId, eventCount] =
                     typeof dayLine === 'string' ? dayLine.split('|') : [];
 
-                  const [recordId] =
+                  const [recordId, fieldSlug] =
                     typeof eventId === 'string' ? eventId.split('-') : [];
 
                   const event = find(
                     allDayEvents,
-                    (_event) => _event.recordId === recordId
+                    (_event) =>
+                      _event.recordId === recordId && _event.slug === fieldSlug
                   );
 
                   return dayLine && index < 3 ? (
                     <AllDayEventPill
-                      key={dayLine}
+                      key={`${dayLine}.${dateRange[0]}`}
                       onPress={() => onAllDayEventPress(event!)}
                       style={{
                         width: cellWidth * Number(eventCount) - 1,
@@ -219,26 +228,16 @@ function _CalendarHeader<T>({
                       backgroundColor={event?.color}
                     >
                       {event?.fieldType === 'duedatefield' && (
-                        <View
-                          style={{
-                            width: 14,
-                            height: 14,
-                            borderRadius: 4,
-                            backgroundColor: '#FFB938',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            marginRight: 4,
-                          }}
-                        >
-                          <Text style={{ color: 'white', fontSize: 10 }}>
-                            0
-                          </Text>
-                        </View>
+                        <DueDateBadge
+                          overdueDays={getOverdueDays(event)}
+                          isComplete={event.dueDateStatus?.isComplete || false}
+                        />
                       )}
 
-                      <AllDayEventLabel>
-                        {event?.recordTitle} • {event?.fieldLabel}
-                      </AllDayEventLabel>
+                      <AllDayEventBoldLabel>
+                        {event?.recordTitle} •{' '}
+                        <AllDayEventLabel>{event?.fieldLabel}</AllDayEventLabel>
+                      </AllDayEventBoldLabel>
                     </AllDayEventPill>
                   ) : (
                     <View style={{ width: cellWidth }} />

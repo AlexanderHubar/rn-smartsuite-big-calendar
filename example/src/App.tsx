@@ -443,7 +443,9 @@ export const App = () => {
         <Calendar
           onShowAllDayEvents={(date) => console.log(date)}
           events={events as any}
+          // mode={'timeThreeDays'}
           mode={'timeGrid'}
+          // mode={'timeGridWeek'}
           activeColor={'#127ee8'}
           height={Dimensions.get('window').height}
           onViewModePress={(mode) => console.log(mode)}
