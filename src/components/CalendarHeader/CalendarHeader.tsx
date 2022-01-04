@@ -39,6 +39,7 @@ export interface CalendarHeaderProps<T> {
   dayHeaderHighlightColor?: string;
   weekDayHeaderHighlightColor?: string;
   showAllDayEventCell?: boolean;
+  showDaysHeader?: boolean;
   mode: Mode;
   activeColor: string;
   onShowAllDayEvents: (date: Date) => void;
@@ -55,6 +56,7 @@ function _CalendarHeader<T>({
   showAllDayEventCell = true,
   activeColor,
   onShowAllDayEvents,
+  showDaysHeader,
 }: CalendarHeaderProps<T>) {
   const [cellWidth, setCellWidth] = useState(0);
 
@@ -117,7 +119,6 @@ function _CalendarHeader<T>({
           eventsArr.push(
             <AllDayEventPill
               onPress={() => handleShowAllDayEvents(date)}
-              style={{ opacity: isDayMode ? 1 : 1 }}
               backgroundColor={'#E9E9E9'}
               key={`${event.slug}-${event.recordId}`}
             >
@@ -134,7 +135,7 @@ function _CalendarHeader<T>({
         eventsArr.push(
           <AllDayEventPill
             onPress={() => onAllDayEventPress(event)}
-            style={{ opacity: isDayMode ? 1 : 1 }}
+            style={{ opacity: isDayMode ? 1 : 0 }}
             backgroundColor={event.color}
             key={`${event.slug}.${event.recordId}`}
           >
@@ -171,22 +172,28 @@ function _CalendarHeader<T>({
               onLayout={({ nativeEvent }) =>
                 setCellWidth(nativeEvent.layout.width)
               }
-              style={[u['flex-1'], u['pt-2']]}
+              style={[
+                u['flex-1'],
+                u['pt-2'],
+                { marginTop: showDaysHeader ? 0 : 8 },
+              ]}
               onPress={() => _onPress(date.toDate())}
               disabled={onPressDateHeader === undefined}
               key={date.toString()}
             >
-              <View style={[u['justify-between'], u['items-center']]}>
-                <DayLabel>{date.format('dd')}</DayLabel>
-                <ActiveDateCircle
-                  shouldHighlight={shouldHighlight}
-                  color={activeColor}
-                >
-                  <CircleLabel shouldHighlight={shouldHighlight}>
-                    {date.format('D')}
-                  </CircleLabel>
-                </ActiveDateCircle>
-              </View>
+              {showDaysHeader && (
+                <View style={[u['justify-between'], u['items-center']]}>
+                  <DayLabel>{date.format('dd')}</DayLabel>
+                  <ActiveDateCircle
+                    shouldHighlight={shouldHighlight}
+                    color={activeColor}
+                  >
+                    <CircleLabel shouldHighlight={shouldHighlight}>
+                      {date.format('D')}
+                    </CircleLabel>
+                  </ActiveDateCircle>
+                </View>
+              )}
 
               {showAllDayEventCell ? (
                 <>

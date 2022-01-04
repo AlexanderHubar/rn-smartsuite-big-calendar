@@ -304,14 +304,13 @@ function _CalendarContainer<T>({
         onChangeRange={onSwipeHorizontal}
         onChangeMode={onViewModePress}
       />
-      {showDaysHeader && (
-        <HeaderComponent
-          {...headerProps}
-          mode={mode}
-          onPressEvent={onPressEvent}
-          onShowAllDayEvents={onShowAllDayEvents}
-        />
-      )}
+      <HeaderComponent
+        {...headerProps}
+        showDaysHeader={showDaysHeader}
+        mode={mode}
+        onPressEvent={onPressEvent}
+        onShowAllDayEvents={onShowAllDayEvents}
+      />
       <CalendarBody
         {...commonProps}
         style={bodyContainerStyle}
