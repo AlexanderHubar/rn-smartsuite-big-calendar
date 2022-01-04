@@ -82,12 +82,12 @@ const events = [
     toDate: { date: '2022-01-03T06:00:00.000Z', include_time: true },
   },
   {
-    color: 'red',
+    color: '#B7E3FB',
     dueDateStatus: { isComplete: undefined, statusResult: undefined },
     fieldLabel: 'Date',
     fieldType: 'datefield',
     fromDate: { date: new Date(2022, 0, 4), include_time: false },
-    recordId: '61d2cb1b772a16c081b48d2d',
+    recordId: '61d2cb1b772a16c081b48d2da',
     recordTitle: 'date without time',
     slug: 's915b51739',
     toDate: { date: new Date(2022, 0, 4), include_time: false },
@@ -443,7 +443,7 @@ export const App = () => {
         <Calendar
           onShowAllDayEvents={(date) => console.log(date)}
           events={events as any}
-          mode={'timeGridWeek'}
+          mode={'timeGrid'}
           activeColor={'#127ee8'}
           height={Dimensions.get('window').height}
           onViewModePress={(mode) => console.log(mode)}

@@ -81,9 +81,9 @@ function _CalendarHeader<T>({
     mode === 'timeGridWeek' ? 7 : 3
   );
 
-  // TODO: fix uniq value of event
-
   const weekTimeLine = getWeekTimeLine(eventsByRangeArray);
+
+  console.log(weekTimeLine);
 
   const isDayMode = mode === 'timeGrid';
 
@@ -118,7 +118,7 @@ function _CalendarHeader<T>({
               onPress={() => handleShowAllDayEvents(date)}
               style={{ opacity: isDayMode ? 1 : 1 }}
               backgroundColor={'#E9E9E9'}
-              key={event.recordId}
+              key={`${event.slug}-${event.recordId}`}
             >
               <AllDayEventLabel style={{ color: 'black' }}>
                 + {eventsLeft}
@@ -135,7 +135,7 @@ function _CalendarHeader<T>({
             onPress={() => onAllDayEventPress(event)}
             style={{ opacity: isDayMode ? 1 : 0 }}
             backgroundColor={event.color}
-            key={event.recordId}
+            key={`${event.slug}.${event.recordId}`}
           >
             <AllDayEventLabel>
               {event?.recordTitle} • {event?.fieldLabel}
@@ -201,14 +201,17 @@ function _CalendarHeader<T>({
                   const [eventId, eventCount] =
                     typeof dayLine === 'string' ? dayLine.split('|') : [];
 
+                  const [recordId] =
+                    typeof eventId === 'string' ? eventId.split('-') : [];
+
                   const event = find(
                     allDayEvents,
-                    (_event) => _event.recordId === eventId
+                    (_event) => _event.recordId === recordId
                   );
 
                   return dayLine && index < 3 ? (
                     <AllDayEventPill
-                      key={`${event?.recordId}${event?.slug}`}
+                      key={dayLine}
                       onPress={() => onAllDayEventPress(event!)}
                       style={{
                         width: cellWidth * Number(eventCount) - 1,
