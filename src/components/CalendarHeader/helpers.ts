@@ -28,7 +28,10 @@ export const getEventsByDay = <T>(
       return eventsObject;
     }
 
-    return { ...eventsObject, [event.recordId]: filteredDaysId };
+    return {
+      ...eventsObject,
+      [`${event.recordId}-${event.slug}`]: filteredDaysId,
+    };
   }, {});
 
 export const getEventsByRangeArray = (

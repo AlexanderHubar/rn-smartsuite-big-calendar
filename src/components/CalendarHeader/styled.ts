@@ -27,7 +27,7 @@ export const CircleLabel = styled.Text<{ shouldHighlight: boolean }>`
   color: ${({ shouldHighlight }) => (shouldHighlight ? 'white' : '#2E3538')};
 `;
 
-export const AllDayEventCell = styled.View<{ isFirstDay: boolean }>`
+export const AllDayEventCell = styled.TouchableOpacity<{ isFirstDay: boolean }>`
   background-color: white;
   border-top-left-radius: ${({ isFirstDay }) => (isFirstDay ? 4 : 0)}px;
   border-bottom-left-radius: ${({ isFirstDay }) => (isFirstDay ? 4 : 0)}px;
@@ -55,6 +55,12 @@ export const AllDayEventPill = styled.TouchableOpacity<{
 export const AllDayEventLabel = styled.Text`
   font-size: 12px;
   color: white;
+  font-weight: 400;
+`;
+
+export const AllDayEventBoldLabel = styled(AllDayEventLabel)`
+  font-weight: 500;
+  font-size: 13px;
 `;
 
 export const WeekTimeLine = styled.View`

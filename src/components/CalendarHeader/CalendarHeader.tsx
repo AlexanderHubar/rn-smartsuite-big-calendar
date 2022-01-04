@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import React, { useState } from 'react';
 import { find } from 'remeda';
-import { Text, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import { u } from '../../commonStyles';
 import type { ICalendarEvent } from '../../interfaces';
@@ -9,6 +9,7 @@ import { useTheme } from '../../theme/ThemeContext';
 import { isToday, typedMemo } from '../../utils';
 import {
   ActiveDateCircle,
+  AllDayEventBoldLabel,
   AllDayEventCell,
   AllDayEventLabel,
   AllDayEventPill,
@@ -22,6 +23,8 @@ import {
   getWeekTimeLine,
 } from './helpers';
 import type { Mode } from '../../interfaces';
+import { DueDateBadge } from '../DueDateBadge';
+import { getOverdueDays } from '../../date-utils';
 
 export interface CalendarHeaderProps<T> {
   dateRange: dayjs.Dayjs[];
@@ -29,6 +32,7 @@ export interface CalendarHeaderProps<T> {
   style: ViewStyle;
   allDayEvents: ICalendarEvent<T>[];
   onPressDateHeader?: (date: Date) => void;
+  onPressEvent?: (event: ICalendarEvent<T>) => void;
   activeDate?: Date;
   headerContentStyle?: ViewStyle;
   dayHeaderStyle?: ViewStyle;
@@ -37,6 +41,7 @@ export interface CalendarHeaderProps<T> {
   showAllDayEventCell?: boolean;
   mode: Mode;
   activeColor: string;
+  onShowAllDayEvents: (date: Date) => void;
 }
 
 function _CalendarHeader<T>({
@@ -44,10 +49,12 @@ function _CalendarHeader<T>({
   style,
   allDayEvents,
   onPressDateHeader,
+  onPressEvent,
   activeDate,
   mode,
   showAllDayEventCell = true,
   activeColor,
+  onShowAllDayEvents,
 }: CalendarHeaderProps<T>) {
   const [cellWidth, setCellWidth] = useState(0);
 
@@ -57,6 +64,14 @@ function _CalendarHeader<T>({
     },
     [onPressDateHeader]
   );
+
+  const onAllDayEventPress = (event: ICalendarEvent<T>) => {
+    onPressEvent && onPressEvent(event);
+  };
+
+  const handleShowAllDayEvents = (date: Date) => {
+    onShowAllDayEvents && onShowAllDayEvents(date);
+  };
 
   const theme = useTheme();
 
@@ -101,9 +116,10 @@ function _CalendarHeader<T>({
         if (eventsLeft > 0) {
           eventsArr.push(
             <AllDayEventPill
+              onPress={() => handleShowAllDayEvents(date)}
               style={{ opacity: isDayMode ? 1 : 1 }}
               backgroundColor={'#E9E9E9'}
-              key={event.recordId}
+              key={`${event.slug}-${event.recordId}`}
             >
               <AllDayEventLabel style={{ color: 'black' }}>
                 + {eventsLeft}
@@ -117,13 +133,21 @@ function _CalendarHeader<T>({
       if (isDateBetweenEvent) {
         eventsArr.push(
           <AllDayEventPill
-            style={{ opacity: isDayMode ? 1 : 0 }}
+            onPress={() => onAllDayEventPress(event)}
+            style={{ opacity: isDayMode ? 1 : 1 }}
             backgroundColor={event.color}
-            key={event.recordId}
+            key={`${event.slug}.${event.recordId}`}
           >
-            <AllDayEventLabel>
-              {event?.recordTitle} • {event?.fieldLabel}
-            </AllDayEventLabel>
+            {event?.fieldType === 'duedatefield' && (
+              <DueDateBadge
+                overdueDays={getOverdueDays(event)}
+                isComplete={event.dueDateStatus?.isComplete || false}
+              />
+            )}
+            <AllDayEventBoldLabel>
+              {event?.recordTitle} •{' '}
+              <AllDayEventLabel>{event?.fieldLabel}</AllDayEventLabel>
+            </AllDayEventBoldLabel>
           </AllDayEventPill>
         );
       }
@@ -185,41 +209,35 @@ function _CalendarHeader<T>({
                   const [eventId, eventCount] =
                     typeof dayLine === 'string' ? dayLine.split('|') : [];
 
+                  const [recordId, fieldSlug] =
+                    typeof eventId === 'string' ? eventId.split('-') : [];
+
                   const event = find(
                     allDayEvents,
-                    (_event) => _event.recordId === eventId
+                    (_event) =>
+                      _event.recordId === recordId && _event.slug === fieldSlug
                   );
 
                   return dayLine && index < 3 ? (
                     <AllDayEventPill
-                      key={`${event?.recordId}${event?.slug}`}
-                      onPress={() => _onPress(event as any)}
+                      key={`${dayLine}.${dateRange[0]}`}
+                      onPress={() => onAllDayEventPress(event!)}
                       style={{
                         width: cellWidth * Number(eventCount) - 1,
                       }}
                       backgroundColor={event?.color}
                     >
                       {event?.fieldType === 'duedatefield' && (
-                        <View
-                          style={{
-                            width: 14,
-                            height: 14,
-                            borderRadius: 4,
-                            backgroundColor: '#FFB938',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            marginRight: 4,
-                          }}
-                        >
-                          <Text style={{ color: 'white', fontSize: 10 }}>
-                            0
-                          </Text>
-                        </View>
+                        <DueDateBadge
+                          overdueDays={getOverdueDays(event)}
+                          isComplete={event.dueDateStatus?.isComplete || false}
+                        />
                       )}
 
-                      <AllDayEventLabel>
-                        {event?.recordTitle} • {event?.fieldLabel}
-                      </AllDayEventLabel>
+                      <AllDayEventBoldLabel>
+                        {event?.recordTitle} •{' '}
+                        <AllDayEventLabel>{event?.fieldLabel}</AllDayEventLabel>
+                      </AllDayEventBoldLabel>
                     </AllDayEventPill>
                   ) : (
                     <View style={{ width: cellWidth }} />
