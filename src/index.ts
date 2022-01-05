@@ -15,6 +15,7 @@ export * from './components/CalendarEventForMonthView';
 export * from './components/CalendarHeader';
 export * from './components/CalendarHeaderForMonthView';
 export * from './components/DefaultCalendarEventRenderer';
+export * from './components/CalendarEventListItem';
 
 export * from './commonStyles';
 export * from './interfaces';
