@@ -153,7 +153,7 @@ export function isAllDayEvent(
   const _end = dayjs(end?.date);
 
   if (fieldType === 'firstcreatedfield' || fieldType === 'lastupdatedfield') {
-    return end?.include_time ? false : true;
+    return !start?.include_time;
   }
 
   if (fieldType === 'datefield' && !end?.include_time) {
