@@ -46,6 +46,11 @@ const headerDateFormat = (
       startDateFormat: isStartCurrYear ? 'dddd, MMM D' : 'dddd, MMM D, YYYY',
       endDateFormat: '',
     };
+  } else if (mode === 'dayGridMonth') {
+    return {
+      startDateFormat: isStartCurrYear ? 'MMMM' : 'MMMM YYYY',
+      endDateFormat: '',
+    };
   } else {
     if (isStartCurrYear && isEndCurrYear) {
       return { startDateFormat: 'MMM D', endDateFormat: 'MMM D' };
@@ -58,7 +63,7 @@ const headerDateFormat = (
 };
 
 const getDateRange = (mode: Mode, dateRange: dayjs.Dayjs[]): string => {
-  if (mode === 'timeGrid') {
+  if (mode === 'timeGrid' || mode === 'dayGridMonth') {
     const { startDateFormat } = headerDateFormat(
       mode,
       isCurrentYear(dateRange[0]),

@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import React from 'react';
+import React, { useRef } from 'react';
 import type { TextStyle, ViewStyle } from 'react-native';
 
 import { MIN_HEIGHT } from '../../commonStyles';
@@ -26,11 +26,10 @@ import {
   typedMemo,
 } from '../../utils';
 import { CalendarBody } from '../CalendarBody';
-import { CalendarBodyForMonthView } from 'rn-smartsuite-big-calendar';
 import { CalendarHeader } from '../CalendarHeader';
-import { CalendarHeaderForMonthView } from 'rn-smartsuite-big-calendar';
 import { CalendarList } from '../CalendarList';
 import { CalendarDateRangeHeader } from '../CalendarDateRangeHeader';
+import { CalendarMonth } from '../CalendarMonth';
 
 export interface CalendarContainerProps<T> {
   /**
@@ -125,11 +124,7 @@ function _CalendarContainer<T>({
   onShowAllDayEvents,
   renderEvent,
   renderHeader: HeaderComponent = CalendarHeader,
-  renderHeaderForMonthView:
-    HeaderComponentForMonthView = CalendarHeaderForMonthView,
   weekEndsOn = 6,
-  maxVisibleEventCount = 3,
-  eventMinHeightForMonthView = 22,
   activeDate,
   headerComponent = null,
   headerComponentStyle = {},
@@ -139,6 +134,7 @@ function _CalendarContainer<T>({
   activeColor,
 }: CalendarContainerProps<T>) {
   const [targetDate, setTargetDate] = React.useState(dayjs(date));
+  const calendarRef = useRef<any | null>(null);
 
   React.useEffect(() => {
     if (date) {
@@ -211,8 +207,10 @@ function _CalendarContainer<T>({
         (direction === 'RIGHT' && theme.isRTL)
       ) {
         setTargetDate(targetDate.add(modeToNum(mode, targetDate), 'day'));
+        calendarRef.current?.onSwipeLeft();
       } else {
-        setTargetDate(targetDate.add(modeToNum(mode, targetDate) * -1, 'day'));
+        setTargetDate(targetDate.add(-modeToNum(mode, targetDate), 'day'));
+        calendarRef.current?.onSwipeRight();
       }
     },
     [swipeEnabled, targetDate, mode, theme.isRTL]
@@ -227,34 +225,22 @@ function _CalendarContainer<T>({
   };
 
   if (mode === 'dayGridMonth') {
-    const headerProps = {
-      style: headerContainerStyle,
-      locale: locale,
-      weekStartsOn: weekStartsOn,
-      headerContentStyle: headerContentStyle,
-      dayHeaderStyle: dayHeaderStyle,
-      dayHeaderHighlightColor: dayHeaderHighlightColor,
-      weekDayHeaderHighlightColor: weekDayHeaderHighlightColor,
-      showAllDayEventCell: showAllDayEventCell,
-    };
     return (
       <React.Fragment>
-        <HeaderComponentForMonthView {...headerProps} />
-        <CalendarBodyForMonthView<T>
-          {...commonProps}
-          style={bodyContainerStyle}
-          containerHeight={height}
-          events={daytimeEvents}
-          eventCellStyle={eventCellStyle}
-          weekStartsOn={weekStartsOn}
-          hideNowIndicator={hideNowIndicator}
-          onPressCell={onPressCell}
-          onPressEvent={onPressEvent}
-          onSwipeHorizontal={onSwipeHorizontal}
-          renderEvent={renderEvent}
+        <CalendarDateRangeHeader
+          mode={mode}
+          dateRange={dateRange}
+          onToday={onTodayPress}
+          onChangeRange={onSwipeHorizontal}
+          onChangeMode={onViewModePress}
+        />
+        <CalendarMonth
+          calendarRef={calendarRef}
+          events={events}
+          dateRange={dateRange}
           targetDate={targetDate}
-          maxVisibleEventCount={maxVisibleEventCount}
-          eventMinHeightForMonthView={eventMinHeightForMonthView}
+          activeColor={activeColor}
+          onSwipeHorizontal={onSwipeHorizontal}
         />
       </React.Fragment>
     );

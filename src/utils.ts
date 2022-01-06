@@ -110,7 +110,7 @@ export function modeToNum(mode: Mode, current?: dayjs.Dayjs | Date): number {
     if (current instanceof Date) {
       current = dayjs(current);
     }
-    return current.daysInMonth() - current.date() + 1;
+    return current.daysInMonth();
   }
   switch (mode) {
     case 'timeGrid':
