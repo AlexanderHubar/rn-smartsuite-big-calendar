@@ -8,7 +8,7 @@ import { SectionList } from 'react-native';
 import { CalendarEventItem } from '../CalendarEventListItem';
 import { ListHeader } from './CalendarListHeader';
 
-import { styleSheet } from './styled';
+import { styleSheet, ListContainer } from './styled';
 import { usePanResponder } from '../../hooks/usePanResponder';
 import dayjs from 'dayjs';
 import { EmptyEventList } from './EmptyList';
@@ -48,22 +48,24 @@ function _CalendarList<T>({
   }, []);
 
   return (
-    <SectionList
-      sections={sections}
-      contentContainerStyle={styleSheet.scrollView}
-      ref={scrollView}
-      {...panResponder.panHandlers}
-      stickySectionHeadersEnabled={false}
-      scrollEventThrottle={32}
-      nestedScrollEnabled
-      renderItem={({ item: data }) => (
-        <CalendarEventItem event={data} onPress={onEventPress} />
-      )}
-      renderSectionHeader={({ section: { section } }) => (
-        <ListHeader date={section} color={activeColor} />
-      )}
-      ListEmptyComponent={<EmptyEventList />}
-    />
+    <ListContainer>
+      <SectionList
+        sections={sections}
+        contentContainerStyle={styleSheet.scrollView}
+        ref={scrollView}
+        {...panResponder.panHandlers}
+        stickySectionHeadersEnabled={false}
+        scrollEventThrottle={32}
+        nestedScrollEnabled
+        renderItem={({ item: data }) => (
+          <CalendarEventItem event={data} onPress={onEventPress} />
+        )}
+        renderSectionHeader={({ section: { section } }) => (
+          <ListHeader date={section} color={activeColor} />
+        )}
+        ListEmptyComponent={<EmptyEventList />}
+      />
+    </ListContainer>
   );
 }
 
