@@ -46,3 +46,13 @@ export const getUtcDate = (date: string | Date, timezone: string = 'UTC') =>
   utcToZonedTime(date, timezone);
 
 export const getDateWithoutTime = (date?: string | null) => date?.split('T')[0];
+
+export const updateCurrentMonthDay = (date: Date) => {
+  const currentDate = new Date();
+
+  const isCurrentMonth = currentDate.getUTCMonth() === date.getUTCMonth();
+
+  const currentDay = currentDate.getUTCDate();
+  const updatedDate = date.setUTCDate(isCurrentMonth ? currentDay : 1);
+  return new Date(updatedDate).toISOString();
+};
