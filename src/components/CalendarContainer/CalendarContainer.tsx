@@ -240,6 +240,7 @@ function _CalendarContainer<T>({
           dateRange={dateRange}
           targetDate={targetDate}
           activeColor={activeColor}
+          onEventPress={onPressEvent}
           onSwipeHorizontal={onSwipeHorizontal}
         />
       </React.Fragment>
