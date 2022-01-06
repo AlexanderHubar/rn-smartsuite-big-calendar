@@ -103,7 +103,6 @@ function _CalendarMonth<T>({
         }}
         style={styles.calendar}
         onMonthChange={handleOnMonthChanged}
-        // enableSwipeMonths
       />
       <FlatList
         data={dayEvents}
