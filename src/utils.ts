@@ -3,7 +3,7 @@ import React from 'react';
 import type { TextStyle, ViewStyle } from 'react-native';
 
 import { OVERLAP_PADDING } from './commonStyles';
-import type { ICalendarEvent, Mode, WeekNum } from './interfaces';
+import type { DateObject, ICalendarEvent, Mode, WeekNum } from './interfaces';
 import type { Palette } from './theme/ThemeInterface';
 
 export const typedMemo: <T>(c: T) => T = React.memo;
@@ -145,11 +145,48 @@ export function formatStartEnd(event: ICalendarEvent, format: string) {
 }
 
 export function isAllDayEvent(
-  start?: Date | string | null,
-  end?: Date | string | null
+  fieldType: string,
+  start?: DateObject | null,
+  end?: DateObject | null
 ) {
-  const _start = dayjs(start);
-  const _end = dayjs(end);
+  const _start = dayjs(start?.date);
+  const _end = dayjs(end?.date);
+
+  if (fieldType === 'firstcreatedfield' || fieldType === 'lastupdatedfield') {
+    return !start?.include_time;
+  }
+
+  if (fieldType === 'datefield' && !end?.include_time) {
+    return true;
+  }
+
+  if (fieldType === 'daterangefield') {
+    if (!end?.include_time && !start?.include_time) {
+      return true;
+    }
+
+    if (_start.diff(_end, 'day')) {
+      return true;
+    }
+
+    return false;
+  }
+
+  if (fieldType === 'duedatefield') {
+    if (!end?.include_time) {
+      return true;
+    }
+
+    if (!end?.include_time && !start?.include_time) {
+      return true;
+    }
+
+    if (_start.diff(_end, 'day')) {
+      return true;
+    }
+
+    return false;
+  }
 
   return (
     _start.hour() === 0 &&

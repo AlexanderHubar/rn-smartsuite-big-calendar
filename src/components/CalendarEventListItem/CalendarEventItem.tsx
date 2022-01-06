@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { CalendarEventItemProps } from './types';
-import { FieldType, typedMemo } from 'rn-smartsuite-big-calendar';
+import { FieldType } from 'rn-smartsuite-big-calendar';
 
 import {
   DetailsContainer,
@@ -16,7 +16,7 @@ import {
 import { DueDateBadge } from '../DueDateBadge';
 import { getOverdueDays, getRecordTimeRange } from '../../date-utils';
 
-function _CalendarEventItem<T>({ event, onPress }: CalendarEventItemProps<T>) {
+function CalendarEventItem<T>({ event, onPress }: CalendarEventItemProps<T>) {
   const isDueDate = event.fieldType === FieldType.duedatefield;
 
   return (
@@ -43,4 +43,4 @@ function _CalendarEventItem<T>({ event, onPress }: CalendarEventItemProps<T>) {
   );
 }
 
-export const CalendarEventItem = typedMemo(_CalendarEventItem);
+export { CalendarEventItem };

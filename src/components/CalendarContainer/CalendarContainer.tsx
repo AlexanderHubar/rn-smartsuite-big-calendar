@@ -82,6 +82,7 @@ export interface CalendarContainerProps<T> {
   onPressDateHeader?: (date: Date) => void;
   onPressEvent?: (event: ICalendarEvent<T>) => void;
   onViewModePress?: (mode: Mode) => void;
+  onShowAllDayEvents: (date: Date) => void;
   weekEndsOn?: WeekNum;
   maxVisibleEventCount?: number;
   eventMinHeightForMonthView?: number;
@@ -120,6 +121,7 @@ function _CalendarContainer<T>({
   onPressDateHeader,
   onPressEvent,
   onViewModePress,
+  onShowAllDayEvents,
   renderEvent,
   renderHeader: HeaderComponent = CalendarHeader,
   weekEndsOn = 6,
@@ -143,7 +145,7 @@ function _CalendarContainer<T>({
   const allDayEvents = React.useMemo(
     () =>
       events.filter((event) =>
-        isAllDayEvent(event.fromDate.date, event.toDate?.date)
+        isAllDayEvent(event.fieldType, event.fromDate, event.toDate)
       ),
     [events]
   );
@@ -151,7 +153,7 @@ function _CalendarContainer<T>({
   const daytimeEvents = React.useMemo(
     () =>
       events.filter(
-        (event) => !isAllDayEvent(event.fromDate.date, event.toDate?.date)
+        (event) => !isAllDayEvent(event.fieldType, event.fromDate, event.toDate)
       ),
     [events]
   );
@@ -288,7 +290,13 @@ function _CalendarContainer<T>({
         onChangeRange={onSwipeHorizontal}
         onChangeMode={onViewModePress}
       />
-      {showDaysHeader && <HeaderComponent {...headerProps} mode={mode} />}
+      <HeaderComponent
+        {...headerProps}
+        showDaysHeader={showDaysHeader}
+        mode={mode}
+        onPressEvent={onPressEvent}
+        onShowAllDayEvents={onShowAllDayEvents}
+      />
       <CalendarBody
         {...commonProps}
         style={bodyContainerStyle}

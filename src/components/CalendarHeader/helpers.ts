@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import type { ICalendarEvent } from '../../interfaces';
 import { filter, reduce } from 'remeda';
-import type { Mode } from '../../interfaces';
 
 type WeekTimeLine = any[][];
 type DayTimeLine = any[];
@@ -29,53 +28,74 @@ export const getEventsByDay = <T>(
       return eventsObject;
     }
 
-    return { ...eventsObject, [event.recordId]: filteredDaysId };
+    return {
+      ...eventsObject,
+      [`${event.recordId}-${event.slug}`]: filteredDaysId,
+    };
   }, {});
 
 export const getEventsByRangeArray = (
   eventsObj: Record<string, any[]>,
   countOfDays = 3
 ) => {
-  let eventsRangeArr: any[] = [];
+  let eventsRangeArr: (string | false)[][] = [];
 
   const eventIds = Object.keys(eventsObj);
 
   eventIds.forEach((eventId) => {
-    for (let i = 0; i < eventIds.length; i++) {
-      const daysIds = eventsObj[eventId];
+    const days = eventsObj[eventId];
 
-      let isAvailable = true;
+    const firstValidIndex = eventsRangeArr.reduce((acc) => {
+      const isEventsRangeArrEmpty = eventsRangeArr.length === 0;
 
-      daysIds.forEach((dayKey: string) => {
-        isAvailable = !eventsRangeArr[i]?.[dayKey];
-      });
+      if (!isEventsRangeArrEmpty) {
+        const availableIndex = eventsRangeArr.findIndex((eventsRange) => {
+          const isRangeAvailable = !days.some((day) => {
+            const isDayFree = eventsRange[day];
 
-      if (isAvailable) {
-        daysIds.forEach((dayKey) => {
-          if (eventsRangeArr[i]) {
-            eventsRangeArr[i][dayKey] = eventId;
-          } else {
-            const newSubArr: any[] = new Array(countOfDays).fill(false);
+            return isDayFree;
+          });
 
-            newSubArr[dayKey as any] = eventId;
-            eventsRangeArr[i] = newSubArr;
-          }
+          return isRangeAvailable;
         });
 
-        break;
+        return availableIndex === -1 ? eventsRangeArr.length : availableIndex;
       }
+
+      return acc;
+    }, 0);
+
+    const daysArr = new Array(countOfDays).fill(false);
+
+    const alreadyHasEvents = eventsRangeArr[firstValidIndex];
+
+    if (alreadyHasEvents) {
+      eventsRangeArr[firstValidIndex] = eventsRangeArr[firstValidIndex].map(
+        (event, dayIndex) => {
+          if (event) {
+            return event;
+          }
+
+          return days.find((_index) => +_index === dayIndex) ? eventId : event;
+        }
+      );
+    }
+
+    if (!alreadyHasEvents) {
+      eventsRangeArr[firstValidIndex] = daysArr.map((_, dayIndex) => {
+        return days.find((index) => Number(index) === dayIndex)
+          ? eventId
+          : false;
+      });
     }
   });
 
   return eventsRangeArr.slice(0, 4);
 };
 
-export const getWeekTimeLine = (
-  eventsByDay: Record<string, any[]>,
-  mode: Mode
-) =>
+export const getWeekTimeLine = (eventsByRangeArray: (string | false)[][]) =>
   reduce(
-    getEventsByRangeArray(eventsByDay, mode === 'timeGridWeek' ? 7 : 3),
+    eventsByRangeArray,
     (rangeTimeLine: WeekTimeLine, timeLine) => {
       const dayEvents = reduce(
         timeLine,
@@ -92,7 +112,7 @@ export const getWeekTimeLine = (
           const idWithCount = `${eventId}|${eventsCount}`;
 
           if (eventsLine.find((eventsId) => eventsId === idWithCount)) {
-            return [...eventsLine, false];
+            return eventsLine;
           }
 
           return [...eventsLine, idWithCount];

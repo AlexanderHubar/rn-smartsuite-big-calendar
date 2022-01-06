@@ -7,6 +7,8 @@ import type {
 } from '../../interfaces';
 import { useTheme } from '../../theme/ThemeContext';
 import { formatStartEnd } from '../../utils';
+import { DueDateBadge } from '../DueDateBadge';
+import { getOverdueDays } from '../../date-utils';
 
 interface DefaultCalendarEventRendererProps<T> {
   touchableOpacityProps: CalendarTouchableOpacityProps;
@@ -34,20 +36,11 @@ export function DefaultCalendarEventRenderer<T>({
   return (
     <TouchableOpacity {...touchableOpacityProps}>
       <View style={{ flexDirection: 'row' }}>
-        {event.fieldType === 'duedatefield' && (
-          <View
-            style={{
-              width: 14,
-              height: 15,
-              borderRadius: 4,
-              backgroundColor: '#FFB938',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginRight: 4,
-            }}
-          >
-            <Text style={{ color: 'white' }}>0</Text>
-          </View>
+        {event?.fieldType === 'duedatefield' && (
+          <DueDateBadge
+            overdueDays={getOverdueDays(event)}
+            isComplete={event.dueDateStatus?.isComplete || false}
+          />
         )}
         <Text style={eventTitleStyle} numberOfLines={1}>
           {formatStartEnd(event, timeFormat)} {event.recordTitle} •{' '}
