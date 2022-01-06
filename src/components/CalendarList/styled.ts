@@ -1,8 +1,13 @@
 import { StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
+
+export const ListContainer = styled.View`
+  height: 100%;
+`;
 
 export const styleSheet = StyleSheet.create({
   scrollView: {
-    height: '100%',
+    flexGrow: 1,
     paddingLeft: 16,
     paddingRight: 16,
     paddingBottom: 32,

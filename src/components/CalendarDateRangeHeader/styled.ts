@@ -9,6 +9,8 @@ export const HeaderContainer = styled.View`
   align-items: center;
   padding-left: 16px;
   padding-right: 16px;
+  margin-bottom: 8px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
 `;
 
 export const TodayButtonContainer = styled.TouchableOpacity``;
