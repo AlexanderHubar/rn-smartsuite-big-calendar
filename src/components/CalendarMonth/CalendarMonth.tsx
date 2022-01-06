@@ -71,12 +71,6 @@ function _CalendarMonth<T>({
   );
 
   const handleOnMonthChanged = (date: DateData) => {
-    // const direction: HorizontalDirection = dayjs(date.dateString).isBefore(
-    //   currentDate
-    // )
-    //   ? 'RIGHT'
-    //   : 'LEFT';
-
     setCurrentDate(
       getDateWithoutTime(updateCurrentMonthDay(new Date(date.dateString)))
     );
