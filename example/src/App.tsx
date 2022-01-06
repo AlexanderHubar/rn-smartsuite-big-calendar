@@ -451,6 +451,7 @@ export const App = () => {
           height={Dimensions.get('window').height}
           onViewModePress={(mode) => console.log(mode)}
           onPressEvent={(event) => console.log(event)}
+          onAddEvent={(date) => console.log(date)}
         />
       </SafeAreaView>
     </React.Fragment>

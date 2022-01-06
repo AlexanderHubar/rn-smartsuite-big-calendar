@@ -8,7 +8,7 @@ export const HeaderContainer = styled.View`
   margin-top: 20px;
 `;
 
-export const PlusButton = styled.TouchableWithoutFeedback``;
+export const PlusButton = styled.TouchableOpacity``;
 
 export const DayTitle = styled.Text`
   font-weight: 700;

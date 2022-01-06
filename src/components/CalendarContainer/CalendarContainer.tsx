@@ -83,6 +83,7 @@ export interface CalendarContainerProps<T> {
   onPressEvent?: (event: ICalendarEvent<T>) => void;
   onViewModePress?: (mode: Mode) => void;
   onShowAllDayEvents: (date: Date) => void;
+  onAddEvent: (date: Date) => void;
   weekEndsOn?: WeekNum;
   maxVisibleEventCount?: number;
   eventMinHeightForMonthView?: number;
@@ -122,6 +123,7 @@ function _CalendarContainer<T>({
   onPressEvent,
   onViewModePress,
   onShowAllDayEvents,
+  onAddEvent,
   renderEvent,
   renderHeader: HeaderComponent = CalendarHeader,
   weekEndsOn = 6,
@@ -263,6 +265,7 @@ function _CalendarContainer<T>({
           activeColor={activeColor}
           onEventPress={onPressEvent}
           onSwipeHorizontal={onSwipeHorizontal}
+          onAddEvent={onAddEvent}
         />
       </React.Fragment>
     );

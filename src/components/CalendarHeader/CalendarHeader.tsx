@@ -158,7 +158,13 @@ function _CalendarHeader<T>({
   };
 
   return (
-    <View style={[theme.isRTL ? u['flex-row-reverse'] : u['flex-row'], style]}>
+    <View
+      style={[
+        theme.isRTL ? u['flex-row-reverse'] : u['flex-row'],
+        style,
+        { paddingTop: 8 },
+      ]}
+    >
       <View style={[u['z-10'], u['w-50'], borderColor]} />
       <View style={{ flexDirection: 'row', flex: 1 }}>
         {dateRange.map((date, index) => {
