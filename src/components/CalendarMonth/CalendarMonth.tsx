@@ -3,7 +3,7 @@ import { ICalendarEvent, typedMemo } from 'rn-smartsuite-big-calendar';
 
 import { Calendar } from 'react-native-calendars';
 import { FlatList, View } from 'react-native';
-import type { CalendarMonthProps } from './types';
+import type { CalendarMonthProps, MarkedDatesType } from './types';
 import dayjs from 'dayjs';
 import { getDateWithoutTime, updateCurrentMonthDay } from '../../date-utils';
 
@@ -49,23 +49,26 @@ function _CalendarMonth<T>({
     ).isSame(currentDate)
   );
 
-  const markedDotes = monthEvents.reduce((acc, curr: ICalendarEvent) => {
-    const date =
-      getDateWithoutTime(
-        curr.toDate?.date ?? curr.fromDate?.date
-      )?.toString() ?? '';
-    const isSelected = dayjs(date).isSame(currentDate);
+  const markedDotes: MarkedDatesType = monthEvents.reduce(
+    (acc, curr: ICalendarEvent) => {
+      const date =
+        getDateWithoutTime(
+          curr.toDate?.date ?? curr.fromDate?.date
+        )?.toString() ?? '';
+      const isSelected = dayjs(date).isSame(currentDate);
 
-    return {
-      ...acc,
-      [date]: {
-        selected: isSelected,
-        marked: true,
-        dotColor: isSelected ? '#FFFFFF' : '#2E3538',
-        selectedColor: isSelected ? activeColor : '#FFFFFF',
-      },
-    };
-  }, {});
+      return {
+        ...acc,
+        [date]: {
+          selected: isSelected,
+          marked: true,
+          dotColor: isSelected ? '#FFFFFF' : '#2E3538',
+          selectedColor: isSelected ? activeColor : '#FFFFFF',
+        },
+      };
+    },
+    {}
+  );
 
   const handleOnMonthChanged = (date: DateData) => {
     // const direction: HorizontalDirection = dayjs(date.dateString).isBefore(
@@ -93,7 +96,7 @@ function _CalendarMonth<T>({
         markedDates={{
           ...markedDotes,
           [`${currentDate}`]: {
-            ...markedDotes[currentDate],
+            ...markedDotes[`${currentDate}`],
             selected: true,
             selectedColor: activeColor,
           },
