@@ -19,6 +19,7 @@ function _CalendarList<T>({
   activeColor,
   onEventPress,
   onSwipeHorizontal,
+  onAddEvent,
 }: CalendarListProps<T>) {
   const scrollView = React.useRef(null);
   const { groupBy } = useGroupBy();
@@ -61,7 +62,11 @@ function _CalendarList<T>({
           <CalendarEventItem event={data} onPress={onEventPress} />
         )}
         renderSectionHeader={({ section: { section } }) => (
-          <ListHeader date={section} color={activeColor} />
+          <ListHeader
+            date={section}
+            color={activeColor}
+            onAddEvent={onAddEvent}
+          />
         )}
         ListEmptyComponent={<EmptyEventList />}
       />

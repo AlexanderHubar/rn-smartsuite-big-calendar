@@ -8,4 +8,5 @@ export interface CalendarListProps<T> {
   activeColor: string;
   onEventPress?: (event: ICalendarEvent<T>) => void;
   onSwipeHorizontal?: (d: HorizontalDirection) => void;
+  onAddEvent: (date: Date) => void;
 }
