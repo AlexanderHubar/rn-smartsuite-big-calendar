@@ -253,6 +253,7 @@ function _CalendarContainer<T>({
           onDateRangePress={onDateRangePress}
         />
         <CalendarMonth
+          ampm={ampm}
           calendarRef={calendarRef}
           events={events}
           dateRange={dateRange}
@@ -278,6 +279,7 @@ function _CalendarContainer<T>({
           onDateRangePress={onDateRangePress}
         />
         <CalendarList
+          ampm={ampm}
           events={events}
           dateRange={dateRange}
           activeColor={activeColor}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Mode, typedMemo } from 'rn-smartsuite-big-calendar';
 import type { CalendarDateRangeHeaderProps, HeaderDateFormat } from './types';
 
@@ -16,21 +16,22 @@ import ArrowLeft from '../../ui/assets/svg/arrow-left.svg';
 import ArrowRight from '../../ui/assets/svg/arrow-right.svg';
 import ArrowDown from '../../ui/assets/svg/arrow-down.svg';
 import dayjs from 'dayjs';
+import { CalendarContext } from '../Calendar/CalendarContext';
 
-const getModeLabel = (mode: Mode) => {
+const getModeLabel = (mode: Mode): string => {
   switch (mode) {
     case 'timeGrid':
-      return 'Day';
+      return 'calendar.library.timeGrid';
     case 'timeThreeDays':
-      return '3 Days';
+      return 'calendar.library.timeThreeDays';
     case 'timeGridWeek':
-      return 'Week';
+      return 'calendar.library.timeGridWeek';
     case 'dayGridMonth':
-      return 'Month';
+      return 'calendar.library.dayGridMonth';
     case 'listWeek':
-      return 'List';
+      return 'calendar.library.listWeek';
     default:
-      return 'Week';
+      return 'calendar.library.week';
   }
 };
 
@@ -93,10 +94,12 @@ function _CalendarDateRangeHeader({
   onChangeMode,
   onDateRangePress,
 }: CalendarDateRangeHeaderProps) {
+  const { t } = useContext(CalendarContext);
+
   return (
     <HeaderContainer>
       <TodayButtonContainer onPress={onToday}>
-        <HeaderText>{'Today'}</HeaderText>
+        <HeaderText numberOfLines={1}>{t('calendar.library.today')}</HeaderText>
       </TodayButtonContainer>
       <DateRangeContainer>
         <ArrowContainer onPress={() => onChangeRange('RIGHT')}>
@@ -113,7 +116,7 @@ function _CalendarDateRangeHeader({
         </ArrowContainer>
       </DateRangeContainer>
       <ViewModeContainer onPress={() => onChangeMode && onChangeMode(mode)}>
-        <HeaderText>{getModeLabel(mode)}</HeaderText>
+        <HeaderText numberOfLines={1}>{t(getModeLabel(mode))}</HeaderText>
         <ArrowContainer disabled>
           <ArrowDown />
         </ArrowContainer>

@@ -12,9 +12,20 @@ export const HeaderContainer = styled.View`
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
 `;
 
-export const TodayButtonContainer = styled.TouchableOpacity``;
+export const TodayButtonContainer = styled.TouchableOpacity.attrs({
+  hitSlop: {
+    bottom: 5,
+    left: 5,
+    right: 5,
+    top: 5,
+  },
+})`
+  flex: 0.3;
+`;
 
 export const DateRangeContainer = styled.View`
+  flex-shrink: 1;
+
   flex-direction: row;
   align-items: center;
 `;
@@ -23,13 +34,23 @@ export const ArrowContainer = styled.TouchableOpacity`
   padding: 8px;
 `;
 
-export const ViewModeContainer = styled.TouchableOpacity`
+export const ViewModeContainer = styled.TouchableOpacity.attrs({
+  hitSlop: {
+    bottom: 5,
+    left: 5,
+    right: 5,
+    top: 5,
+  },
+})`
+  flex: 0.3;
   flex-direction: row;
   align-items: center;
+  justify-content: flex-end;
 `;
 
 export const HeaderDateContainer = styled.TouchableOpacity``;
 
 export const HeaderText = styled.Text`
   color: #878b92;
+  text-transform: capitalize;
 `;

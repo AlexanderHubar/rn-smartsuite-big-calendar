@@ -441,13 +441,18 @@ export const App = () => {
       <StatusBar barStyle="light-content" />
       <SafeAreaView style={{ backgroundColor: '#FAFAFA' }}>
         <Calendar
+          t={(key) => key}
           onShowAllDayEvents={(date) => console.log(date)}
           events={events as any}
-          mode={'timeThreeDays'}
+          // mode={'timeThreeDays'} dayGridMonth
           // mode={'timeGrid'}
           // mode={'timeGridWeek'}
+          mode={'listWeek'}
+          // mode={'dayGridMonth'}
           activeColor={'#127ee8'}
           showDaysHeader={true}
+          locale={'en'}
+          ampm={true}
           height={Dimensions.get('window').height}
           onViewModePress={(mode) => console.log(mode)}
           onPressEvent={(event) => console.log(event)}

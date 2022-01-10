@@ -3,10 +3,15 @@ import differenceInDays from 'date-fns/differenceInCalendarDays';
 import type { DateData } from 'react-native-calendars/src/types';
 import dayjs from 'dayjs';
 
-export const getTime = (date: Date) =>
-  date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+export const getTime = (date: Date, ampm?: boolean) => {
+  if (ampm) {
+    return dayjs(date).locale('en').format('h:mm A');
+  }
 
-export const getRecordTimeRange = (record: any) => {
+  return dayjs(date).locale('en').format('HH:mm');
+};
+
+export const getRecordTimeRange = (record: any, ampm?: boolean) => {
   const fromDate =
     record.fromDate?.include_time &&
     record.fromDate?.date &&
@@ -17,11 +22,11 @@ export const getRecordTimeRange = (record: any) => {
     new Date(record.toDate?.date);
 
   if (fromDate && toDate) {
-    return `${getTime(fromDate)} - ${getTime(toDate)}`;
+    return `${getTime(fromDate, ampm)} - ${getTime(toDate, ampm)}`;
   }
 
   if (toDate || fromDate) {
-    return toDate ? getTime(toDate) : getTime(fromDate);
+    return toDate ? getTime(toDate, ampm) : getTime(fromDate, ampm);
   }
   return 'All-day';
 };
@@ -47,7 +52,8 @@ export const getOverdueDays = (record: any) => {
 export const getUtcDate = (date: string | Date, timezone: string = 'UTC') =>
   utcToZonedTime(date, timezone);
 
-export const getDateWithoutTime = (date?: string | null) => date?.split('T')[0];
+export const getDateWithoutTime = (date?: string | null) =>
+  dayjs(date).toISOString().split('T')[0];
 
 export const updateCurrentMonthDay = (date: Date) => {
   const currentDate = new Date();

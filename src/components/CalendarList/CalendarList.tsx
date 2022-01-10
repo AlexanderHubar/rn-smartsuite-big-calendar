@@ -14,6 +14,7 @@ import dayjs from 'dayjs';
 import { EmptyEventList } from './EmptyList';
 
 function _CalendarList<T>({
+  ampm,
   events,
   dateRange,
   activeColor,
@@ -59,7 +60,7 @@ function _CalendarList<T>({
         scrollEventThrottle={32}
         nestedScrollEnabled
         renderItem={({ item: data }) => (
-          <CalendarEventItem event={data} onPress={onEventPress} />
+          <CalendarEventItem event={data} onPress={onEventPress} ampm={ampm} />
         )}
         renderSectionHeader={({ section: { section } }) => (
           <ListHeader
