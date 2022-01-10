@@ -275,6 +275,7 @@ function _CalendarContainer<T>({
           onToday={onTodayPress}
           onChangeRange={onSwipeHorizontal}
           onChangeMode={onViewModePress}
+          onDateRangePress={onDateRangePress}
         />
         <CalendarList
           events={events}
@@ -310,6 +311,7 @@ function _CalendarContainer<T>({
         onToday={onTodayPress}
         onChangeRange={onSwipeHorizontal}
         onChangeMode={onViewModePress}
+        onDateRangePress={onDateRangePress}
       />
       <HeaderComponent
         {...headerProps}

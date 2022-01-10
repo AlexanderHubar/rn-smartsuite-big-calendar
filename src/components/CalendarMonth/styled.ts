@@ -5,6 +5,8 @@ export const Container = styled.View`
   height: 100%;
 `;
 
+export const CalendarContainer = styled.View``;
+
 export const styles = StyleSheet.create({
   events: {
     flexGrow: 1,
