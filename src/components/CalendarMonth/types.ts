@@ -5,6 +5,7 @@ import type { MutableRefObject } from 'react';
 import type { MarkingProps } from 'react-native-calendars/src/calendar/day/marking';
 
 export interface CalendarMonthProps<T> {
+  ampm?: boolean;
   calendarRef: MutableRefObject<any | null>;
   events: ICalendarEvent<T>[];
   dateRange: dayjs.Dayjs[];

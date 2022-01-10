@@ -237,6 +237,7 @@ function _CalendarContainer<T>({
           onChangeMode={onViewModePress}
         />
         <CalendarMonth
+          ampm={ampm}
           calendarRef={calendarRef}
           events={events}
           dateRange={dateRange}
@@ -260,6 +261,7 @@ function _CalendarContainer<T>({
           onChangeMode={onViewModePress}
         />
         <CalendarList
+          ampm={ampm}
           events={events}
           dateRange={dateRange}
           activeColor={activeColor}

@@ -14,6 +14,7 @@ import { usePanResponder } from '../../hooks/usePanResponder';
 import type { DateData } from 'react-native-calendars/src/types';
 
 function _CalendarMonth<T>({
+  ampm,
   calendarRef,
   events,
   dateRange,
@@ -111,7 +112,13 @@ function _CalendarMonth<T>({
         keyExtractor={(_, index) => `${index}`}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => {
-          return <CalendarEventItem event={item} onPress={onEventPress} />;
+          return (
+            <CalendarEventItem
+              event={item}
+              onPress={onEventPress}
+              ampm={ampm}
+            />
+          );
         }}
         ListEmptyComponent={<EmptyEventList />}
       />

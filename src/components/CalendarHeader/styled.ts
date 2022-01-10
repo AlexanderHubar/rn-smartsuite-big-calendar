@@ -5,6 +5,7 @@ export const DayLabel = styled.Text`
   text-align: center;
   margin-bottom: 2px;
   color: #878b92;
+  text-transform: capitalize;
 `;
 
 export const ActiveDateCircle = styled.View<{

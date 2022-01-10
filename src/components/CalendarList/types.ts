@@ -3,6 +3,7 @@ import type { HorizontalDirection } from 'rn-smartsuite-big-calendar';
 import type dayjs from 'dayjs';
 
 export interface CalendarListProps<T> {
+  ampm?: boolean;
   events: ICalendarEvent<T>[];
   dateRange: dayjs.Dayjs[];
   activeColor: string;

@@ -16,7 +16,11 @@ import {
 import { DueDateBadge } from '../DueDateBadge';
 import { getOverdueDays, getRecordTimeRange } from '../../date-utils';
 
-function CalendarEventItem<T>({ event, onPress }: CalendarEventItemProps<T>) {
+function CalendarEventItem<T>({
+  event,
+  onPress,
+  ampm,
+}: CalendarEventItemProps<T>) {
   const isDueDate = event.fieldType === FieldType.duedatefield;
 
   return (
@@ -36,7 +40,7 @@ function CalendarEventItem<T>({ event, onPress }: CalendarEventItemProps<T>) {
               isComplete={event.dueDateStatus.isComplete}
             />
           )}
-          <PeriodText>{getRecordTimeRange(event)}</PeriodText>
+          <PeriodText>{getRecordTimeRange(event, ampm)}</PeriodText>
         </TimeContainer>
       </DetailsContainer>
     </ItemContainer>
