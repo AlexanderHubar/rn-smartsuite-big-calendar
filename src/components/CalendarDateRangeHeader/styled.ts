@@ -28,6 +28,8 @@ export const ViewModeContainer = styled.TouchableOpacity`
   align-items: center;
 `;
 
+export const HeaderDateContainer = styled.TouchableOpacity``;
+
 export const HeaderText = styled.Text`
   color: #878b92;
 `;

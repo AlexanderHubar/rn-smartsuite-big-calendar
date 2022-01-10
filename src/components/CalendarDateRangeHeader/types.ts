@@ -8,6 +8,7 @@ export interface CalendarDateRangeHeaderProps {
   onToday?: () => void;
   onChangeRange: (direction: HorizontalDirection) => void;
   onChangeMode?: (mode: Mode) => void;
+  onDateRangePress?: () => void;
 }
 
 export interface HeaderDateFormat {

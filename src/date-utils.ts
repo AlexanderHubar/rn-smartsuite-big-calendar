@@ -1,5 +1,7 @@
 import { utcToZonedTime } from 'date-fns-tz';
 import differenceInDays from 'date-fns/differenceInCalendarDays';
+import type { DateData } from 'react-native-calendars/src/types';
+import dayjs from 'dayjs';
 
 export const getTime = (date: Date) =>
   date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
@@ -56,3 +58,6 @@ export const updateCurrentMonthDay = (date: Date) => {
   const updatedDate = date.setUTCDate(isCurrentMonth ? currentDay : 1);
   return new Date(updatedDate).toISOString();
 };
+
+export const scrollDirection = (date: DateData, currentDate?: string) =>
+  dayjs(date.dateString).isBefore(currentDate) ? 'RIGHT' : 'LEFT';
