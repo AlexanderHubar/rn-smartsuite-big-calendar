@@ -8,11 +8,19 @@ export const HeaderContainer = styled.View`
   margin-top: 20px;
 `;
 
-export const PlusButton = styled.TouchableOpacity``;
+export const PlusButton = styled.TouchableOpacity.attrs({
+  hitSlop: {
+    bottom: 7,
+    left: 7,
+    right: 7,
+    top: 7,
+  },
+})``;
 
 export const DayTitle = styled.Text`
   font-weight: 700;
   color: #878b92;
+  text-transform: capitalize;
 `;
 
 export const DateTitle = styled.Text`
