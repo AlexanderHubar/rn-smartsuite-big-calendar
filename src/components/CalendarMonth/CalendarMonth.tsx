@@ -127,8 +127,9 @@ function _CalendarMonth<T>({
         />
       </CalendarContainer>
       <FlatList
+        style={{ flex: 1 }}
         data={dayEvents}
-        style={styles.events}
+        contentContainerStyle={styles.events}
         {...panResponder.panHandlers}
         keyExtractor={(_, index) => `${index}`}
         showsVerticalScrollIndicator={false}

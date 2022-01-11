@@ -10,8 +10,9 @@ export const CalendarContainer = styled.View``;
 export const styles = StyleSheet.create({
   events: {
     flexGrow: 1,
-    paddingTop: 32,
     paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 32,
   },
 
   calendar: {
