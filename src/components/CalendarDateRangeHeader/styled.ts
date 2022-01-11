@@ -48,6 +48,8 @@ export const ViewModeContainer = styled.TouchableOpacity.attrs({
   justify-content: flex-end;
 `;
 
+export const HeaderDateContainer = styled.TouchableOpacity``;
+
 export const HeaderText = styled.Text`
   color: #878b92;
   text-transform: capitalize;

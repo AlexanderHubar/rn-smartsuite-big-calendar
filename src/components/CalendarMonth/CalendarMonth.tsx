@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ICalendarEvent, typedMemo } from 'rn-smartsuite-big-calendar';
 
 import { Calendar } from 'react-native-calendars';
 import { FlatList, View } from 'react-native';
 import type { CalendarMonthProps, MarkedDatesType } from './types';
 import dayjs from 'dayjs';
-import { getDateWithoutTime, updateCurrentMonthDay } from '../../date-utils';
+import {
+  getDateWithoutTime,
+  updateCurrentMonthDay,
+  scrollDirection,
+} from '../../date-utils';
 
-import { Container, styles } from './styled';
+import { Container, styles, CalendarContainer } from './styled';
 import { CalendarEventItem } from '../CalendarEventListItem';
 import { EmptyEventList } from '../CalendarList/EmptyList';
 import { usePanResponder } from '../../hooks/usePanResponder';
@@ -19,6 +23,7 @@ function _CalendarMonth<T>({
   events,
   dateRange,
   targetDate,
+  todayDate,
   activeColor,
   onEventPress,
   onSwipeHorizontal,
@@ -26,6 +31,10 @@ function _CalendarMonth<T>({
   const [currentDate, setCurrentDate] = useState(
     getDateWithoutTime(targetDate.toISOString())
   );
+
+  useEffect(() => {
+    setCurrentDate(getDateWithoutTime(todayDate.toISOString()));
+  }, [todayDate]);
 
   const panResponder = usePanResponder({
     onSwipeHorizontal,
@@ -71,40 +80,52 @@ function _CalendarMonth<T>({
     {}
   );
 
+  const changeDirection = (date: DateData) =>
+    onSwipeHorizontal && onSwipeHorizontal(scrollDirection(date, currentDate));
+
   const handleOnMonthChanged = (date: DateData) => {
     setCurrentDate(
       getDateWithoutTime(updateCurrentMonthDay(new Date(date.dateString)))
     );
   };
 
+  const handleOnDayPress = (date: DateData) => {
+    if (dayjs(date.dateString).month() !== dayjs(currentDate).month()) {
+      changeDirection(date);
+    }
+    setCurrentDate(date.dateString);
+  };
+
   return (
     <Container>
-      <Calendar
-        ref={(ref) => {
-          calendarRef.current = ref;
-        }}
-        current={currentDate}
-        onDayPress={(day) => setCurrentDate(day.dateString)}
-        hideArrows
-        firstDay={1}
-        renderHeader={() => <View />}
-        markedDates={{
-          ...markedDotes,
-          [`${currentDate}`]: {
-            ...markedDotes[`${currentDate}`],
-            selected: true,
-            selectedColor: activeColor,
-          },
-        }}
-        theme={{
-          dayTextColor: '#2E3538',
-          textDisabledColor: '#a5a5a5',
-          todayTextColor: activeColor,
-          calendarBackground: '#FFFFFF',
-        }}
-        style={styles.calendar}
-        onMonthChange={handleOnMonthChanged}
-      />
+      <CalendarContainer {...panResponder.panHandlers}>
+        <Calendar
+          ref={(ref) => {
+            calendarRef.current = ref;
+          }}
+          current={currentDate}
+          onDayPress={handleOnDayPress}
+          hideArrows
+          firstDay={1}
+          renderHeader={() => <View />}
+          markedDates={{
+            ...markedDotes,
+            [`${currentDate}`]: {
+              ...markedDotes[`${currentDate}`],
+              selected: true,
+              selectedColor: activeColor,
+            },
+          }}
+          theme={{
+            dayTextColor: '#2E3538',
+            textDisabledColor: '#a5a5a5',
+            todayTextColor: activeColor,
+            calendarBackground: '#FFFFFF',
+          }}
+          style={styles.calendar}
+          onMonthChange={handleOnMonthChanged}
+        />
+      </CalendarContainer>
       <FlatList
         data={dayEvents}
         style={styles.events}

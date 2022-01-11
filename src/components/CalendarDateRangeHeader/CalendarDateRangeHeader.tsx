@@ -9,6 +9,7 @@ import {
   HeaderText,
   TodayButtonContainer,
   ViewModeContainer,
+  HeaderDateContainer,
 } from './styled';
 
 import ArrowLeft from '../../ui/assets/svg/arrow-left.svg';
@@ -91,6 +92,7 @@ function _CalendarDateRangeHeader({
   onToday,
   onChangeRange,
   onChangeMode,
+  onDateRangePress,
 }: CalendarDateRangeHeaderProps) {
   const { t } = useContext(CalendarContext);
 
@@ -103,7 +105,12 @@ function _CalendarDateRangeHeader({
         <ArrowContainer onPress={() => onChangeRange('RIGHT')}>
           <ArrowLeft />
         </ArrowContainer>
-        <HeaderText>{getDateRange(mode, dateRange)}</HeaderText>
+        <HeaderDateContainer
+          disabled={!onDateRangePress}
+          onPress={onDateRangePress}
+        >
+          <HeaderText>{getDateRange(mode, dateRange)}</HeaderText>
+        </HeaderDateContainer>
         <ArrowContainer onPress={() => onChangeRange('LEFT')}>
           <ArrowRight />
         </ArrowContainer>

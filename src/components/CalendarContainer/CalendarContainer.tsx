@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import React, { useRef } from 'react';
 import type { TextStyle, ViewStyle } from 'react-native';
 
@@ -30,6 +30,7 @@ import { CalendarHeader } from '../CalendarHeader';
 import { CalendarList } from '../CalendarList';
 import { CalendarDateRangeHeader } from '../CalendarDateRangeHeader';
 import { CalendarMonth } from '../CalendarMonth';
+import XDate from 'xdate';
 
 export interface CalendarContainerProps<T> {
   /**
@@ -84,6 +85,7 @@ export interface CalendarContainerProps<T> {
   onViewModePress?: (mode: Mode) => void;
   onShowAllDayEvents: (date: Date) => void;
   onAddEvent: (date: Date) => void;
+  onDateRangePress?: () => void;
   weekEndsOn?: WeekNum;
   maxVisibleEventCount?: number;
   eventMinHeightForMonthView?: number;
@@ -124,6 +126,7 @@ function _CalendarContainer<T>({
   onViewModePress,
   onShowAllDayEvents,
   onAddEvent,
+  onDateRangePress,
   renderEvent,
   renderHeader: HeaderComponent = CalendarHeader,
   weekEndsOn = 6,
@@ -136,13 +139,25 @@ function _CalendarContainer<T>({
   activeColor,
 }: CalendarContainerProps<T>) {
   const [targetDate, setTargetDate] = React.useState(dayjs(date));
+  const [todayDate, setTodayDate] = React.useState(dayjs(date));
   const calendarRef = useRef<any | null>(null);
 
   React.useEffect(() => {
     if (date) {
-      setTargetDate(dayjs(date));
+      updateTargetCalendarDate(dayjs(date));
     }
   }, [date]);
+
+  const updateTargetCalendarDate = (_targetDay: Dayjs) => {
+    setTargetDate(_targetDay);
+    setTodayDate(_targetDay);
+    if (calendarRef.current) {
+      calendarRef.current.updateMonth(
+        new XDate(_targetDay.year(), _targetDay.month(), _targetDay.day()),
+        true
+      );
+    }
+  };
 
   const allDayEvents = React.useMemo(
     () =>
@@ -218,7 +233,7 @@ function _CalendarContainer<T>({
     [swipeEnabled, targetDate, mode, theme.isRTL]
   );
 
-  const onTodayPress = () => setTargetDate(dayjs(date));
+  const onTodayPress = () => updateTargetCalendarDate(dayjs());
 
   const commonProps = {
     cellHeight,
@@ -235,6 +250,7 @@ function _CalendarContainer<T>({
           onToday={onTodayPress}
           onChangeRange={onSwipeHorizontal}
           onChangeMode={onViewModePress}
+          onDateRangePress={onDateRangePress}
         />
         <CalendarMonth
           ampm={ampm}
@@ -242,6 +258,7 @@ function _CalendarContainer<T>({
           events={events}
           dateRange={dateRange}
           targetDate={targetDate}
+          todayDate={todayDate}
           activeColor={activeColor}
           onEventPress={onPressEvent}
           onSwipeHorizontal={onSwipeHorizontal}
@@ -259,6 +276,7 @@ function _CalendarContainer<T>({
           onToday={onTodayPress}
           onChangeRange={onSwipeHorizontal}
           onChangeMode={onViewModePress}
+          onDateRangePress={onDateRangePress}
         />
         <CalendarList
           ampm={ampm}
@@ -295,6 +313,7 @@ function _CalendarContainer<T>({
         onToday={onTodayPress}
         onChangeRange={onSwipeHorizontal}
         onChangeMode={onViewModePress}
+        onDateRangePress={onDateRangePress}
       />
       <HeaderComponent
         {...headerProps}

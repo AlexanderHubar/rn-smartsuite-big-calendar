@@ -10,6 +10,7 @@ export interface CalendarMonthProps<T> {
   events: ICalendarEvent<T>[];
   dateRange: dayjs.Dayjs[];
   targetDate: Date | dayjs.Dayjs;
+  todayDate: Date | dayjs.Dayjs;
   activeColor: string;
   onEventPress?: (event: ICalendarEvent<T>) => void;
   onSwipeHorizontal?: (d: HorizontalDirection) => void;
