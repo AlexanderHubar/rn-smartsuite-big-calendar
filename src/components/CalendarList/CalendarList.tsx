@@ -52,6 +52,7 @@ function _CalendarList<T>({
   return (
     <ListContainer>
       <SectionList
+        style={{ flex: 1 }}
         sections={sections}
         contentContainerStyle={styleSheet.scrollView}
         ref={scrollView}

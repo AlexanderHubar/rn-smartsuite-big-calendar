@@ -42,11 +42,11 @@ const events = [
     dueDateStatus: { isComplete: false, statusResult: [Object] },
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    fromDate: { date: '2022-01-04T00:00:00Z', include_time: false },
+    fromDate: { date: '2022-01-04T00:05:00Z', include_time: false },
     recordId: '61d2cf352d72e8aa3829a63f',
     recordTitle: 'due date with time',
     slug: 'due_date',
-    toDate: { date: '2022-01-03T22:45:00Z', include_time: true },
+    toDate: { date: '2022-01-04T23:35:00Z', include_time: true },
   },
   {
     color: '#B7E3FB',

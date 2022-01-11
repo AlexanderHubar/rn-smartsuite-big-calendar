@@ -72,6 +72,8 @@ function _CalendarEvent<T>({
         backgroundColor: event.color,
         borderRadius: 4,
         marginHorizontal: 4,
+        borderWidth: 1,
+        borderColor: '#ffffff',
       },
     ],
   });
