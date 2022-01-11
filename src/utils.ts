@@ -350,3 +350,15 @@ export function objHasContent(obj: ViewStyle | TextStyle): boolean {
 export function stringHasContent(string: string): boolean {
   return !!string.length;
 }
+
+type BetweenDate = string | number | Date | dayjs.Dayjs | null | undefined;
+
+export const isBetween = (
+  date: BetweenDate,
+  startDate: BetweenDate,
+  endDate: BetweenDate,
+  unit: dayjs.OpUnitType | null | undefined = 'day',
+  d: '()' | '[]' | '[)' | '(]' = '[]'
+): boolean => {
+  return dayjs(date).isBetween(startDate, endDate, unit, d);
+};
