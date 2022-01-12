@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ICalendarEvent, typedMemo } from 'rn-smartsuite-big-calendar';
 
 import type { CalendarListProps } from './types';
 import { useGroupBy } from '../../hooks/useGroupBy';
 import { getDateWithoutTime } from '../../date-utils';
-import { SectionList } from 'react-native';
+import { SectionList, SectionListData } from 'react-native';
 import { CalendarEventItem } from '../CalendarEventListItem';
 import { ListHeader } from './CalendarListHeader';
 
@@ -22,7 +22,7 @@ function _CalendarList<T>({
   onSwipeHorizontal,
   onAddEvent,
 }: CalendarListProps<T>) {
-  const scrollView = React.useRef(null);
+  const sectionRef = useRef<SectionList>(null);
   const { groupBy } = useGroupBy();
 
   const panResponder = usePanResponder({
@@ -49,13 +49,38 @@ function _CalendarList<T>({
     return [...acc, { section: curr[0], data: curr[1] }];
   }, []);
 
+  const scrollToLocation = () => {
+    const currDate = getDateWithoutTime(dayjs().toISOString());
+    const index = sections.findIndex(
+      (item: SectionListData<any>) => item.section === currDate
+    );
+
+    if (sections.length) {
+      sectionRef.current?.scrollToLocation({
+        sectionIndex: index === -1 ? 0 : index,
+        itemIndex: 0,
+      });
+    }
+  };
+
+  const onScrollToIndexFailed = () => {
+    setTimeout(() => {
+      scrollToLocation();
+    }, 100);
+  };
+
+  useEffect(() => {
+    setTimeout(() => scrollToLocation(), 100);
+  }, [dateRange]);
+
   return (
     <ListContainer>
       <SectionList
         style={{ flex: 1 }}
         sections={sections}
+        onScrollToIndexFailed={onScrollToIndexFailed}
         contentContainerStyle={styleSheet.scrollView}
-        ref={scrollView}
+        ref={sectionRef}
         {...panResponder.panHandlers}
         stickySectionHeadersEnabled={false}
         scrollEventThrottle={32}
