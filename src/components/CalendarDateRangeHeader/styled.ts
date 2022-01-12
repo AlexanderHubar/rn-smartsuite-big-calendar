@@ -51,6 +51,9 @@ export const ViewModeContainer = styled.TouchableOpacity.attrs({
 export const HeaderDateContainer = styled.TouchableOpacity``;
 
 export const HeaderText = styled.Text`
+  line-height: 14px;
+  font-size: 12px;
+  font-weight: 500;
   color: #878b92;
   text-transform: capitalize;
 `;

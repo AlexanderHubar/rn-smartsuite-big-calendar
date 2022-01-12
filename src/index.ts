@@ -1,6 +1,21 @@
+import { Platform } from 'react-native';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import isBetween from 'dayjs/plugin/isBetween';
+import 'intl';
+import 'intl/locale-data/jsonp/en';
+
+if (Platform.OS === 'android') {
+  // See https://github.com/expo/expo/issues/6536 for this issue.
+  if (typeof (Intl as any).__disableRegExpRestore === 'function') {
+    (Intl as any).__disableRegExpRestore();
+  }
+
+  require('@formatjs/intl-locale/polyfill');
+  require('@formatjs/intl-datetimeformat/polyfill');
+  require('@formatjs/intl-datetimeformat/locale-data/en');
+  require('@formatjs/intl-datetimeformat/add-all-tz');
+}
 
 export { Calendar } from './components/Calendar';
 

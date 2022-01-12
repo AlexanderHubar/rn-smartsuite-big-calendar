@@ -61,7 +61,7 @@ export const AllDayEventLabel = styled.Text`
 
 export const AllDayEventBoldLabel = styled(AllDayEventLabel)`
   font-weight: 500;
-  font-size: 13px;
+  line-height: 14px;
 `;
 
 export const WeekTimeLine = styled.View`

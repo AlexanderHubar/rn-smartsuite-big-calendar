@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import React, { useState } from 'react';
 import { find } from 'remeda';
-import { TouchableOpacity, View, ViewStyle } from 'react-native';
+import { TouchableOpacity, View, ViewStyle, Platform } from 'react-native';
 
 import { u } from '../../commonStyles';
 import type { ICalendarEvent } from '../../interfaces';
@@ -132,12 +132,14 @@ function _CalendarHeader<T>({
       }
 
       if (isDateBetweenEvent) {
+        const opacity = isDayMode ? 1 : 0;
+
         eventsArr.push(
           <AllDayEventPill
             onPress={() => onAllDayEventPress(event)}
-            style={{ opacity: isDayMode ? 1 : 0 }}
+            style={{ opacity }}
             backgroundColor={event.color}
-            key={`${event.slug}.${event.recordId}`}
+            key={`${event.slug}.${event.recordId}.${event.recordId}.${opacity}`}
           >
             {event?.fieldType === 'duedatefield' && (
               <DueDateBadge
@@ -247,7 +249,11 @@ function _CalendarHeader<T>({
                         />
                       )}
 
-                      <AllDayEventBoldLabel>
+                      <AllDayEventBoldLabel
+                        numberOfLines={
+                          Platform.OS === 'android' ? 1 : undefined
+                        }
+                      >
                         {event?.recordTitle} •{' '}
                         <AllDayEventLabel>{event?.fieldLabel}</AllDayEventLabel>
                       </AllDayEventBoldLabel>
