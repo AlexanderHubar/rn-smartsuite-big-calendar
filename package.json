@@ -138,7 +138,8 @@
           "trailingComma": "es5",
           "useTabs": false
         }
-      ]
+      ],
+      "react-hooks/exhaustive-deps": "warn"
     }
   },
   "eslintIgnore": [
