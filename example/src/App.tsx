@@ -423,15 +423,37 @@ const events = [
     toDate: { date: '2022-01-03T11:16:50.359Z', include_time: false },
   },
   {
-    color: '#FFD5B3',
+    color: '#c5ffb3',
     dueDateStatus: { isComplete: undefined, statusResult: undefined },
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    fromDate: { date: '2022-01-03T10:32:06.123Z', include_time: false },
+    fromDate: { date: '2022-01-12T08:32:06.123Z', include_time: true },
     recordId: '61d2cf352d72e8aa3829a63f',
     recordTitle: 'due date with time',
     slug: 'last_updated',
-    toDate: { date: '2022-01-03T11:32:06.123Z', include_time: false },
+    toDate: { date: '2022-01-12T11:32:06.123Z', include_time: true },
+  },
+  {
+    color: '#c5ffb3',
+    dueDateStatus: { isComplete: undefined, statusResult: undefined },
+    fieldLabel: 'Last Updated',
+    fieldType: 'lastupdatedfield',
+    fromDate: { date: '2022-01-12T08:32:06.123Z', include_time: false },
+    recordId: '61d2cf352d72e8aa3829a63faaaa',
+    recordTitle: 'due date with time',
+    slug: 'last_updated',
+    toDate: { date: '2022-01-12T11:32:06.123Z', include_time: false },
+  },
+  {
+    color: '#c5ffb3',
+    dueDateStatus: { isComplete: undefined, statusResult: undefined },
+    fieldLabel: 'Last Updated',
+    fieldType: 'lastupdatedfield',
+    fromDate: { date: '2022-01-12T08:32:06.123Z', include_time: false },
+    recordId: '61d2cf352d72e8aa3829a63fbbb',
+    recordTitle: 'due date with time',
+    slug: 'last_updated',
+    toDate: { date: '2022-01-12T11:32:06.123Z', include_time: false },
   },
 ];
 
@@ -444,10 +466,10 @@ export const App = () => {
           t={(key) => key}
           onShowAllDayEvents={(date) => console.log(date)}
           events={events as any}
-          // mode={'timeThreeDays'} dayGridMonth
+          // mode={'timeThreeDays'}
           // mode={'timeGrid'}
-          // mode={'timeGridWeek'}
-          mode={'listWeek'}
+          mode={'timeThreeDays'}
+          // mode={'listWeek'}
           // mode={'dayGridMonth'}
           activeColor={'#127ee8'}
           showDaysHeader={true}
