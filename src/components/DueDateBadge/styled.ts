@@ -5,7 +5,8 @@ export const DueDateContainer = styled.View`
 `;
 
 export const OverdueDaysContainer = styled.View<{ isOverdue?: boolean }>`
-  width: 18px;
+  min-width: 18px;
+  padding: 0 3px;
   height: 16px;
   justify-content: center;
   align-content: center;
@@ -15,7 +16,7 @@ export const OverdueDaysContainer = styled.View<{ isOverdue?: boolean }>`
 `;
 
 export const OverdueDaysText = styled.Text`
-  font-size: ${({ theme }) => theme.typography.sm.fontSize}px;
+  font-size: 12px;
   line-height: 16px;
   text-align: center;
   color: white;

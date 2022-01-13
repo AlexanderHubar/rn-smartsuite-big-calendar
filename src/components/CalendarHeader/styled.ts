@@ -45,6 +45,7 @@ export const AllDayEventCell = styled.TouchableOpacity<{ isFirstDay: boolean }>`
 export const AllDayEventPill = styled.TouchableOpacity<{
   backgroundColor?: string;
 }>`
+  overflow: hidden;
   padding: 5px 8px;
   height: 24px;
   margin-bottom: 2px;
