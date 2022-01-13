@@ -1,10 +1,8 @@
 import type dayjs from 'dayjs';
 import * as React from 'react';
-import { TouchableWithoutFeedback, View } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native';
 
-import { u } from '../../commonStyles';
-import { useTheme } from '../../theme/ThemeContext';
-import { isPair } from '../../utils';
+import { HourGuideCellWrapper } from './styled';
 
 interface HourGuideCellProps {
   cellHeight: number;
@@ -23,32 +21,17 @@ export const HourGuideCell = ({
   index,
   dateIndex,
 }: HourGuideCellProps) => {
-  const theme = useTheme();
-
-  const evenCellBg = theme.palette.evenCellBg;
-  const oddCellBg = theme.palette.oddCellBg;
-
   const borderRadius = dateIndex === 0 ? 4 : 0;
 
   return (
     <TouchableWithoutFeedback
       onPress={() => onPress(date.hour(hour).minute(0))}
     >
-      <View
-        style={[
-          u['border-l'],
-          u['border-b'],
-          { borderColor: theme.palette.gray['200'] },
-          { height: cellHeight },
-          { backgroundColor: isPair(index) ? evenCellBg : oddCellBg },
-          index === 0 && {
-            borderTopWidth: 1,
-            borderTopLeftRadius: borderRadius,
-          },
-          index === 23 && {
-            borderBottomLeftRadius: borderRadius,
-          },
-        ]}
+      <HourGuideCellWrapper
+        borderRadius={borderRadius}
+        cellHeight={cellHeight}
+        isFirst={index === 0}
+        isLast={index === 23}
       />
     </TouchableWithoutFeedback>
   );

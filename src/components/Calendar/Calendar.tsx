@@ -6,8 +6,10 @@ import utc from 'dayjs/plugin/utc';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import localeData from 'dayjs/plugin/localeData';
 import { merge } from 'merge-anything';
+import { ThemeProvider } from 'styled-components';
 
-import { defaultTheme } from '../../theme/defaultTheme';
+import { lightTheme } from '../../theme/lightTheme';
+import { darkTheme } from '../../theme/darkTheme';
 import { ThemeContext } from '../../theme/ThemeContext';
 import type { ThemeInterface } from '../../theme/ThemeInterface';
 import type { DeepPartial } from '../../utility-types';
@@ -62,16 +64,18 @@ export interface CalendarProps<T> extends CalendarContainerProps<T> {
   theme?: DeepPartial<ThemeInterface>;
   isRTL?: boolean;
   t: (key: string) => string;
+  isLightMode?: boolean;
 }
 
 function _Calendar<T>({
-  theme = defaultTheme,
+  theme = lightTheme,
   locale = 'ru',
   isRTL,
   t,
+  isLightMode = true,
   ...props
 }: CalendarProps<T>) {
-  const _theme = merge(defaultTheme, theme, { isRTL }) as ThemeInterface;
+  const _theme = merge(lightTheme, theme, { isRTL }) as ThemeInterface;
 
   const dayjsLocale = dayjsLocales[locale] || 'en';
 
@@ -81,15 +85,17 @@ function _Calendar<T>({
   const firstDayOfWeek = globalLocaleData.firstDayOfWeek() as WeekNum;
 
   return (
-    <CalendarContextProvider value={{ t: t }}>
-      <ThemeContext.Provider value={_theme}>
-        <CalendarContainer
-          {...props}
-          locale={dayjsLocale}
-          weekStartsOn={firstDayOfWeek}
-        />
-      </ThemeContext.Provider>
-    </CalendarContextProvider>
+    <ThemeProvider theme={isLightMode ? lightTheme : darkTheme}>
+      <CalendarContextProvider value={{ t: t, isLightMode }}>
+        <ThemeContext.Provider value={_theme}>
+          <CalendarContainer
+            {...props}
+            locale={dayjsLocale}
+            weekStartsOn={firstDayOfWeek}
+          />
+        </ThemeContext.Provider>
+      </CalendarContextProvider>
+    </ThemeProvider>
   );
 }
 

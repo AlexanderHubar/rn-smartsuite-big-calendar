@@ -1,11 +1,28 @@
 import styled from 'styled-components/native';
 
-export const ItemContainer = styled.TouchableOpacity`
+const theme = {
+  light: {
+    background: '#FFFFFF',
+    color: '#2E3538',
+    periodColor: '#2E3538',
+    borderColor: '#E9E9E9',
+  },
+  dark: {
+    background: '#38393B',
+    color: '#FFFFFF',
+    periodColor: '#FFFFFF',
+    borderColor: 'transparent',
+  },
+};
+
+export const ItemContainer = styled.TouchableOpacity<{ isLightMode: boolean }>`
   min-height: 52px;
-  background-color: white;
+  background: ${({ isLightMode }) =>
+    isLightMode ? theme.light.background : theme.dark.background};
   border-radius: 4px;
   border-width: 1px;
-  border-color: #e9e9e9;
+  border-color: ${({ isLightMode }) =>
+    isLightMode ? theme.light.borderColor : theme.dark.borderColor};
   flex-direction: row;
   margin-bottom: 8px;
 `;
@@ -36,10 +53,18 @@ export const TimeContainer = styled.View`
   align-items: center;
 `;
 
-export const FieldTitle = styled.Text``;
-
-export const EventTitle = styled.Text`
-  font-weight: 500;
+export const FieldTitle = styled.Text<{ isLightMode: boolean }>`
+  color: ${({ isLightMode }) =>
+    isLightMode ? theme.light.color : theme.dark.color};
 `;
 
-export const PeriodText = styled.Text``;
+export const EventTitle = styled.Text<{ isLightMode: boolean }>`
+  font-weight: 500;
+  color: ${({ isLightMode }) =>
+    isLightMode ? theme.light.color : theme.dark.color};
+`;
+
+export const PeriodText = styled.Text<{ isLightMode: boolean }>`
+  color: ${({ isLightMode }) =>
+    isLightMode ? theme.light.periodColor : theme.dark.periodColor};
+`;

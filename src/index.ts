@@ -2,6 +2,7 @@ import { Platform } from 'react-native';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import isBetween from 'dayjs/plugin/isBetween';
+
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 
@@ -36,7 +37,7 @@ export * from './commonStyles';
 export * from './interfaces';
 export * from './theme/ThemeContext';
 export * from './theme/ThemeInterface';
-export * from './theme/defaultTheme';
+export * from './theme/lightTheme';
 export * from './utils';
 
 export * from './interfaces';

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { ICalendarEvent, typedMemo } from 'rn-smartsuite-big-calendar';
 
 import type { CalendarListProps } from './types';
@@ -12,6 +12,7 @@ import { styleSheet, ListContainer } from './styled';
 import { usePanResponder } from '../../hooks/usePanResponder';
 import dayjs from 'dayjs';
 import { EmptyEventList } from './EmptyList';
+import { CalendarContext } from '../Calendar/CalendarContext';
 
 function _CalendarList<T>({
   ampm,
@@ -69,6 +70,8 @@ function _CalendarList<T>({
 
   useEffect(() => scrollToIndex(), [dateRange]);
 
+  const { isLightMode } = useContext(CalendarContext);
+
   return (
     <ListContainer>
       <SectionList
@@ -82,7 +85,12 @@ function _CalendarList<T>({
         scrollEventThrottle={32}
         nestedScrollEnabled
         renderItem={({ item: data }) => (
-          <CalendarEventItem event={data} onPress={onEventPress} ampm={ampm} />
+          <CalendarEventItem
+            isLightMode={isLightMode}
+            event={data}
+            onPress={onEventPress}
+            ampm={ampm}
+          />
         )}
         renderSectionHeader={({ section: { section } }) => (
           <ListHeader
