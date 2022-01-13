@@ -1,10 +1,10 @@
 import styled from 'styled-components/native';
 
 export const DayLabel = styled.Text`
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.typography.sm.fontSize}px;
   text-align: center;
   margin-bottom: 2px;
-  color: #878b92;
+  color: ${({ theme }) => theme.typography.color.onSurface};
   text-transform: capitalize;
 `;
 
@@ -24,18 +24,19 @@ export const ActiveDateCircle = styled.View<{
 
 export const CircleLabel = styled.Text<{ shouldHighlight: boolean }>`
   text-align: center;
-  font-size: 12px;
-  color: ${({ shouldHighlight }) => (shouldHighlight ? 'white' : '#2E3538')};
+  font-size: ${({ theme }) => theme.typography.sm.fontSize}px;
+  color: ${({ shouldHighlight, theme }) =>
+    shouldHighlight ? 'white' : theme.typography.color.primary};
 `;
 
 export const AllDayEventCell = styled.TouchableOpacity<{ isFirstDay: boolean }>`
-  background-color: white;
+  background-color: ${({ theme }) => theme.onSurface};
   border-top-left-radius: ${({ isFirstDay }) => (isFirstDay ? 4 : 0)}px;
   border-bottom-left-radius: ${({ isFirstDay }) => (isFirstDay ? 4 : 0)}px;
   border-width: 1px;
   flex-grow: 1;
   border-right-width: 0;
-  border-color: #eeeeee;
+  border-color: ${({ theme }) => theme.onPrimary};
   min-height: 32px;
   margin-bottom: 8px;
   padding-top: 2px;
@@ -54,7 +55,7 @@ export const AllDayEventPill = styled.TouchableOpacity<{
 `;
 
 export const AllDayEventLabel = styled.Text`
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.typography.sm.fontSize}px;
   color: white;
   font-weight: 400;
 `;
@@ -72,4 +73,10 @@ export const WeekTimeLine = styled.View`
   left: 1px;
   background-color: transparent;
   position: absolute;
+`;
+
+export const CalendarHeaderWrapper = styled.View`
+  padding-top: 8px;
+  background: ${({ theme }) => theme.background};
+  flex-direction: ${({ theme }) => (theme.isRTL ? 'row-reverse' : 'row')};
 `;

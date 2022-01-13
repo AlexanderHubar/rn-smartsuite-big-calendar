@@ -423,7 +423,7 @@ const events = [
     toDate: { date: '2022-01-03T11:16:50.359Z', include_time: false },
   },
   {
-    color: '#c5ffb3',
+    color: '#92d935',
     dueDateStatus: { isComplete: undefined, statusResult: undefined },
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
@@ -434,7 +434,7 @@ const events = [
     toDate: { date: '2022-01-12T11:32:06.123Z', include_time: true },
   },
   {
-    color: '#c5ffb3',
+    color: '#92d935',
     dueDateStatus: { isComplete: undefined, statusResult: undefined },
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
@@ -445,7 +445,7 @@ const events = [
     toDate: { date: '2022-01-12T11:32:06.123Z', include_time: false },
   },
   {
-    color: '#c5ffb3',
+    color: '#92d935',
     dueDateStatus: { isComplete: undefined, statusResult: undefined },
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
@@ -461,17 +461,17 @@ export const App = () => {
   return (
     <React.Fragment>
       <StatusBar barStyle="light-content" />
-      <SafeAreaView style={{ backgroundColor: '#FAFAFA' }}>
+      <SafeAreaView style={{ backgroundColor: '#38393B' }}>
         <Calendar
           t={(key) => key}
           onShowAllDayEvents={(date) => console.log(date)}
           events={events as any}
-          // mode={'timeThreeDays'}
           // mode={'timeGrid'}
           mode={'timeThreeDays'}
           // mode={'listWeek'}
           // mode={'dayGridMonth'}
           activeColor={'#127ee8'}
+          isLightMode={false}
           showDaysHeader={true}
           locale={'en'}
           ampm={true}

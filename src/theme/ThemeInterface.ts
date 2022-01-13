@@ -16,32 +16,44 @@ export type Typography = Pick<
 >;
 
 export interface ThemeInterface {
+  background: string;
+  onPrimary: string;
+  onSurface: string;
+  dateRangeHeader: {
+    background: string;
+    color: string;
+  };
+  monthCalendar: {
+    textDisabledColor: string;
+    calendarBackground: string;
+    dayTextColor: string;
+    textSectionTitleColor: string;
+    borderColor: string;
+    dotColor: string;
+    selectedDotColor: string;
+  };
   palette: {
     primary: Palette;
-    evenCellBg: string;
-    oddCellBg: string;
     nowIndicator: string;
     gray: {
-      // 50: string
       100: string;
       200: string;
       300: string;
-      // 400: string
       500: string;
-      // 600: string
-      // 700: string
       800: string;
-      // 900: string
     };
   };
   isRTL: boolean;
   typography: {
+    color: {
+      primary: string;
+      onSurface: string;
+    };
     fontFamily?: string;
     xs: Typography;
     sm: Typography;
-    // md: Typography
-    // lg: Typography
-    xl: Typography;
+    m: Typography;
+    l: Typography;
   };
   eventCellOverlappings: readonly Palette[];
 }

@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Text, TextStyle, View } from 'react-native';
+import type { TextStyle } from 'react-native';
 
-import { u } from '../../commonStyles';
-import { useTheme } from '../../theme/ThemeContext';
 import { formatHour } from '../../utils';
 import { objHasContent } from '../../utils';
+import { useTheme } from 'styled-components';
+import { HourGuideColumnLabel, HourGuideColumnWrapper } from './styled';
 
 interface HourGuideColumnProps {
   cellHeight: number;
@@ -22,30 +22,19 @@ const _HourGuideColumn = ({
 }: HourGuideColumnProps) => {
   const theme = useTheme();
 
-  const textStyle = React.useMemo(
-    () => ({
-      color: theme.palette.gray[500],
-      fontSize: theme.typography.xs.fontSize,
-    }),
-    [theme]
-  );
+  const textStyle = {
+    color: theme.typography.color.onSurface,
+    fontSize: theme.typography.xs.fontSize,
+  };
 
   return (
-    <View
-      style={{
-        height: cellHeight,
-      }}
-    >
-      <Text
-        style={[
-          objHasContent(hourStyle) ? hourStyle : textStyle,
-          u['text-center'],
-          { marginTop: -2 },
-        ]}
+    <HourGuideColumnWrapper height={cellHeight}>
+      <HourGuideColumnLabel
+        style={objHasContent(hourStyle) ? hourStyle : textStyle}
       >
         {formatHour(hour, ampm)}
-      </Text>
-    </View>
+      </HourGuideColumnLabel>
+    </HourGuideColumnWrapper>
   );
 };
 

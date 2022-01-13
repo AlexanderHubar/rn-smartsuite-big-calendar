@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ICalendarEvent, typedMemo } from 'rn-smartsuite-big-calendar';
 
 import { Calendar } from 'react-native-calendars';
@@ -16,6 +16,8 @@ import { CalendarEventItem } from '../CalendarEventListItem';
 import { EmptyEventList } from '../CalendarList/EmptyList';
 import { usePanResponder } from '../../hooks/usePanResponder';
 import type { DateData } from 'react-native-calendars/src/types';
+import { useTheme } from 'styled-components';
+import { CalendarContext } from '../Calendar/CalendarContext';
 
 function _CalendarMonth<T>({
   ampm,
@@ -28,6 +30,8 @@ function _CalendarMonth<T>({
   onEventPress,
   onSwipeHorizontal,
 }: CalendarMonthProps<T>) {
+  const theme = useTheme();
+
   const [currentDate, setCurrentDate] = useState(
     getDateWithoutTime(targetDate.toISOString())
   );
@@ -72,7 +76,7 @@ function _CalendarMonth<T>({
         [date]: {
           selected: isSelected,
           marked: true,
-          dotColor: isSelected ? '#FFFFFF' : '#2E3538',
+          dotColor: isSelected ? '#FFFFFF' : theme.monthCalendar.dotColor,
           selectedColor: isSelected ? activeColor : '#FFFFFF',
         },
       };
@@ -96,6 +100,8 @@ function _CalendarMonth<T>({
     setCurrentDate(date.dateString);
   };
 
+  const { isLightMode } = useContext(CalendarContext);
+
   return (
     <Container>
       <CalendarContainer {...panResponder.panHandlers}>
@@ -117,17 +123,18 @@ function _CalendarMonth<T>({
             },
           }}
           theme={{
-            dayTextColor: '#2E3538',
-            textDisabledColor: '#a5a5a5',
+            ...theme.monthCalendar,
             todayTextColor: activeColor,
-            calendarBackground: '#FFFFFF',
           }}
-          style={styles.calendar}
+          style={{
+            ...styles.calendar,
+            borderColor: theme.monthCalendar.borderColor,
+          }}
           onMonthChange={handleOnMonthChanged}
         />
       </CalendarContainer>
       <FlatList
-        style={{ flex: 1 }}
+        style={{ flex: 1, backgroundColor: theme.background }}
         data={dayEvents}
         contentContainerStyle={styles.events}
         {...panResponder.panHandlers}
@@ -136,6 +143,7 @@ function _CalendarMonth<T>({
         renderItem={({ item }) => {
           return (
             <CalendarEventItem
+              isLightMode={isLightMode}
               event={item}
               onPress={onEventPress}
               ampm={ampm}

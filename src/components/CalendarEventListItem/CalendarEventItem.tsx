@@ -20,17 +20,27 @@ function CalendarEventItem<T>({
   event,
   onPress,
   ampm,
+  isLightMode = false,
 }: CalendarEventItemProps<T>) {
   const isDueDate = event.fieldType === FieldType.duedatefield;
 
   return (
-    <ItemContainer onPress={() => onPress && onPress(event)}>
+    <ItemContainer
+      isLightMode={isLightMode}
+      onPress={() => onPress && onPress(event)}
+    >
       <ItemColor color={event.color} />
       <DetailsContainer>
         <TitleContainer>
-          <FieldTitle>
-            <EventTitle>{event.recordTitle} </EventTitle>•
-            <FieldTitle> {event.fieldLabel}</FieldTitle>
+          <FieldTitle isLightMode={isLightMode}>
+            <EventTitle isLightMode={isLightMode}>
+              {event.recordTitle}{' '}
+            </EventTitle>
+            •
+            <FieldTitle isLightMode={isLightMode}>
+              {' '}
+              {event.fieldLabel}
+            </FieldTitle>
           </FieldTitle>
         </TitleContainer>
         <TimeContainer>
@@ -40,7 +50,9 @@ function CalendarEventItem<T>({
               isComplete={event.dueDateStatus.isComplete}
             />
           )}
-          <PeriodText>{getRecordTimeRange(event, ampm)}</PeriodText>
+          <PeriodText isLightMode={isLightMode}>
+            {getRecordTimeRange(event, ampm)}
+          </PeriodText>
         </TimeContainer>
       </DetailsContainer>
     </ItemContainer>

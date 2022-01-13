@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 
 export const ListContainer = styled.View`
   height: 100%;
+  background: ${({ theme }) => theme.background};
 `;
 
 export const styleSheet = StyleSheet.create({

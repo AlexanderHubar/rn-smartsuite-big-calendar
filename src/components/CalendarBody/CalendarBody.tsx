@@ -11,7 +11,6 @@ import type {
   HorizontalDirection,
   ICalendarEvent,
 } from '../../interfaces';
-import { useTheme } from '../../theme/ThemeContext';
 import {
   getCountOfEventsAtEvent,
   getOrderOfEvent,
@@ -25,6 +24,7 @@ import { HourGuideCell } from '../HourGuideCell';
 import { HourGuideColumn } from '../HourGuideColumn';
 
 import { NowIndicatorTriangle, NowIndicator } from './styled';
+import { useTheme } from 'styled-components';
 
 interface CalendarBodyProps<T> {
   cellHeight: number;
@@ -125,6 +125,7 @@ function _CalendarBody<T>({
         style={[
           {
             height: containerHeight - cellHeight * 3,
+            backgroundColor: theme.background,
           },
           style,
         ]}

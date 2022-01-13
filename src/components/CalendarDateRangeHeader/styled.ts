@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 export const HeaderContainer = styled.View`
   width: 100%;
   height: 32px;
-  background: #f2f2f2;
+  background: ${({ theme }) => theme.dateRangeHeader.background};
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -52,7 +52,7 @@ export const HeaderDateContainer = styled.TouchableOpacity``;
 
 export const HeaderText = styled.Text`
   line-height: 14px;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.typography.sm.fontSize}px;
   font-weight: 500;
   color: #878b92;
   text-transform: capitalize;

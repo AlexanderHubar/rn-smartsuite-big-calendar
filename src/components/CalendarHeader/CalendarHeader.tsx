@@ -5,7 +5,6 @@ import { TouchableOpacity, View, ViewStyle, Platform } from 'react-native';
 
 import { u } from '../../commonStyles';
 import type { ICalendarEvent } from '../../interfaces';
-import { useTheme } from '../../theme/ThemeContext';
 import { isToday, typedMemo } from '../../utils';
 import {
   ActiveDateCircle,
@@ -13,6 +12,7 @@ import {
   AllDayEventCell,
   AllDayEventLabel,
   AllDayEventPill,
+  CalendarHeaderWrapper,
   CircleLabel,
   DayLabel,
   WeekTimeLine,
@@ -25,6 +25,7 @@ import {
 import type { Mode } from '../../interfaces';
 import { DueDateBadge } from '../DueDateBadge';
 import { getOverdueDays } from '../../date-utils';
+import { useTheme } from 'styled-components';
 
 export interface CalendarHeaderProps<T> {
   dateRange: dayjs.Dayjs[];
@@ -160,13 +161,7 @@ function _CalendarHeader<T>({
   };
 
   return (
-    <View
-      style={[
-        theme.isRTL ? u['flex-row-reverse'] : u['flex-row'],
-        style,
-        { paddingTop: 8 },
-      ]}
-    >
+    <CalendarHeaderWrapper style={style}>
       <View style={[u['z-10'], u['w-50'], borderColor]} />
       <View style={{ flexDirection: 'row', flex: 1 }}>
         {dateRange.map((date, index) => {
@@ -267,7 +262,7 @@ function _CalendarHeader<T>({
           </WeekTimeLine>
         )}
       </View>
-    </View>
+    </CalendarHeaderWrapper>
   );
 }
 

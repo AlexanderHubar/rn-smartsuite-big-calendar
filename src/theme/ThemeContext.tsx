@@ -1,13 +1,13 @@
 import { createContext, useContext } from 'react';
 
-import { defaultTheme } from './defaultTheme';
+import { lightTheme } from './lightTheme';
 
-export const ThemeContext = createContext(defaultTheme);
+export const ThemeContext = createContext(lightTheme);
 
 export const useTheme = () => {
   const customTheme = useContext(ThemeContext);
   if (!customTheme) {
-    return defaultTheme;
+    return lightTheme;
   }
   return customTheme;
 };
