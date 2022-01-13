@@ -63,22 +63,18 @@ function _CalendarList<T>({
     }
   };
 
-  const onScrollToIndexFailed = () => {
-    setTimeout(() => {
-      scrollToLocation();
-    }, 100);
+  const scrollToIndex = () => {
+    setTimeout(() => scrollToLocation(), 30);
   };
 
-  useEffect(() => {
-    setTimeout(() => scrollToLocation(), 100);
-  }, [dateRange]);
+  useEffect(() => scrollToIndex(), [dateRange]);
 
   return (
     <ListContainer>
       <SectionList
         style={{ flex: 1 }}
         sections={sections}
-        onScrollToIndexFailed={onScrollToIndexFailed}
+        onScrollToIndexFailed={scrollToIndex}
         contentContainerStyle={styleSheet.scrollView}
         ref={sectionRef}
         {...panResponder.panHandlers}
