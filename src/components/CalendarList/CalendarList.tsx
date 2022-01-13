@@ -65,7 +65,7 @@ function _CalendarList<T>({
   };
 
   const scrollToIndex = () => {
-    setTimeout(() => scrollToLocation(), 30);
+    new Promise((resolve) => setTimeout(resolve, 100)).then(scrollToLocation);
   };
 
   useEffect(() => scrollToIndex(), [dateRange]);
