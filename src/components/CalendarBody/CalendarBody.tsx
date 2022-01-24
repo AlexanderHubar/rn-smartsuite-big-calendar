@@ -25,6 +25,7 @@ import { HourGuideColumn } from '../HourGuideColumn';
 
 import { NowIndicatorTriangle, NowIndicator } from './styled';
 import { useTheme } from 'styled-components';
+import { useEffect } from 'react';
 
 interface CalendarBodyProps<T> {
   cellHeight: number;
@@ -45,6 +46,7 @@ interface CalendarBodyProps<T> {
   headerComponent?: React.ReactElement | null;
   headerComponentStyle?: ViewStyle;
   hourStyle?: TextStyle;
+  focusEvent?: ICalendarEvent<T> | any;
 }
 
 function _CalendarBody<T>({
@@ -66,9 +68,11 @@ function _CalendarBody<T>({
   headerComponent = null,
   headerComponentStyle = {},
   hourStyle = {},
+  focusEvent,
 }: CalendarBodyProps<T>) {
   const scrollView = React.useRef<ScrollView>(null);
   const { now } = useNow(!hideNowIndicator);
+  const theme = useTheme();
 
   React.useEffect(() => {
     if (scrollView.current && scrollOffsetMinutes && Platform.OS !== 'ios') {
@@ -99,6 +103,19 @@ function _CalendarBody<T>({
     [onPressCell]
   );
 
+  const focusElementIndex = () => {
+    new Promise((resolve) => setTimeout(resolve, 100)).then(() => {
+      if (focusEvent && scrollView.current) {
+        const eventHours = dayjs(focusEvent.fromDate.date).hour();
+        const scrollY = cellHeight * eventHours;
+
+        scrollView?.current.scrollTo({ x: 0, y: scrollY, animated: true });
+      }
+    });
+  };
+
+  useEffect(() => focusElementIndex(), [focusEvent?.uniqueId]);
+
   const _renderMappedEvent = (event: ICalendarEvent<T>) => (
     <CalendarEvent
       key={`${event.fromDate.date}${event.recordTitle}${event.toDate?.date}`}
@@ -113,8 +130,6 @@ function _CalendarBody<T>({
       ampm={ampm}
     />
   );
-
-  const theme = useTheme();
 
   return (
     <React.Fragment>

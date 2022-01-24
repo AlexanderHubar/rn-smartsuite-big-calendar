@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
@@ -13,13 +13,13 @@ import { darkTheme } from '../../theme/darkTheme';
 import { ThemeContext } from '../../theme/ThemeContext';
 import type { ThemeInterface } from '../../theme/ThemeInterface';
 import type { DeepPartial } from '../../utility-types';
-import { typedMemo } from '../../utils';
 import {
   CalendarContainer,
   CalendarContainerProps,
 } from '../CalendarContainer';
 import type { WeekNum } from 'rn-smartsuite-big-calendar';
 import { CalendarContextProvider } from './CalendarContext';
+import type { CalendarRef } from 'rn-smartsuite-big-calendar';
 
 require('dayjs/locale/en');
 require('dayjs/locale/ru');
@@ -62,19 +62,23 @@ const dayjsLocales: Record<string, string> = {
 
 export interface CalendarProps<T> extends CalendarContainerProps<T> {
   theme?: DeepPartial<ThemeInterface>;
+  locale?: string;
   isRTL?: boolean;
   t: (key: string) => string;
   isLightMode?: boolean;
 }
 
-function _Calendar<T>({
-  theme = lightTheme,
-  locale = 'ru',
-  isRTL,
-  t,
-  isLightMode = true,
-  ...props
-}: CalendarProps<T>) {
+function _Calendar<T>(
+  {
+    theme = lightTheme,
+    locale = 'ru',
+    isRTL,
+    t,
+    isLightMode = true,
+    ...props
+  }: CalendarProps<T>,
+  ref?: React.Ref<CalendarRef> | null
+) {
   const _theme = merge(lightTheme, theme, { isRTL }) as ThemeInterface;
 
   const dayjsLocale = dayjsLocales[locale] || 'en';
@@ -89,6 +93,7 @@ function _Calendar<T>({
       <CalendarContextProvider value={{ t: t, isLightMode }}>
         <ThemeContext.Provider value={_theme}>
           <CalendarContainer
+            ref={ref}
             {...props}
             locale={dayjsLocale}
             weekStartsOn={firstDayOfWeek}
@@ -99,4 +104,4 @@ function _Calendar<T>({
   );
 }
 
-export const Calendar = typedMemo(_Calendar);
+export const Calendar = forwardRef(_Calendar);

@@ -7,6 +7,7 @@ export interface CalendarListProps<T> {
   events: ICalendarEvent<T>[];
   dateRange: dayjs.Dayjs[];
   activeColor: string;
+  focusEvent?: ICalendarEvent<T> | any;
   onEventPress?: (event: ICalendarEvent<T>) => void;
   onSwipeHorizontal?: (d: HorizontalDirection) => void;
   onAddEvent: (date: Date) => void;

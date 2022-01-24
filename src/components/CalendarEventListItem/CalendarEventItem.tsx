@@ -12,6 +12,7 @@ import {
   PeriodText,
   TimeContainer,
   TitleContainer,
+  HighLightBox,
 } from './styled';
 import { DueDateBadge } from '../DueDateBadge';
 import { getOverdueDays, getRecordTimeRange } from '../../date-utils';
@@ -20,15 +21,22 @@ function CalendarEventItem<T>({
   event,
   onPress,
   ampm,
+  opacity,
+  isFocusElement = false,
   isLightMode = false,
 }: CalendarEventItemProps<T>) {
   const isDueDate = event.fieldType === FieldType.duedatefield;
+
+  const highlightColor = isLightMode ? '#a8a8a8' : '#ffffa3';
 
   return (
     <ItemContainer
       isLightMode={isLightMode}
       onPress={() => onPress && onPress(event)}
     >
+      {isFocusElement && (
+        <HighLightBox style={{ opacity }} color={highlightColor} />
+      )}
       <ItemColor color={event.color} />
       <DetailsContainer>
         <TitleContainer>
