@@ -93,3 +93,12 @@ export type DayJSConvertedEvent<T = any> = ICalendarEvent<T>;
  * @deprecated Prefer interface ICalendarEvent instead.
  */
 export type Event<T = any> = ICalendarEvent<T>;
+
+export interface FocusEventData {
+  recordId: string;
+  eventSlug: string;
+}
+
+export interface CalendarRef {
+  focusEvent: (event: FocusEventData) => void;
+}

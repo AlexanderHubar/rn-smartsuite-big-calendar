@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { Animated } from 'react-native';
 
 const theme = {
   light: {
@@ -67,4 +68,15 @@ export const EventTitle = styled.Text<{ isLightMode: boolean }>`
 export const PeriodText = styled.Text<{ isLightMode: boolean }>`
   color: ${({ isLightMode }) =>
     isLightMode ? theme.light.periodColor : theme.dark.periodColor};
+`;
+
+export const HighLightBox = styled(Animated.View)<{ color?: string }>`
+  background-color: ${({ color }) => (color ? color : 'transparent')};
+  border-radius: 4px;
+  flex-direction: row;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
 `;

@@ -1,5 +1,10 @@
 import dayjs, { Dayjs } from 'dayjs';
-import React, { useRef } from 'react';
+import React, {
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import type { TextStyle, ViewStyle } from 'react-native';
 
 import { MIN_HEIGHT } from '../../commonStyles';
@@ -23,7 +28,6 @@ import {
   getDatesInWeek,
   isAllDayEvent,
   modeToNum,
-  typedMemo,
 } from '../../utils';
 import { CalendarBody } from '../CalendarBody';
 import { CalendarHeader } from '../CalendarHeader';
@@ -31,6 +35,9 @@ import { CalendarList } from '../CalendarList';
 import { CalendarDateRangeHeader } from '../CalendarDateRangeHeader';
 import { CalendarMonth } from '../CalendarMonth';
 import XDate from 'xdate';
+import type { FocusEventData } from '../../interfaces';
+import type { CalendarRef } from '../../interfaces';
+import { noop } from '../noop';
 
 export interface CalendarContainerProps<T> {
   /**
@@ -83,8 +90,8 @@ export interface CalendarContainerProps<T> {
   onPressDateHeader?: (date: Date) => void;
   onPressEvent?: (event: ICalendarEvent<T>) => void;
   onViewModePress?: (mode: Mode) => void;
-  onShowAllDayEvents: (date: Date) => void;
-  onAddEvent: (date: Date) => void;
+  onShowAllDayEvents?: (date: Date) => void;
+  onAddEvent?: (date: Date) => void;
   onDateRangePress?: () => void;
   weekEndsOn?: WeekNum;
   maxVisibleEventCount?: number;
@@ -98,49 +105,70 @@ export interface CalendarContainerProps<T> {
   activeColor: string;
 }
 
-function _CalendarContainer<T>({
-  events,
-  height,
-  hourRowHeight,
-  ampm = false,
-  date,
-  eventCellStyle,
-  locale = 'en',
-  hideNowIndicator = false,
-  mode = 'timeGridWeek',
-  overlapOffset,
-  scrollOffsetMinutes = 0,
-  showTime = true,
-  headerContainerStyle = {},
-  headerContentStyle = {},
-  dayHeaderStyle = {},
-  dayHeaderHighlightColor = '',
-  weekDayHeaderHighlightColor = '',
-  bodyContainerStyle = {},
-  swipeEnabled = true,
-  weekStartsOn = 0,
-  onChangeDate,
-  onPressCell,
-  onPressDateHeader,
-  onPressEvent,
-  onViewModePress,
-  onShowAllDayEvents,
-  onAddEvent,
-  onDateRangePress,
-  renderEvent,
-  renderHeader: HeaderComponent = CalendarHeader,
-  weekEndsOn = 6,
-  activeDate,
-  headerComponent = null,
-  headerComponentStyle = {},
-  hourStyle = {},
-  showAllDayEventCell = true,
-  showDaysHeader = true,
-  activeColor,
-}: CalendarContainerProps<T>) {
+function _CalendarContainer<T>(
+  {
+    events,
+    height,
+    hourRowHeight,
+    ampm = false,
+    date,
+    eventCellStyle,
+    locale = 'en',
+    hideNowIndicator = false,
+    mode = 'timeGridWeek',
+    overlapOffset,
+    scrollOffsetMinutes = 0,
+    showTime = true,
+    headerContainerStyle = {},
+    headerContentStyle = {},
+    dayHeaderStyle = {},
+    dayHeaderHighlightColor = '',
+    weekDayHeaderHighlightColor = '',
+    bodyContainerStyle = {},
+    swipeEnabled = true,
+    weekStartsOn = 0,
+    onChangeDate,
+    onPressCell,
+    onPressDateHeader,
+    onPressEvent,
+    onViewModePress,
+    onShowAllDayEvents = noop,
+    onAddEvent = noop,
+    onDateRangePress,
+    renderEvent,
+    renderHeader: HeaderComponent = CalendarHeader,
+    weekEndsOn = 6,
+    activeDate,
+    headerComponent = null,
+    headerComponentStyle = {},
+    hourStyle = {},
+    showAllDayEventCell = true,
+    showDaysHeader = true,
+    activeColor,
+  }: CalendarContainerProps<T>,
+  ref?: React.Ref<CalendarRef> | null
+) {
   const [targetDate, setTargetDate] = React.useState(dayjs(date));
   const [todayDate, setTodayDate] = React.useState(dayjs(date));
+  const [selEvent, setSelEvent] = useState<ICalendarEvent<T> | undefined>();
   const calendarRef = useRef<any | null>(null);
+
+  const getHighlightedEvent = (selectedEvent: FocusEventData | null) => {
+    const event = events.find(
+      (_event) =>
+        _event.recordId === selectedEvent?.recordId &&
+        _event.slug === selectedEvent?.eventSlug
+    );
+
+    if (event) {
+      updateTargetCalendarDate(dayjs(event.fromDate.date));
+      setSelEvent({ ...event, uniqueId: Math.random().toString() });
+    }
+  };
+
+  useImperativeHandle(ref, () => ({
+    focusEvent: (event: FocusEventData) => getHighlightedEvent(event),
+  }));
 
   React.useEffect(() => {
     if (date) {
@@ -283,6 +311,7 @@ function _CalendarContainer<T>({
           events={events}
           dateRange={dateRange}
           activeColor={activeColor}
+          focusEvent={selEvent}
           onEventPress={onPressEvent}
           onSwipeHorizontal={onSwipeHorizontal}
           onAddEvent={onAddEvent}
@@ -340,9 +369,13 @@ function _CalendarContainer<T>({
         headerComponent={headerComponent}
         headerComponentStyle={headerComponentStyle}
         hourStyle={hourStyle}
+        focusEvent={selEvent}
       />
     </React.Fragment>
   );
 }
 
-export const CalendarContainer = typedMemo(_CalendarContainer);
+export const CalendarContainer = forwardRef<
+  CalendarRef,
+  CalendarContainerProps<any>
+>(_CalendarContainer);

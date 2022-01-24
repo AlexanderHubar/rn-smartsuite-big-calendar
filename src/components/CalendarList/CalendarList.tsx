@@ -4,7 +4,7 @@ import { ICalendarEvent, typedMemo } from 'rn-smartsuite-big-calendar';
 import type { CalendarListProps } from './types';
 import { useGroupBy } from '../../hooks/useGroupBy';
 import { getDateWithoutTime } from '../../date-utils';
-import { SectionList, SectionListData } from 'react-native';
+import { Animated, SectionList, SectionListData } from 'react-native';
 import { CalendarEventItem } from '../CalendarEventListItem';
 import { ListHeader } from './CalendarListHeader';
 
@@ -19,12 +19,27 @@ function _CalendarList<T>({
   events,
   dateRange,
   activeColor,
+  focusEvent,
   onEventPress,
   onSwipeHorizontal,
   onAddEvent,
 }: CalendarListProps<T>) {
   const sectionRef = useRef<SectionList>(null);
   const { groupBy } = useGroupBy();
+  const { isLightMode } = useContext(CalendarContext);
+
+  const animatedValue = new Animated.Value(0);
+
+  const opacity = animatedValue.interpolate({
+    inputRange: [0, 0.3, 1],
+    outputRange: [0, 0.3, 0],
+  });
+
+  const highlightItem = Animated.timing(animatedValue, {
+    toValue: 1,
+    duration: 1000,
+    useNativeDriver: false,
+  });
 
   const panResponder = usePanResponder({
     onSwipeHorizontal,
@@ -68,9 +83,44 @@ function _CalendarList<T>({
     new Promise((resolve) => setTimeout(resolve, 100)).then(scrollToLocation);
   };
 
+  const focusElementIndex = () => {
+    new Promise((resolve) => setTimeout(resolve, 100)).then(() => {
+      if (focusEvent && sectionRef.current) {
+        const eventDate = getDateWithoutTime(
+          dayjs(
+            focusEvent.toDate?.date ?? focusEvent.fromDate?.date
+          ).toISOString()
+        );
+        const sectionIndex = sections.findIndex(
+          (item: SectionListData<any>) => item.section === eventDate
+        );
+        const itemIndex = sections[sectionIndex].data.findIndex(
+          (section: ICalendarEvent) =>
+            section.recordId === focusEvent.recordId &&
+            section.slug === focusEvent.slug
+        );
+
+        sectionRef.current?.scrollToLocation({
+          sectionIndex: sectionIndex === -1 ? 0 : sectionIndex,
+          itemIndex: itemIndex === -1 ? 0 : itemIndex + 1,
+        });
+
+        animatedValue.setValue(0);
+        highlightItem.start();
+      }
+    });
+  };
+
+  const isFocusElement = (data: any): boolean =>
+    Boolean(
+      focusEvent &&
+        focusEvent.slug === data.slug &&
+        focusEvent.recordId === data.recordId
+    );
+
   useEffect(() => scrollToIndex(), [dateRange]);
 
-  const { isLightMode } = useContext(CalendarContext);
+  useEffect(() => focusElementIndex(), [focusEvent?.uniqueId]);
 
   return (
     <ListContainer>
@@ -88,6 +138,8 @@ function _CalendarList<T>({
           <CalendarEventItem
             isLightMode={isLightMode}
             event={data}
+            opacity={opacity}
+            isFocusElement={isFocusElement(data)}
             onPress={onEventPress}
             ampm={ampm}
           />
