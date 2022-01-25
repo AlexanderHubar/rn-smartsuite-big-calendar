@@ -4,7 +4,7 @@ import { ICalendarEvent, typedMemo } from 'rn-smartsuite-big-calendar';
 import type { CalendarListProps } from './types';
 import { useGroupBy } from '../../hooks/useGroupBy';
 import { getDateWithoutTime } from '../../date-utils';
-import { Animated, SectionList, SectionListData } from 'react-native';
+import { Animated, SectionList, SectionListData, Easing } from 'react-native';
 import { CalendarEventItem } from '../CalendarEventListItem';
 import { ListHeader } from './CalendarListHeader';
 
@@ -23,6 +23,7 @@ function _CalendarList<T>({
   onEventPress,
   onSwipeHorizontal,
   onAddEvent,
+  onFocusEventEnd,
 }: CalendarListProps<T>) {
   const sectionRef = useRef<SectionList>(null);
   const { groupBy } = useGroupBy();
@@ -31,13 +32,14 @@ function _CalendarList<T>({
   const animatedValue = new Animated.Value(0);
 
   const opacity = animatedValue.interpolate({
-    inputRange: [0, 0.3, 1],
-    outputRange: [0, 0.3, 0],
+    inputRange: [0, 0.5, 1],
+    outputRange: [0, 0.5, 0],
   });
 
   const highlightItem = Animated.timing(animatedValue, {
     toValue: 1,
     duration: 1000,
+    easing: Easing.ease,
     useNativeDriver: false,
   });
 
@@ -104,7 +106,7 @@ function _CalendarList<T>({
         });
 
         animatedValue.setValue(0);
-        highlightItem.start();
+        setTimeout(() => highlightItem.start(onFocusEventEnd), 100);
       }
     });
   };
@@ -116,7 +118,11 @@ function _CalendarList<T>({
         focusEvent.recordId === data.recordId
     );
 
-  useEffect(() => scrollToIndex(), [dateRange]);
+  useEffect(() => {
+    if (!focusEvent) {
+      scrollToIndex();
+    }
+  }, [dateRange]);
 
   useEffect(() => focusElementIndex(), [focusEvent?.uniqueId]);
 

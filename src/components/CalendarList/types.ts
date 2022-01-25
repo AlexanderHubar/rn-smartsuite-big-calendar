@@ -11,4 +11,5 @@ export interface CalendarListProps<T> {
   onEventPress?: (event: ICalendarEvent<T>) => void;
   onSwipeHorizontal?: (d: HorizontalDirection) => void;
   onAddEvent: (date: Date) => void;
+  onFocusEventEnd: () => void;
 }
