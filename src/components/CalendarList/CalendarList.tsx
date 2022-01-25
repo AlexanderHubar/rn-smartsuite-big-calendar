@@ -48,7 +48,7 @@ function _CalendarList<T>({
   const weekEvents = dateRange
     .map((date) =>
       events.filter((event) =>
-        dayjs(event.toDate?.date ?? event.fromDate?.date).isBetween(
+        dayjs(event.fromDate?.date).isBetween(
           date.startOf('day'),
           date.endOf('day'),
           null,
@@ -59,7 +59,7 @@ function _CalendarList<T>({
     .flat(2);
 
   const groupedEventsByDate = groupBy(weekEvents, (event: ICalendarEvent) =>
-    getDateWithoutTime(event.toDate?.date ?? event.fromDate?.date)
+    getDateWithoutTime(event.fromDate?.date)
   );
   const sections = [...groupedEventsByDate].reduce((acc: any, curr) => {
     return [...acc, { section: curr[0], data: curr[1] }];
@@ -87,9 +87,7 @@ function _CalendarList<T>({
     new Promise((resolve) => setTimeout(resolve, 100)).then(() => {
       if (focusEvent && sectionRef.current) {
         const eventDate = getDateWithoutTime(
-          dayjs(
-            focusEvent.toDate?.date ?? focusEvent.fromDate?.date
-          ).toISOString()
+          dayjs(focusEvent.fromDate?.date).toISOString()
         );
         const sectionIndex = sections.findIndex(
           (item: SectionListData<any>) => item.section === eventDate
