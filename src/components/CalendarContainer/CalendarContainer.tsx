@@ -150,7 +150,7 @@ function _CalendarContainer<T>(
 ) {
   const [targetDate, setTargetDate] = React.useState(dayjs(date));
   const [todayDate, setTodayDate] = React.useState(dayjs(date));
-  const [selEvent, setSelEvent] = useState<ICalendarEvent<T> | undefined>();
+  const [focusEvent, setFocusEvent] = useState<ICalendarEvent<T> | null>(null);
   const calendarRef = useRef<any | null>(null);
 
   const getHighlightedEvent = (selectedEvent: FocusEventData | null) => {
@@ -162,7 +162,7 @@ function _CalendarContainer<T>(
 
     if (event) {
       updateTargetCalendarDate(dayjs(event.fromDate.date));
-      setSelEvent({ ...event, uniqueId: Math.random().toString() });
+      setFocusEvent({ ...event, uniqueId: Math.random().toString() });
     }
   };
 
@@ -311,10 +311,11 @@ function _CalendarContainer<T>(
           events={events}
           dateRange={dateRange}
           activeColor={activeColor}
-          focusEvent={selEvent}
+          focusEvent={focusEvent}
           onEventPress={onPressEvent}
           onSwipeHorizontal={onSwipeHorizontal}
           onAddEvent={onAddEvent}
+          onFocusEventEnd={() => setFocusEvent(null)}
         />
       </React.Fragment>
     );
@@ -369,7 +370,7 @@ function _CalendarContainer<T>(
         headerComponent={headerComponent}
         headerComponentStyle={headerComponentStyle}
         hourStyle={hourStyle}
-        focusEvent={selEvent}
+        focusEvent={focusEvent}
       />
     </React.Fragment>
   );

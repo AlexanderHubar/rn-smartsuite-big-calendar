@@ -27,7 +27,9 @@ function CalendarEventItem<T>({
 }: CalendarEventItemProps<T>) {
   const isDueDate = event.fieldType === FieldType.duedatefield;
 
-  const highlightColor = isLightMode ? '#a8a8a8' : '#ffffa3';
+  const highlightColor = isLightMode
+    ? 'rgba(78,80,85,0.5)'
+    : 'rgba(233,233,233,0.5)';
 
   return (
     <ItemContainer
