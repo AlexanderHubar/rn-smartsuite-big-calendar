@@ -25,7 +25,8 @@ import { HourGuideColumn } from '../HourGuideColumn';
 
 import { NowIndicatorTriangle, NowIndicator } from './styled';
 import { useTheme } from 'styled-components';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
+import { CalendarContext } from '../Calendar/CalendarContext';
 
 interface CalendarBodyProps<T> {
   cellHeight: number;
@@ -73,6 +74,7 @@ function _CalendarBody<T>({
   const scrollView = React.useRef<ScrollView>(null);
   const { now } = useNow(!hideNowIndicator);
   const theme = useTheme();
+  const { isLightMode } = useContext(CalendarContext);
 
   React.useEffect(() => {
     if (scrollView.current && scrollOffsetMinutes && Platform.OS !== 'ios') {
@@ -128,6 +130,7 @@ function _CalendarBody<T>({
       overlapOffset={overlapOffset}
       renderEvent={renderEvent}
       ampm={ampm}
+      isLightMode={isLightMode}
     />
   );
 

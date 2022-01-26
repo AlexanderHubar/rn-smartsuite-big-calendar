@@ -56,6 +56,7 @@ export interface ThemeInterface {
     l: Typography;
   };
   eventCellOverlappings: readonly Palette[];
+  spotlightInactive: string;
 }
 
 export type PartialTheme = DeepPartial<ThemeInterface>;

@@ -3,6 +3,7 @@ import React, { createContext } from 'react';
 export const CalendarContext = createContext({
   t: (key: string) => key,
   isLightMode: true,
+  spotlightItems: [],
 });
 
 export function CalendarContextProvider({

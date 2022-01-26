@@ -16,6 +16,7 @@ import {
   typedMemo,
 } from '../../utils';
 import { DefaultCalendarEventRenderer } from '../DefaultCalendarEventRenderer';
+import { useSpotlight } from '../../hooks/useSpotlight';
 
 const getEventCellPositionStyle = (
   start?: Date | string | null,
@@ -40,6 +41,7 @@ interface CalendarEventProps<T> {
   overlapOffset?: number;
   renderEvent?: EventRenderer<T>;
   ampm: boolean;
+  isLightMode?: boolean;
 }
 
 function _CalendarEvent<T>({
@@ -52,8 +54,10 @@ function _CalendarEvent<T>({
   overlapOffset = OVERLAP_OFFSET,
   renderEvent,
   ampm,
+  isLightMode,
 }: CalendarEventProps<T>) {
   const theme = useTheme();
+  const { color } = useSpotlight();
 
   const palettes = React.useMemo(
     () => [theme.palette.primary, ...theme.eventCellOverlappings],
@@ -69,11 +73,11 @@ function _CalendarEvent<T>({
       getStyleForOverlappingEvent(eventOrder, overlapOffset, palettes),
       u.absolute,
       {
-        backgroundColor: event.color,
+        backgroundColor: color(event.recordId + event.slug, event.color),
         borderRadius: 4,
         marginHorizontal: 4,
         borderWidth: 1,
-        borderColor: '#ffffff',
+        borderColor: isLightMode ? '#ffffff' : '#38393B',
       },
     ],
   });

@@ -26,6 +26,7 @@ import type { Mode } from '../../interfaces';
 import { DueDateBadge } from '../DueDateBadge';
 import { getOverdueDays } from '../../date-utils';
 import { useTheme } from 'styled-components';
+import { useSpotlight } from '../../hooks/useSpotlight';
 
 export interface CalendarHeaderProps<T> {
   dateRange: dayjs.Dayjs[];
@@ -59,6 +60,7 @@ function _CalendarHeader<T>({
   onShowAllDayEvents,
   showDaysHeader,
 }: CalendarHeaderProps<T>) {
+  const { color } = useSpotlight();
   const [cellWidth, setCellWidth] = useState(0);
 
   const _onPress = React.useCallback(
@@ -139,7 +141,7 @@ function _CalendarHeader<T>({
           <AllDayEventPill
             onPress={() => onAllDayEventPress(event)}
             style={{ opacity }}
-            backgroundColor={event.color}
+            backgroundColor={color(event.recordId + event.slug, event.color)}
             key={`${event.slug}.${event.recordId}.${event.recordId}.${opacity}`}
           >
             {event?.fieldType === 'duedatefield' && (
@@ -228,6 +230,9 @@ function _CalendarHeader<T>({
                       _event.recordId === recordId && _event.slug === fieldSlug
                   );
 
+                  const id = event ? event.recordId + event.slug : '';
+                  const eventPillBackground = color(id, event?.color);
+
                   return dayLine && index < 3 ? (
                     <AllDayEventPill
                       key={`${dayLine}.${dateRange[0]}`}
@@ -235,7 +240,7 @@ function _CalendarHeader<T>({
                       style={{
                         width: cellWidth * Number(eventCount) - 1,
                       }}
-                      backgroundColor={event?.color}
+                      backgroundColor={eventPillBackground}
                     >
                       {event?.fieldType === 'duedatefield' && (
                         <DueDateBadge

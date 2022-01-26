@@ -102,3 +102,14 @@ export interface FocusEventData {
 export interface CalendarRef {
   focusEvent: (event: FocusEventData) => void;
 }
+
+export enum SpotlightType {
+  record = 'record',
+  field = 'field',
+}
+
+export interface SpotlightItems {
+  type: SpotlightType;
+  value: string;
+  color: string;
+}

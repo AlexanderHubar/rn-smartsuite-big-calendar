@@ -19,6 +19,7 @@ export const lightTheme: ThemeInterface = {
   onPrimary: '#E9E9E9',
   onSurface: '#FFFFFF',
   background: '#FAFAFA',
+  spotlightInactive: '#DEDEDE',
   eventCellOverlappings: [
     { main: '#E26245', contrastText: '#fff' },
     { main: '#4AC001', contrastText: '#fff' },
