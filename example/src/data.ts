@@ -5,7 +5,10 @@ export const events = [
     recordTitle: 'Event 1',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2021-12-09T00:30:00.751Z',
       include_time: false,
@@ -28,7 +31,10 @@ export const events = [
     recordTitle: 'Event 2',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2021-12-30T21:45:00.000Z',
       include_time: false,
@@ -51,7 +57,10 @@ export const events = [
     recordTitle: 'Event 3',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2021-12-30T23:00:00.000Z',
       include_time: false,
@@ -75,7 +84,10 @@ export const events = [
       'Event 4 Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishi',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2021-12-28T23:00:00.000Z',
       include_time: false,
@@ -98,7 +110,10 @@ export const events = [
     recordTitle: 'Test record',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2022-01-13T06:00:00.000Z',
       include_time: false,
@@ -122,7 +137,10 @@ export const events = [
       'long long long long event name Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2021-12-22T13:30:00Z',
       include_time: true,
@@ -145,7 +163,10 @@ export const events = [
     recordTitle: 'record on tap',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2021-12-22T13:30:00Z',
       include_time: true,
@@ -168,7 +189,10 @@ export const events = [
     recordTitle: 'record one',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2021-12-22T13:30:00Z',
       include_time: true,
@@ -191,7 +215,10 @@ export const events = [
     recordTitle: 'record 2',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2021-12-22T13:30:00Z',
       include_time: true,
@@ -214,7 +241,10 @@ export const events = [
     recordTitle: 'record 3',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2021-12-22T13:30:00Z',
       include_time: true,
@@ -237,7 +267,10 @@ export const events = [
     recordTitle: 'record 4',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2021-12-22T13:30:00Z',
       include_time: true,
@@ -260,7 +293,10 @@ export const events = [
     recordTitle: 'record 5',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2021-12-22T13:30:00Z',
       include_time: true,
@@ -283,7 +319,10 @@ export const events = [
     recordTitle: 'record 6',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2021-12-22T13:30:00Z',
       include_time: true,
@@ -306,7 +345,10 @@ export const events = [
     recordTitle: 'record 7',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2021-12-22T13:30:00Z',
       include_time: true,
@@ -329,7 +371,10 @@ export const events = [
     recordTitle: 'record 8',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2021-12-22T13:30:00Z',
       include_time: true,
@@ -352,7 +397,10 @@ export const events = [
     recordTitle: 'record 9',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2021-12-22T13:30:00Z',
       include_time: true,
@@ -375,7 +423,10 @@ export const events = [
     recordTitle: 'record 10',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2021-12-22T13:30:00Z',
       include_time: true,
@@ -398,7 +449,10 @@ export const events = [
     recordTitle: 'record 11',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2021-12-22T13:30:00Z',
       include_time: true,
@@ -421,7 +475,10 @@ export const events = [
     recordTitle: 'record 12',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2021-12-22T13:30:00Z',
       include_time: true,
@@ -444,7 +501,10 @@ export const events = [
     recordTitle: 'record 13',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2021-12-22T13:30:00Z',
       include_time: true,
@@ -467,7 +527,10 @@ export const events = [
     recordTitle: 'New record',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2021-12-22T13:30:00Z',
       include_time: true,
@@ -490,7 +553,10 @@ export const events = [
     recordTitle: 'Test Mike’s Record One',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2022-01-14T07:30:52.000Z',
       include_time: true,
@@ -513,7 +579,10 @@ export const events = [
       'Test Record to test the due date and date range fields with 27/01 16:00 - 28/01 10:00 dates test test !@#$%^&*()_+-=',
     fieldLabel: 'Due Date',
     fieldType: 'duedatefield',
-    color: '#FFB938',
+    color: {
+      background: '#FFB938',
+      font: '#fff',
+    },
     fromDate: {
       date: '2022-01-27T16:00:00Z',
       include_time: true,
@@ -536,7 +605,10 @@ export const events = [
     recordTitle: 'Event 1',
     fieldLabel: 'Date',
     fieldType: 'datefield',
-    color: '#B7E3FB',
+    color: {
+      background: '#B7E3FB',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-14T00:00:00Z',
       include_time: false,
@@ -553,7 +625,10 @@ export const events = [
     recordTitle: 'Event 2',
     fieldLabel: 'Date',
     fieldType: 'datefield',
-    color: '#B7E3FB',
+    color: {
+      background: '#B7E3FB',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-11T00:30:00Z',
       include_time: true,
@@ -570,7 +645,10 @@ export const events = [
     recordTitle: 'Event 3',
     fieldLabel: 'Date',
     fieldType: 'datefield',
-    color: '#B7E3FB',
+    color: {
+      background: '#B7E3FB',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-14T18:00:00Z',
       include_time: true,
@@ -588,7 +666,10 @@ export const events = [
       'Event 4 Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishi',
     fieldLabel: 'Date',
     fieldType: 'datefield',
-    color: '#B7E3FB',
+    color: {
+      background: '#B7E3FB',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-14T07:00:00Z',
       include_time: true,
@@ -605,7 +686,10 @@ export const events = [
     recordTitle: 'Test record',
     fieldLabel: 'Date',
     fieldType: 'datefield',
-    color: '#B7E3FB',
+    color: {
+      background: '#B7E3FB',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-15T07:00:00Z',
       include_time: true,
@@ -623,7 +707,10 @@ export const events = [
       'long long long long event name Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups',
     fieldLabel: 'Date',
     fieldType: 'datefield',
-    color: '#B7E3FB',
+    color: {
+      background: '#B7E3FB',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-16T00:00:00Z',
       include_time: false,
@@ -640,7 +727,10 @@ export const events = [
     recordTitle: 'record on tap',
     fieldLabel: 'Date',
     fieldType: 'datefield',
-    color: '#B7E3FB',
+    color: {
+      background: '#B7E3FB',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-10T07:00:00Z',
       include_time: true,
@@ -657,7 +747,10 @@ export const events = [
     recordTitle: 'record one',
     fieldLabel: 'Date',
     fieldType: 'datefield',
-    color: '#B7E3FB',
+    color: {
+      background: '#B7E3FB',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-15T14:00:00Z',
       include_time: true,
@@ -674,7 +767,10 @@ export const events = [
     recordTitle: 'record 2',
     fieldLabel: 'Date',
     fieldType: 'datefield',
-    color: '#B7E3FB',
+    color: {
+      background: '#B7E3FB',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T14:00:00Z',
       include_time: true,
@@ -691,7 +787,10 @@ export const events = [
     recordTitle: 'record 3',
     fieldLabel: 'Date',
     fieldType: 'datefield',
-    color: '#B7E3FB',
+    color: {
+      background: '#B7E3FB',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-11T14:00:00Z',
       include_time: true,
@@ -708,7 +807,10 @@ export const events = [
     recordTitle: 'record 4',
     fieldLabel: 'Date',
     fieldType: 'datefield',
-    color: '#B7E3FB',
+    color: {
+      background: '#B7E3FB',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-13T14:00:00Z',
       include_time: true,
@@ -725,7 +827,10 @@ export const events = [
     recordTitle: 'record 5',
     fieldLabel: 'Date',
     fieldType: 'datefield',
-    color: '#B7E3FB',
+    color: {
+      background: '#B7E3FB',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-13T14:00:00Z',
       include_time: true,
@@ -742,7 +847,10 @@ export const events = [
     recordTitle: 'record 6',
     fieldLabel: 'Date',
     fieldType: 'datefield',
-    color: '#B7E3FB',
+    color: {
+      background: '#B7E3FB',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-14T14:00:00Z',
       include_time: true,
@@ -759,7 +867,10 @@ export const events = [
     recordTitle: 'record 7',
     fieldLabel: 'Date',
     fieldType: 'datefield',
-    color: '#B7E3FB',
+    color: {
+      background: '#B7E3FB',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-11T15:00:00Z',
       include_time: true,
@@ -776,7 +887,10 @@ export const events = [
     recordTitle: 'record 8',
     fieldLabel: 'Date',
     fieldType: 'datefield',
-    color: '#B7E3FB',
+    color: {
+      background: '#B7E3FB',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-11T14:00:00Z',
       include_time: true,
@@ -793,7 +907,10 @@ export const events = [
     recordTitle: 'record 9',
     fieldLabel: 'Date',
     fieldType: 'datefield',
-    color: '#B7E3FB',
+    color: {
+      background: '#B7E3FB',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-13T14:00:00Z',
       include_time: true,
@@ -810,7 +927,10 @@ export const events = [
     recordTitle: 'record 10',
     fieldLabel: 'Date',
     fieldType: 'datefield',
-    color: '#B7E3FB',
+    color: {
+      background: '#B7E3FB',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-14T14:00:00Z',
       include_time: true,
@@ -827,7 +947,10 @@ export const events = [
     recordTitle: 'record 11',
     fieldLabel: 'Date',
     fieldType: 'datefield',
-    color: '#B7E3FB',
+    color: {
+      background: '#B7E3FB',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-11T14:00:00Z',
       include_time: true,
@@ -844,7 +967,10 @@ export const events = [
     recordTitle: 'Record',
     fieldLabel: 'Date',
     fieldType: 'datefield',
-    color: '#B7E3FB',
+    color: {
+      background: '#B7E3FB',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-13T08:00:53.977Z',
       include_time: true,
@@ -861,7 +987,10 @@ export const events = [
     recordTitle: 'Test record for an overnight event',
     fieldLabel: 'Date',
     fieldType: 'datefield',
-    color: '#B7E3FB',
+    color: {
+      background: '#B7E3FB',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-20T00:00:00Z',
       include_time: false,
@@ -879,7 +1008,10 @@ export const events = [
       'Test Record to test the due date and date range fields with 27/01 16:00 - 28/01 10:00 dates test test !@#$%^&*()_+-=',
     fieldLabel: 'Date',
     fieldType: 'datefield',
-    color: '#B7E3FB',
+    color: {
+      background: '#B7E3FB',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-28T10:00:00Z',
       include_time: true,
@@ -896,7 +1028,10 @@ export const events = [
     recordTitle: 'Event 1',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
-    color: '#B3EFFE',
+    color: {
+      background: '#B3EFFE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-11-05T00:00:00Z',
       include_time: false,
@@ -913,7 +1048,10 @@ export const events = [
     recordTitle: 'Event 2',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
-    color: '#B3EFFE',
+    color: {
+      background: '#B3EFFE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-22T09:00:00Z',
       include_time: true,
@@ -930,7 +1068,10 @@ export const events = [
     recordTitle: 'Event 3',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
-    color: '#B3EFFE',
+    color: {
+      background: '#B3EFFE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-12T22:00:00Z',
       include_time: true,
@@ -948,7 +1089,10 @@ export const events = [
       'Event 4 Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishi',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
-    color: '#B3EFFE',
+    color: {
+      background: '#B3EFFE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-21T17:30:00.255Z',
       include_time: true,
@@ -965,7 +1109,10 @@ export const events = [
     recordTitle: 'Test record',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
-    color: '#B3EFFE',
+    color: {
+      background: '#B3EFFE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-12T23:00:00Z',
       include_time: true,
@@ -983,7 +1130,10 @@ export const events = [
       'long long long long event name Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
-    color: '#B3EFFE',
+    color: {
+      background: '#B3EFFE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-12T23:00:00Z',
       include_time: true,
@@ -1000,7 +1150,10 @@ export const events = [
     recordTitle: 'record on tap',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
-    color: '#B3EFFE',
+    color: {
+      background: '#B3EFFE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-12T23:00:00Z',
       include_time: true,
@@ -1017,7 +1170,10 @@ export const events = [
     recordTitle: 'record one',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
-    color: '#B3EFFE',
+    color: {
+      background: '#B3EFFE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-12T23:00:00Z',
       include_time: true,
@@ -1034,7 +1190,10 @@ export const events = [
     recordTitle: 'record 2',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
-    color: '#B3EFFE',
+    color: {
+      background: '#B3EFFE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-12T23:00:00Z',
       include_time: true,
@@ -1051,7 +1210,10 @@ export const events = [
     recordTitle: 'record 3',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
-    color: '#B3EFFE',
+    color: {
+      background: '#B3EFFE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-12T23:00:00Z',
       include_time: true,
@@ -1068,7 +1230,10 @@ export const events = [
     recordTitle: 'record 4',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
-    color: '#B3EFFE',
+    color: {
+      background: '#B3EFFE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-12T23:00:00Z',
       include_time: true,
@@ -1085,7 +1250,10 @@ export const events = [
     recordTitle: 'record 5',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
-    color: '#B3EFFE',
+    color: {
+      background: '#B3EFFE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-12T23:00:00Z',
       include_time: true,
@@ -1102,7 +1270,10 @@ export const events = [
     recordTitle: 'record 6',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
-    color: '#B3EFFE',
+    color: {
+      background: '#B3EFFE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-12T23:00:00Z',
       include_time: true,
@@ -1119,7 +1290,10 @@ export const events = [
     recordTitle: 'record 7',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
-    color: '#B3EFFE',
+    color: {
+      background: '#B3EFFE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-12T23:00:00Z',
       include_time: true,
@@ -1136,7 +1310,10 @@ export const events = [
     recordTitle: 'record 8',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
-    color: '#B3EFFE',
+    color: {
+      background: '#B3EFFE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-12T23:00:00Z',
       include_time: true,
@@ -1153,7 +1330,10 @@ export const events = [
     recordTitle: 'record 9',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
-    color: '#B3EFFE',
+    color: {
+      background: '#B3EFFE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-12T23:00:00Z',
       include_time: true,
@@ -1170,7 +1350,10 @@ export const events = [
     recordTitle: 'record 10',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
-    color: '#B3EFFE',
+    color: {
+      background: '#B3EFFE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-12T23:00:00Z',
       include_time: true,
@@ -1187,7 +1370,10 @@ export const events = [
     recordTitle: 'record 11',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
-    color: '#B3EFFE',
+    color: {
+      background: '#B3EFFE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-12T23:00:00Z',
       include_time: true,
@@ -1204,7 +1390,10 @@ export const events = [
     recordTitle: 'Test Mike’s Record One',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
-    color: '#B3EFFE',
+    color: {
+      background: '#B3EFFE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-14T06:00:08.400Z',
       include_time: true,
@@ -1221,7 +1410,10 @@ export const events = [
     recordTitle: 'Test record for an overnight event',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
-    color: '#B3EFFE',
+    color: {
+      background: '#B3EFFE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-26T21:00:00Z',
       include_time: true,
@@ -1239,7 +1431,10 @@ export const events = [
       'Test Record to test the due date and date range fields with 27/01 16:00 - 28/01 10:00 dates test test !@#$%^&*()_+-=',
     fieldLabel: 'Date Range',
     fieldType: 'daterangefield',
-    color: '#B3EFFE',
+    color: {
+      background: '#B3EFFE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-27T16:00:00Z',
       include_time: true,
@@ -1256,7 +1451,10 @@ export const events = [
     recordTitle: 'Event 2',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-31T09:15:00Z',
       include_time: true,
@@ -1273,7 +1471,10 @@ export const events = [
     recordTitle: 'Event 3',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-31T09:15:00Z',
       include_time: true,
@@ -1291,7 +1492,10 @@ export const events = [
       'Event 4 Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishi',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-13T00:00:00Z',
       include_time: false,
@@ -1308,7 +1512,10 @@ export const events = [
     recordTitle: 'Test record',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-31T09:15:00Z',
       include_time: true,
@@ -1326,7 +1533,10 @@ export const events = [
       'long long long long event name Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-31T09:15:00Z',
       include_time: true,
@@ -1343,7 +1553,10 @@ export const events = [
     recordTitle: 'record on tap',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-12T23:00:00Z',
       include_time: true,
@@ -1360,7 +1573,10 @@ export const events = [
     recordTitle: 'record one',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-31T09:15:00Z',
       include_time: true,
@@ -1377,7 +1593,10 @@ export const events = [
     recordTitle: 'record 2',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-31T09:15:00Z',
       include_time: true,
@@ -1394,7 +1613,10 @@ export const events = [
     recordTitle: 'record 3',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-31T09:15:00Z',
       include_time: true,
@@ -1411,7 +1633,10 @@ export const events = [
     recordTitle: 'record 4',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-31T09:15:00Z',
       include_time: true,
@@ -1428,7 +1653,10 @@ export const events = [
     recordTitle: 'record 5',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-31T09:15:00Z',
       include_time: true,
@@ -1445,7 +1673,10 @@ export const events = [
     recordTitle: 'record 6',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-31T09:15:00Z',
       include_time: true,
@@ -1462,7 +1693,10 @@ export const events = [
     recordTitle: 'record 7',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-31T09:15:00Z',
       include_time: true,
@@ -1479,7 +1713,10 @@ export const events = [
     recordTitle: 'record 8',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-12T23:00:00Z',
       include_time: true,
@@ -1496,7 +1733,10 @@ export const events = [
     recordTitle: 'record 9',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-10T00:00:00Z',
       include_time: false,
@@ -1513,7 +1753,10 @@ export const events = [
     recordTitle: 'record 10',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-22T13:30:00Z',
       include_time: true,
@@ -1530,7 +1773,10 @@ export const events = [
     recordTitle: 'record 11',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-22T13:30:00Z',
       include_time: true,
@@ -1547,7 +1793,10 @@ export const events = [
     recordTitle: 'record 12',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-22T13:30:00Z',
       include_time: true,
@@ -1564,7 +1813,10 @@ export const events = [
     recordTitle: 'record 13',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-22T13:30:00Z',
       include_time: true,
@@ -1581,7 +1833,10 @@ export const events = [
     recordTitle: 'New record',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-22T13:30:00Z',
       include_time: true,
@@ -1598,7 +1853,10 @@ export const events = [
     recordTitle: 'Test Mike’s Record One',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-17T00:00:00Z',
       include_time: false,
@@ -1616,7 +1874,10 @@ export const events = [
       'Test Record to test the due date and date range fields with 27/01 16:00 - 28/01 10:00 dates test test !@#$%^&*()_+-=',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
-    color: '#CDEECE',
+    color: {
+      background: '#CDEECE',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-27T16:00:00Z',
       include_time: true,
@@ -1633,7 +1894,10 @@ export const events = [
     recordTitle: 'Event 1',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-11-29T11:49:24.809Z',
       include_time: true,
@@ -1650,7 +1914,10 @@ export const events = [
     recordTitle: 'Event 2',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-17T13:00:24.995Z',
       include_time: true,
@@ -1667,7 +1934,10 @@ export const events = [
     recordTitle: 'Event 3',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-20T11:03:36.636Z',
       include_time: true,
@@ -1685,7 +1955,10 @@ export const events = [
       'Event 4 Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishi',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-20T11:04:43.027Z',
       include_time: true,
@@ -1702,7 +1975,10 @@ export const events = [
     recordTitle: 'Test record',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-20T12:35:20.957Z',
       include_time: true,
@@ -1720,7 +1996,10 @@ export const events = [
       'long long long long event name Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-20T15:44:24.803Z',
       include_time: true,
@@ -1737,7 +2016,10 @@ export const events = [
     recordTitle: 'record on tap',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-20T15:56:44.383Z',
       include_time: true,
@@ -1754,7 +2036,10 @@ export const events = [
     recordTitle: 'record one',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-22T08:44:02.562Z',
       include_time: true,
@@ -1771,7 +2056,10 @@ export const events = [
     recordTitle: 'record 2',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-22T08:44:11.815Z',
       include_time: true,
@@ -1788,7 +2076,10 @@ export const events = [
     recordTitle: 'record 3',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-22T08:44:28.311Z',
       include_time: true,
@@ -1805,7 +2096,10 @@ export const events = [
     recordTitle: 'record 4',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-22T08:44:44.336Z',
       include_time: true,
@@ -1822,7 +2116,10 @@ export const events = [
     recordTitle: 'record 5',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-22T08:44:55.632Z',
       include_time: true,
@@ -1839,7 +2136,10 @@ export const events = [
     recordTitle: 'record 6',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-22T08:45:04.606Z',
       include_time: true,
@@ -1856,7 +2156,10 @@ export const events = [
     recordTitle: 'record 7',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-22T08:45:22.985Z',
       include_time: true,
@@ -1873,7 +2176,10 @@ export const events = [
     recordTitle: 'record 8',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-22T08:45:42.367Z',
       include_time: true,
@@ -1890,7 +2196,10 @@ export const events = [
     recordTitle: 'record 9',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-22T08:45:59.223Z',
       include_time: true,
@@ -1907,7 +2216,10 @@ export const events = [
     recordTitle: 'record 10',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-22T08:46:12.879Z',
       include_time: true,
@@ -1924,7 +2236,10 @@ export const events = [
     recordTitle: 'record 11',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-22T08:46:24.651Z',
       include_time: true,
@@ -1941,7 +2256,10 @@ export const events = [
     recordTitle: 'record 12',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-23T12:03:01.077Z',
       include_time: true,
@@ -1958,7 +2276,10 @@ export const events = [
     recordTitle: 'record 13',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2021-12-23T12:03:06.185Z',
       include_time: true,
@@ -1975,7 +2296,10 @@ export const events = [
     recordTitle: 'New record',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-06T16:04:48.178Z',
       include_time: true,
@@ -1992,7 +2316,10 @@ export const events = [
     recordTitle: 'New record 22',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T15:21:39.187Z',
       include_time: true,
@@ -2009,7 +2336,10 @@ export const events = [
     recordTitle: 'Ne reorder',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T16:04:17.736Z',
       include_time: true,
@@ -2026,7 +2356,10 @@ export const events = [
     recordTitle: 'Record',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-14T12:58:33.903Z',
       include_time: true,
@@ -2043,7 +2376,10 @@ export const events = [
     recordTitle: 'Test Mike’s Record One',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-17T10:36:07.196Z',
       include_time: true,
@@ -2060,7 +2396,10 @@ export const events = [
     recordTitle: 'test record for zapier',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-24T16:02:13.473Z',
       include_time: true,
@@ -2077,7 +2416,10 @@ export const events = [
     recordTitle: 'Test record for an overnight event',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-26T09:00:35.024Z',
       include_time: true,
@@ -2095,7 +2437,10 @@ export const events = [
       'Test Record to test the due date and date range fields with 27/01 16:00 - 28/01 10:00 dates test test !@#$%^&*()_+-=',
     fieldLabel: 'First Created',
     fieldType: 'firstcreatedfield',
-    color: '#FEBDC7',
+    color: {
+      background: '#FEBDC7',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-26T09:16:22.615Z',
       include_time: true,
@@ -2112,7 +2457,10 @@ export const events = [
     recordTitle: 'Event 1',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-19T15:53:32.751Z',
       include_time: true,
@@ -2129,7 +2477,10 @@ export const events = [
     recordTitle: 'Event 2',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T09:24:45.598Z',
       include_time: true,
@@ -2146,7 +2497,10 @@ export const events = [
     recordTitle: 'Event 3',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T09:24:54.469Z',
       include_time: true,
@@ -2164,13 +2518,16 @@ export const events = [
       'Event 4 Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishi',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
-      date: '2022-01-26T10:19:12.112Z',
+      date: '2022-01-26T10:36:53.891Z',
       include_time: true,
     },
     toDate: {
-      date: '2022-01-26T11:19:12.112Z',
+      date: '2022-01-26T11:36:53.891Z',
       include_time: true,
     },
     dueDateStatus: {},
@@ -2181,7 +2538,10 @@ export const events = [
     recordTitle: 'Test record',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T10:12:53.493Z',
       include_time: true,
@@ -2199,7 +2559,10 @@ export const events = [
       'long long long long event name Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T10:13:01.907Z',
       include_time: true,
@@ -2216,7 +2579,10 @@ export const events = [
     recordTitle: 'record on tap',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T10:14:42.557Z',
       include_time: true,
@@ -2233,7 +2599,10 @@ export const events = [
     recordTitle: 'record one',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T10:14:47.593Z',
       include_time: true,
@@ -2250,7 +2619,10 @@ export const events = [
     recordTitle: 'record 2',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T09:25:22.644Z',
       include_time: true,
@@ -2267,7 +2639,10 @@ export const events = [
     recordTitle: 'record 3',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T09:25:24.912Z',
       include_time: true,
@@ -2284,7 +2659,10 @@ export const events = [
     recordTitle: 'record 4',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T09:25:28.045Z',
       include_time: true,
@@ -2301,7 +2679,10 @@ export const events = [
     recordTitle: 'record 5',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T09:25:26.463Z',
       include_time: true,
@@ -2318,7 +2699,10 @@ export const events = [
     recordTitle: 'record 6',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T09:25:31.706Z',
       include_time: true,
@@ -2335,7 +2719,10 @@ export const events = [
     recordTitle: 'record 7',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T09:25:32.068Z',
       include_time: true,
@@ -2352,7 +2739,10 @@ export const events = [
     recordTitle: 'record 8',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T09:25:32.319Z',
       include_time: true,
@@ -2369,7 +2759,10 @@ export const events = [
     recordTitle: 'record 9',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T09:25:32.558Z',
       include_time: true,
@@ -2386,7 +2779,10 @@ export const events = [
     recordTitle: 'record 10',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T09:25:35.356Z',
       include_time: true,
@@ -2403,7 +2799,10 @@ export const events = [
     recordTitle: 'record 11',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T09:25:33.002Z',
       include_time: true,
@@ -2420,7 +2819,10 @@ export const events = [
     recordTitle: 'record 12',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T09:25:33.116Z',
       include_time: true,
@@ -2437,7 +2839,10 @@ export const events = [
     recordTitle: 'record 13',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T09:25:33.281Z',
       include_time: true,
@@ -2454,7 +2859,10 @@ export const events = [
     recordTitle: 'New record',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T09:25:33.621Z',
       include_time: true,
@@ -2471,7 +2879,10 @@ export const events = [
     recordTitle: 'New record 22',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T15:21:39.187Z',
       include_time: true,
@@ -2488,7 +2899,10 @@ export const events = [
     recordTitle: 'Ne reorder',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-12T16:04:17.736Z',
       include_time: true,
@@ -2505,7 +2919,10 @@ export const events = [
     recordTitle: 'Record',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-14T12:58:33.903Z',
       include_time: true,
@@ -2522,7 +2939,10 @@ export const events = [
     recordTitle: 'Test Mike’s Record One',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-17T10:36:07.196Z',
       include_time: true,
@@ -2539,7 +2959,10 @@ export const events = [
     recordTitle: 'test record for zapier',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-24T16:02:13.473Z',
       include_time: true,
@@ -2556,7 +2979,10 @@ export const events = [
     recordTitle: 'Test record for an overnight event',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-26T10:18:27.827Z',
       include_time: true,
@@ -2574,7 +3000,10 @@ export const events = [
       'Test Record to test the due date and date range fields with 27/01 16:00 - 28/01 10:00 dates test test !@#$%^&*()_+-=',
     fieldLabel: 'Last Updated',
     fieldType: 'lastupdatedfield',
-    color: '#FFD5B3',
+    color: {
+      background: '#FFD5B3',
+      font: '#2E3538',
+    },
     fromDate: {
       date: '2022-01-26T10:12:56.008Z',
       include_time: true,

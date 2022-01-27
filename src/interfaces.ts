@@ -27,10 +27,15 @@ export interface DueDateStatus {
   isComplete: boolean;
 }
 
+export interface CalendarFieldColor {
+  background: string;
+  font: string;
+}
+
 export interface ICalendarEventBase {
   recordTitle: string;
   fieldLabel: string;
-  color: string;
+  color: CalendarFieldColor;
   fieldType: string;
   toDate: DateObject | null;
   fromDate: DateObject;

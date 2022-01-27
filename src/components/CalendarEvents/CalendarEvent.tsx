@@ -36,12 +36,10 @@ interface CalendarEventProps<T> {
   onPressEvent?: (event: ICalendarEvent<T>) => void;
   eventCellStyle?: EventCellStyle<T>;
   showTime: boolean;
-  eventCount?: number;
   eventOrder?: number;
   overlapOffset?: number;
   renderEvent?: EventRenderer<T>;
   ampm: boolean;
-  isLightMode?: boolean;
 }
 
 function _CalendarEvent<T>({
@@ -49,15 +47,13 @@ function _CalendarEvent<T>({
   onPressEvent,
   eventCellStyle,
   showTime,
-  eventCount = 1,
   eventOrder = 0,
   overlapOffset = OVERLAP_OFFSET,
   renderEvent,
   ampm,
-  isLightMode,
 }: CalendarEventProps<T>) {
   const theme = useTheme();
-  const { color } = useSpotlight();
+  const { color, font } = useSpotlight();
 
   const palettes = React.useMemo(
     () => [theme.palette.primary, ...theme.eventCellOverlappings],
@@ -73,19 +69,17 @@ function _CalendarEvent<T>({
       getStyleForOverlappingEvent(eventOrder, overlapOffset, palettes),
       u.absolute,
       {
-        backgroundColor: color(event.recordId + event.slug, event.color),
+        backgroundColor: color(
+          event.recordId + event.slug,
+          event.color.background
+        ),
         borderRadius: 4,
         marginHorizontal: 4,
         borderWidth: 1,
-        borderColor: isLightMode ? '#ffffff' : '#38393B',
+        borderColor: theme.eventBoxBorder,
       },
     ],
   });
-
-  const textColor = React.useMemo(() => {
-    const fgColors = palettes.map((p) => p.contrastText);
-    return fgColors[eventCount % fgColors.length] || fgColors[0];
-  }, [eventCount, palettes]);
 
   if (renderEvent) {
     return renderEvent(event, touchableOpacityProps);
@@ -97,7 +91,7 @@ function _CalendarEvent<T>({
       showTime={showTime}
       ampm={ampm}
       touchableOpacityProps={touchableOpacityProps}
-      textColor={textColor}
+      textColor={font(event.recordId + event.slug, event.color.font)}
     />
   );
 }

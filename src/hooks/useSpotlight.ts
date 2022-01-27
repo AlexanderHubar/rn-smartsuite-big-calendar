@@ -22,11 +22,20 @@ export function useSpotlight() {
     return hasSpotlight ? spotlightColor : eColor;
   };
 
+  const font = (id: string, fontColor?: string) => {
+    const item = getSpotlight(id);
+    const defaultColor = fontColor ?? theme.spotlightInactiveFont;
+    const spotlightColor = item ? defaultColor : theme.spotlightInactiveFont;
+
+    return hasSpotlight ? spotlightColor : defaultColor;
+  };
+
   React.useEffect(() => setSpotlight(spotlightItems), [spotlightItems]);
 
   return {
     hasSpotlight,
     spotlight,
     color,
+    font,
   };
 }

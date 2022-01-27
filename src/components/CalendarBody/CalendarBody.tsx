@@ -12,7 +12,6 @@ import type {
   ICalendarEvent,
 } from '../../interfaces';
 import {
-  getCountOfEventsAtEvent,
   getOrderOfEvent,
   getRelativeTopInDay,
   hours,
@@ -25,8 +24,7 @@ import { HourGuideColumn } from '../HourGuideColumn';
 
 import { NowIndicatorTriangle, NowIndicator } from './styled';
 import { useTheme } from 'styled-components';
-import { useContext, useEffect } from 'react';
-import { CalendarContext } from '../Calendar/CalendarContext';
+import { useEffect } from 'react';
 
 interface CalendarBodyProps<T> {
   cellHeight: number;
@@ -74,7 +72,6 @@ function _CalendarBody<T>({
   const scrollView = React.useRef<ScrollView>(null);
   const { now } = useNow(!hideNowIndicator);
   const theme = useTheme();
-  const { isLightMode } = useContext(CalendarContext);
 
   React.useEffect(() => {
     if (scrollView.current && scrollOffsetMinutes && Platform.OS !== 'ios') {
@@ -125,12 +122,10 @@ function _CalendarBody<T>({
       onPressEvent={onPressEvent}
       eventCellStyle={eventCellStyle}
       showTime={showTime}
-      eventCount={getCountOfEventsAtEvent(event, events)}
       eventOrder={getOrderOfEvent(event, events)}
       overlapOffset={overlapOffset}
       renderEvent={renderEvent}
       ampm={ampm}
-      isLightMode={isLightMode}
     />
   );
 

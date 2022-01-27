@@ -20,6 +20,8 @@ export const darkTheme: ThemeInterface = {
   onSurface: '#38393B',
   background: '#202123',
   spotlightInactive: '#4E5055',
+  spotlightInactiveFont: '#FFFFFF',
+  eventBoxBorder: '#38393B',
   eventCellOverlappings: [
     { main: '#E26245', contrastText: '#fff' },
     { main: '#4AC001', contrastText: '#fff' },

@@ -41,7 +41,9 @@ function CalendarEventItem<T>({
       {isFocusElement && (
         <HighLightBox style={{ opacity }} color={highlightColor} />
       )}
-      <ItemColor color={color(event.recordId + event.slug, event.color)} />
+      <ItemColor
+        color={color(event.recordId + event.slug, event.color.background)}
+      />
       <DetailsContainer>
         <TitleContainer>
           <FieldTitle isLightMode={isLightMode}>
