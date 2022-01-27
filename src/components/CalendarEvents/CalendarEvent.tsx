@@ -85,13 +85,15 @@ function _CalendarEvent<T>({
     return renderEvent(event, touchableOpacityProps);
   }
 
+  const id = event.recordId + event.slug;
+
   return (
     <DefaultCalendarEventRenderer
       event={event}
       showTime={showTime}
       ampm={ampm}
       touchableOpacityProps={touchableOpacityProps}
-      textColor={font(event.recordId + event.slug, event.color.font)}
+      textColor={font(id, event.color.font)}
     />
   );
 }
