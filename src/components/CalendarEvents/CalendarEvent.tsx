@@ -17,6 +17,8 @@ import {
 } from '../../utils';
 import { DefaultCalendarEventRenderer } from '../DefaultCalendarEventRenderer';
 import { useSpotlight } from '../../hooks/useSpotlight';
+import { useContext } from 'react';
+import { CalendarContext } from '../Calendar/CalendarContext';
 
 const getEventCellPositionStyle = (
   start?: Date | string | null,
@@ -52,6 +54,7 @@ function _CalendarEvent<T>({
   renderEvent,
   ampm,
 }: CalendarEventProps<T>) {
+  const { isLightMode } = useContext(CalendarContext);
   const theme = useTheme();
   const { color, font } = useSpotlight();
 
@@ -76,7 +79,7 @@ function _CalendarEvent<T>({
         borderRadius: 4,
         marginHorizontal: 4,
         borderWidth: 1,
-        borderColor: theme.eventBoxBorder,
+        borderColor: isLightMode ? '#ffffff' : '#38393B',
       },
     ],
   });
