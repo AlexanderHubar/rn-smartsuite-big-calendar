@@ -13,6 +13,7 @@ import { usePanResponder } from '../../hooks/usePanResponder';
 import dayjs from 'dayjs';
 import { EmptyEventList } from './EmptyList';
 import { CalendarContext } from '../Calendar/CalendarContext';
+import { useSpotlight } from '../../hooks/useSpotlight';
 
 function _CalendarList<T>({
   ampm,
@@ -27,6 +28,7 @@ function _CalendarList<T>({
 }: CalendarListProps<T>) {
   const sectionRef = useRef<SectionList>(null);
   const { groupBy } = useGroupBy();
+  const { color } = useSpotlight();
   const { isLightMode } = useContext(CalendarContext);
 
   const animatedValue = new Animated.Value(0);
@@ -138,16 +140,24 @@ function _CalendarList<T>({
         stickySectionHeadersEnabled={false}
         scrollEventThrottle={32}
         nestedScrollEnabled
-        renderItem={({ item: data }) => (
-          <CalendarEventItem
-            isLightMode={isLightMode}
-            event={data}
-            opacity={opacity}
-            isFocusElement={isFocusElement(data)}
-            onPress={onEventPress}
-            ampm={ampm}
-          />
-        )}
+        renderItem={({ item: event }) => {
+          const eventItemColor = color(
+            event.recordId + event.slug,
+            event.color.background
+          );
+
+          return (
+            <CalendarEventItem
+              isLightMode={isLightMode}
+              event={event}
+              opacity={opacity}
+              isFocusElement={isFocusElement(event)}
+              onPress={onEventPress}
+              ampm={ampm}
+              color={eventItemColor}
+            />
+          );
+        }}
         renderSectionHeader={({ section: { section } }) => (
           <ListHeader
             date={section}

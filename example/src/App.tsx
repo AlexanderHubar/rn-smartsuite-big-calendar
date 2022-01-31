@@ -14,8 +14,8 @@ export const App = () => {
           onShowAllDayEvents={(date) => console.log(date)}
           events={events as any}
           // mode={'timeGrid'}
-          mode={'timeThreeDays'}
-          // mode={'listWeek'}
+          // mode={'timeThreeDays'}
+          mode={'listWeek'}
           // mode={'dayGridMonth'}
           activeColor={'#127ee8'}
           isLightMode={false}
