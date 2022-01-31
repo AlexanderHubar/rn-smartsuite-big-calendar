@@ -23,6 +23,7 @@ import {
   getOrderOfEvent,
   getRelativeTopInDay,
   hours,
+  isFocusElement,
   isToday,
   typedMemo,
 } from '../../utils';
@@ -124,13 +125,6 @@ function _CalendarBody<T>({
     [onPressCell]
   );
 
-  const isFocusElement = (data: any): boolean =>
-    Boolean(
-      focusEvent &&
-        focusEvent.slug === data.slug &&
-        focusEvent.recordId === data.recordId
-    );
-
   const focusElementIndex = () => {
     new Promise((resolve) => setTimeout(resolve, 100)).then(() => {
       if (focusEvent && scrollView.current) {
@@ -158,7 +152,7 @@ function _CalendarBody<T>({
       renderEvent={renderEvent}
       ampm={ampm}
       opacity={opacity}
-      isFocusElement={isFocusElement(event)}
+      isFocusElement={isFocusElement(event, focusEvent)}
     />
   );
 

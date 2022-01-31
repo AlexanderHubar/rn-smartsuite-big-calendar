@@ -1,5 +1,9 @@
 import React, { useContext, useEffect, useRef } from 'react';
-import { ICalendarEvent, typedMemo } from 'rn-smartsuite-big-calendar';
+import {
+  ICalendarEvent,
+  isFocusElement,
+  typedMemo,
+} from 'rn-smartsuite-big-calendar';
 
 import type { CalendarListProps } from './types';
 import { useGroupBy } from '../../hooks/useGroupBy';
@@ -113,13 +117,6 @@ function _CalendarList<T>({
     });
   };
 
-  const isFocusElement = (data: any): boolean =>
-    Boolean(
-      focusEvent &&
-        focusEvent.slug === data.slug &&
-        focusEvent.recordId === data.recordId
-    );
-
   useEffect(() => {
     if (!focusEvent) {
       scrollToIndex();
@@ -151,7 +148,7 @@ function _CalendarList<T>({
               isLightMode={isLightMode}
               event={event}
               opacity={opacity}
-              isFocusElement={isFocusElement(event)}
+              isFocusElement={isFocusElement(event, focusEvent)}
               onPress={onEventPress}
               ampm={ampm}
               color={eventItemColor}

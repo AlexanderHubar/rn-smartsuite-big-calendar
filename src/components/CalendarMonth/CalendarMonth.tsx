@@ -1,5 +1,9 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { ICalendarEvent, typedMemo } from 'rn-smartsuite-big-calendar';
+import {
+  ICalendarEvent,
+  isFocusElement,
+  typedMemo,
+} from 'rn-smartsuite-big-calendar';
 
 import { Calendar } from 'react-native-calendars';
 import { Animated, Easing, FlatList, View } from 'react-native';
@@ -111,13 +115,6 @@ function _CalendarMonth<T>({
     setCurrentDate(date.dateString);
   };
 
-  const isFocusElement = (data: any): boolean =>
-    Boolean(
-      focusEvent &&
-        focusEvent.slug === data.slug &&
-        focusEvent.recordId === data.recordId
-    );
-
   const focusElementIndex = () => {
     new Promise((resolve) => setTimeout(resolve, 100)).then(() => {
       if (focusEvent && eventsListRef.current) {
@@ -201,7 +198,7 @@ function _CalendarMonth<T>({
               isLightMode={isLightMode}
               event={event}
               opacity={opacity}
-              isFocusElement={isFocusElement(event)}
+              isFocusElement={isFocusElement(event, focusEvent)}
               onPress={onEventPress}
               ampm={ampm}
               color={eventItemColor}
