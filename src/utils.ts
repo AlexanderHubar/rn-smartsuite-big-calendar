@@ -157,7 +157,7 @@ export function isAllDayEvent(
       return true;
     }
 
-    if (_start.diff(_end, 'day')) {
+    if (_end.isAfter(_start, 'd')) {
       return true;
     }
 
@@ -173,7 +173,7 @@ export function isAllDayEvent(
       return true;
     }
 
-    if (_start.diff(_end, 'day')) {
+    if (_end.isAfter(_start, 'd')) {
       return true;
     }
 
