@@ -7,4 +7,5 @@ export interface CalendarEventItemProps<T> {
   opacity?: any;
   isFocusElement?: boolean;
   onPress?: (event: ICalendarEvent<T>) => void;
+  color: string;
 }

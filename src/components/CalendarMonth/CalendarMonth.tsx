@@ -18,6 +18,7 @@ import { usePanResponder } from '../../hooks/usePanResponder';
 import type { DateData } from 'react-native-calendars/src/types';
 import { useTheme } from 'styled-components';
 import { CalendarContext } from '../Calendar/CalendarContext';
+import { useSpotlight } from '../../hooks/useSpotlight';
 
 function _CalendarMonth<T>({
   ampm,
@@ -35,6 +36,7 @@ function _CalendarMonth<T>({
   const theme = useTheme();
   const { isLightMode } = useContext(CalendarContext);
   const eventsListRef = useRef<FlatList>(null);
+  const { color } = useSpotlight();
 
   const [currentDate, setCurrentDate] = useState(
     getDateWithoutTime(targetDate.toISOString())
@@ -188,15 +190,21 @@ function _CalendarMonth<T>({
         {...panResponder.panHandlers}
         keyExtractor={(_, index) => `${index}`}
         showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => {
+        renderItem={({ item: event }) => {
+          const eventItemColor = color(
+            event.recordId + event.slug,
+            event.color.background
+          );
+
           return (
             <CalendarEventItem
               isLightMode={isLightMode}
-              event={item}
+              event={event}
               opacity={opacity}
-              isFocusElement={isFocusElement(item)}
+              isFocusElement={isFocusElement(event)}
               onPress={onEventPress}
               ampm={ampm}
+              color={eventItemColor}
             />
           );
         }}
