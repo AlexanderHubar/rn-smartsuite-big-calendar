@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { ICalendarEvent, typedMemo } from 'rn-smartsuite-big-calendar';
 
 import { Calendar } from 'react-native-calendars';
-import { FlatList, View } from 'react-native';
+import { Animated, Easing, FlatList, View } from 'react-native';
 import type { CalendarMonthProps, MarkedDatesType } from './types';
 import dayjs from 'dayjs';
 import {
@@ -26,19 +26,33 @@ function _CalendarMonth<T>({
   dateRange,
   targetDate,
   todayDate,
+  focusEvent,
   activeColor,
   onEventPress,
   onSwipeHorizontal,
+  onFocusEventEnd,
 }: CalendarMonthProps<T>) {
   const theme = useTheme();
+  const { isLightMode } = useContext(CalendarContext);
+  const eventsListRef = useRef<FlatList>(null);
 
   const [currentDate, setCurrentDate] = useState(
     getDateWithoutTime(targetDate.toISOString())
   );
 
-  useEffect(() => {
-    setCurrentDate(getDateWithoutTime(todayDate.toISOString()));
-  }, [todayDate]);
+  const animatedValue = new Animated.Value(0);
+
+  const opacity = animatedValue.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [0, 0.5, 0],
+  });
+
+  const highlightItem = Animated.timing(animatedValue, {
+    toValue: 1,
+    duration: 1000,
+    easing: Easing.ease,
+    useNativeDriver: false,
+  });
 
   const panResponder = usePanResponder({
     onSwipeHorizontal,
@@ -47,7 +61,7 @@ function _CalendarMonth<T>({
   const monthEvents = dateRange
     .map((date) =>
       events.filter((event) =>
-        dayjs(event.toDate?.date ?? event.fromDate?.date).isBetween(
+        dayjs(event.fromDate?.date).isBetween(
           date.startOf('day'),
           date.endOf('day'),
           null,
@@ -58,17 +72,12 @@ function _CalendarMonth<T>({
     .flat(2);
 
   const dayEvents = events.filter((event) =>
-    dayjs(
-      getDateWithoutTime(event.toDate?.date ?? event.fromDate?.date)
-    ).isSame(currentDate)
+    dayjs(getDateWithoutTime(event.fromDate?.date)).isSame(currentDate)
   );
 
   const markedDotes: MarkedDatesType = monthEvents.reduce(
     (acc, curr: ICalendarEvent) => {
-      const date =
-        getDateWithoutTime(
-          curr.toDate?.date ?? curr.fromDate?.date
-        )?.toString() ?? '';
+      const date = getDateWithoutTime(curr.fromDate?.date)?.toString() ?? '';
       const isSelected = dayjs(date).isSame(currentDate);
 
       return {
@@ -100,7 +109,45 @@ function _CalendarMonth<T>({
     setCurrentDate(date.dateString);
   };
 
-  const { isLightMode } = useContext(CalendarContext);
+  const isFocusElement = (data: any): boolean =>
+    Boolean(
+      focusEvent &&
+        focusEvent.slug === data.slug &&
+        focusEvent.recordId === data.recordId
+    );
+
+  const focusElementIndex = () => {
+    new Promise((resolve) => setTimeout(resolve, 100)).then(() => {
+      if (focusEvent && eventsListRef.current) {
+        const dEvents = events.filter((event) =>
+          dayjs(getDateWithoutTime(event.fromDate?.date)).isSame(
+            dayjs(getDateWithoutTime(focusEvent.fromDate?.date))
+          )
+        );
+        const eventIndex = dEvents.findIndex(
+          (event) =>
+            event.slug === focusEvent.slug &&
+            event.recordId &&
+            focusEvent.recordId
+        );
+        if (eventIndex !== -1) {
+          eventsListRef.current.scrollToIndex({
+            index: eventIndex,
+            animated: true,
+          });
+
+          animatedValue.setValue(0);
+          setTimeout(() => highlightItem.start(onFocusEventEnd), 100);
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    setCurrentDate(getDateWithoutTime(todayDate.toISOString()));
+  }, [todayDate]);
+
+  useEffect(() => focusElementIndex(), [focusEvent?.uniqueId]);
 
   return (
     <Container>
@@ -134,6 +181,7 @@ function _CalendarMonth<T>({
         />
       </CalendarContainer>
       <FlatList
+        ref={eventsListRef}
         style={{ flex: 1, backgroundColor: theme.background }}
         data={dayEvents}
         contentContainerStyle={styles.events}
@@ -145,6 +193,8 @@ function _CalendarMonth<T>({
             <CalendarEventItem
               isLightMode={isLightMode}
               event={item}
+              opacity={opacity}
+              isFocusElement={isFocusElement(item)}
               onPress={onEventPress}
               ampm={ampm}
             />

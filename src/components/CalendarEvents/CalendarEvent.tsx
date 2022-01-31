@@ -19,6 +19,8 @@ import { DefaultCalendarEventRenderer } from '../DefaultCalendarEventRenderer';
 import { useSpotlight } from '../../hooks/useSpotlight';
 import { useContext } from 'react';
 import { CalendarContext } from '../Calendar/CalendarContext';
+import { TouchableOpacity } from 'react-native';
+import { HighLightBox } from '../CalendarEventListItem/styled';
 
 const getEventCellPositionStyle = (
   start?: Date | string | null,
@@ -42,6 +44,8 @@ interface CalendarEventProps<T> {
   overlapOffset?: number;
   renderEvent?: EventRenderer<T>;
   ampm: boolean;
+  opacity?: any;
+  isFocusElement?: boolean;
 }
 
 function _CalendarEvent<T>({
@@ -53,6 +57,8 @@ function _CalendarEvent<T>({
   overlapOffset = OVERLAP_OFFSET,
   renderEvent,
   ampm,
+  opacity,
+  isFocusElement,
 }: CalendarEventProps<T>) {
   const { isLightMode } = useContext(CalendarContext);
   const theme = useTheme();
@@ -90,14 +96,20 @@ function _CalendarEvent<T>({
 
   const id = event.recordId + event.slug;
 
+  const highlightColor = isLightMode ? 'rgb(173,173,173)' : 'rgb(80,80,80)';
+
   return (
-    <DefaultCalendarEventRenderer
-      event={event}
-      showTime={showTime}
-      ampm={ampm}
-      touchableOpacityProps={touchableOpacityProps}
-      textColor={font(id, event.color.font)}
-    />
+    <TouchableOpacity {...touchableOpacityProps}>
+      {isFocusElement && (
+        <HighLightBox style={{ opacity }} color={highlightColor} />
+      )}
+      <DefaultCalendarEventRenderer
+        event={event}
+        showTime={showTime}
+        ampm={ampm}
+        textColor={font(id, event.color.font)}
+      />
+    </TouchableOpacity>
   );
 }
 

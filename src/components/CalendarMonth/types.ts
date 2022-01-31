@@ -11,9 +11,11 @@ export interface CalendarMonthProps<T> {
   dateRange: dayjs.Dayjs[];
   targetDate: Date | dayjs.Dayjs;
   todayDate: Date | dayjs.Dayjs;
+  focusEvent?: ICalendarEvent<T> | any;
   activeColor: string;
   onEventPress?: (event: ICalendarEvent<T>) => void;
   onSwipeHorizontal?: (d: HorizontalDirection) => void;
+  onFocusEventEnd: () => void;
 }
 
 export type MarkedDatesType = {

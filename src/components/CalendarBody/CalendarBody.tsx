@@ -1,6 +1,14 @@
 import dayjs from 'dayjs';
 import * as React from 'react';
-import { Platform, ScrollView, TextStyle, View, ViewStyle } from 'react-native';
+import {
+  Animated,
+  Easing,
+  Platform,
+  ScrollView,
+  TextStyle,
+  View,
+  ViewStyle,
+} from 'react-native';
 
 import { u } from '../../commonStyles';
 import { useNow } from '../../hooks/useNow';
@@ -73,6 +81,20 @@ function _CalendarBody<T>({
   const { now } = useNow(!hideNowIndicator);
   const theme = useTheme();
 
+  const animatedValue = new Animated.Value(0);
+
+  const opacity = animatedValue.interpolate({
+    inputRange: [0, 0.2, 1],
+    outputRange: [0, 1, 0],
+  });
+
+  const highlightItem = Animated.timing(animatedValue, {
+    toValue: 1,
+    duration: 1000,
+    easing: Easing.ease,
+    useNativeDriver: false,
+  });
+
   React.useEffect(() => {
     if (scrollView.current && scrollOffsetMinutes && Platform.OS !== 'ios') {
       // We add delay here to work correct on React Native
@@ -102,6 +124,13 @@ function _CalendarBody<T>({
     [onPressCell]
   );
 
+  const isFocusElement = (data: any): boolean =>
+    Boolean(
+      focusEvent &&
+        focusEvent.slug === data.slug &&
+        focusEvent.recordId === data.recordId
+    );
+
   const focusElementIndex = () => {
     new Promise((resolve) => setTimeout(resolve, 100)).then(() => {
       if (focusEvent && scrollView.current) {
@@ -109,6 +138,8 @@ function _CalendarBody<T>({
         const scrollY = cellHeight * eventHours;
 
         scrollView?.current.scrollTo({ x: 0, y: scrollY, animated: true });
+        animatedValue.setValue(0);
+        setTimeout(() => highlightItem.start(), 300);
       }
     });
   };
@@ -126,6 +157,8 @@ function _CalendarBody<T>({
       overlapOffset={overlapOffset}
       renderEvent={renderEvent}
       ampm={ampm}
+      opacity={opacity}
+      isFocusElement={isFocusElement(event)}
     />
   );
 

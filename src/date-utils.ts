@@ -2,6 +2,7 @@ import { utcToZonedTime } from 'date-fns-tz';
 import differenceInDays from 'date-fns/differenceInCalendarDays';
 import type { DateData } from 'react-native-calendars/src/types';
 import dayjs from 'dayjs';
+import { FieldType } from './interfaces';
 
 export const getTime = (date: Date, ampm?: boolean) => {
   if (ampm) {
@@ -21,14 +22,33 @@ export const getRecordTimeRange = (record: any, ampm?: boolean) => {
     record.toDate?.date &&
     new Date(record.toDate?.date);
 
-  if (fromDate && toDate) {
-    return `${getTime(fromDate, ampm)} - ${getTime(toDate, ampm)}`;
-  }
+  const timeRange = () => {
+    if (fromDate && toDate) {
+      return `${getTime(fromDate, ampm)} - ${getTime(toDate, ampm)}`;
+    }
 
-  if (toDate || fromDate) {
-    return toDate ? getTime(toDate, ampm) : getTime(fromDate, ampm);
+    if (toDate || fromDate) {
+      return toDate ? getTime(toDate, ampm) : getTime(fromDate, ampm);
+    }
+    return 'All-day';
+  };
+
+  const startDate = () => {
+    if (fromDate) {
+      return getTime(fromDate, ampm);
+    }
+    return 'All-day';
+  };
+
+  switch (record.fieldType as FieldType) {
+    case FieldType.datefield:
+    case FieldType.firstcreatedfield:
+    case FieldType.lastupdatedfield:
+      return startDate();
+    case FieldType.daterangefield:
+    case FieldType.duedatefield:
+      return timeRange();
   }
-  return 'All-day';
 };
 
 export const getOverdueDays = (record: any) => {
