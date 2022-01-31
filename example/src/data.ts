@@ -1870,8 +1870,7 @@ export const events = [
   {
     recordId: '61f111666735594ae83b6f13',
     slug: 's1b83fcb76',
-    recordTitle:
-      'Test Record to test the due date and date range fields with 27/01 16:00 - 28/01 10:00 dates test test !@#$%^&*()_+-=',
+    recordTitle: 'Test Record to test the',
     fieldLabel: 'Date Range 1',
     fieldType: 'daterangefield',
     color: {
@@ -1879,11 +1878,11 @@ export const events = [
       font: '#2E3538',
     },
     fromDate: {
-      date: '2022-01-27T16:00:00Z',
+      date: '2022-01-31T20:00:00Z',
       include_time: true,
     },
     toDate: {
-      date: '2022-01-28T10:00:00Z',
+      date: '2022-01-31T21:00:00Z',
       include_time: true,
     },
     dueDateStatus: {},
