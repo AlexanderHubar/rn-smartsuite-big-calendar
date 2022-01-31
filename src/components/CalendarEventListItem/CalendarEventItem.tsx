@@ -16,7 +16,6 @@ import {
 } from './styled';
 import { DueDateBadge } from '../DueDateBadge';
 import { getOverdueDays, getRecordTimeRange } from '../../date-utils';
-import { useSpotlight } from '../../hooks/useSpotlight';
 
 function CalendarEventItem<T>({
   event,
@@ -25,8 +24,8 @@ function CalendarEventItem<T>({
   opacity,
   isFocusElement = false,
   isLightMode = false,
+  color,
 }: CalendarEventItemProps<T>) {
-  const { color } = useSpotlight();
   const isDueDate = event.fieldType === FieldType.duedatefield;
 
   const highlightColor = isLightMode
@@ -41,9 +40,7 @@ function CalendarEventItem<T>({
       {isFocusElement && (
         <HighLightBox style={{ opacity }} color={highlightColor} />
       )}
-      <ItemColor
-        color={color(event.recordId + event.slug, event.color.background)}
-      />
+      <ItemColor color={color} />
       <DetailsContainer>
         <TitleContainer>
           <FieldTitle isLightMode={isLightMode}>
