@@ -362,3 +362,13 @@ export const isBetween = (
 ): boolean => {
   return dayjs(date).isBetween(startDate, endDate, unit, d);
 };
+
+export const isFocusElement = (
+  event: ICalendarEvent<any>,
+  focusEvent?: ICalendarEvent<any>
+): boolean =>
+  Boolean(
+    focusEvent &&
+      focusEvent.slug === event.slug &&
+      focusEvent.recordId === event.recordId
+  );

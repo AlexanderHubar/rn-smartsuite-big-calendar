@@ -287,9 +287,11 @@ function _CalendarContainer<T>(
           dateRange={dateRange}
           targetDate={targetDate}
           todayDate={todayDate}
+          focusEvent={focusEvent}
           activeColor={activeColor}
           onEventPress={onPressEvent}
           onSwipeHorizontal={onSwipeHorizontal}
+          onFocusEventEnd={() => setFocusEvent(null)}
         />
       </React.Fragment>
     );
