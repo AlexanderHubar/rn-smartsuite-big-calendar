@@ -26,6 +26,7 @@ import type { Mode } from '../../interfaces';
 import { DueDateBadge } from '../DueDateBadge';
 import { getOverdueDays } from '../../date-utils';
 import { useTheme } from 'styled-components';
+import { useSpotlight } from '../../hooks/useSpotlight';
 
 export interface CalendarHeaderProps<T> {
   dateRange: dayjs.Dayjs[];
@@ -59,6 +60,7 @@ function _CalendarHeader<T>({
   onShowAllDayEvents,
   showDaysHeader,
 }: CalendarHeaderProps<T>) {
+  const { color, font } = useSpotlight();
   const [cellWidth, setCellWidth] = useState(0);
 
   const _onPress = React.useCallback(
@@ -123,9 +125,7 @@ function _CalendarHeader<T>({
               backgroundColor={'#E9E9E9'}
               key={`${event.slug}-${event.recordId}`}
             >
-              <AllDayEventLabel style={{ color: 'black' }}>
-                + {eventsLeft}
-              </AllDayEventLabel>
+              <AllDayEventLabel color="black">+ {eventsLeft}</AllDayEventLabel>
             </AllDayEventPill>
           );
         }
@@ -135,11 +135,16 @@ function _CalendarHeader<T>({
       if (isDateBetweenEvent) {
         const opacity = isDayMode ? 1 : 0;
 
+        const fontColor = font(event.recordId + event.slug, event.color.font);
+
         eventsArr.push(
           <AllDayEventPill
             onPress={() => onAllDayEventPress(event)}
             style={{ opacity }}
-            backgroundColor={event.color}
+            backgroundColor={color(
+              event.recordId + event.slug,
+              event.color.background
+            )}
             key={`${event.slug}.${event.recordId}.${event.recordId}.${opacity}`}
           >
             {event?.fieldType === 'duedatefield' && (
@@ -148,9 +153,11 @@ function _CalendarHeader<T>({
                 isComplete={event.dueDateStatus?.isComplete || false}
               />
             )}
-            <AllDayEventBoldLabel>
+            <AllDayEventBoldLabel color={fontColor}>
               {event?.recordTitle} •{' '}
-              <AllDayEventLabel>{event?.fieldLabel}</AllDayEventLabel>
+              <AllDayEventLabel color={fontColor}>
+                {event?.fieldLabel}
+              </AllDayEventLabel>
             </AllDayEventBoldLabel>
           </AllDayEventPill>
         );
@@ -228,6 +235,13 @@ function _CalendarHeader<T>({
                       _event.recordId === recordId && _event.slug === fieldSlug
                   );
 
+                  const id = event ? event.recordId + event.slug : '';
+                  const eventPillBackground = color(
+                    id,
+                    event?.color.background
+                  );
+                  const fontColor = font(id, event?.color.font);
+
                   return dayLine && index < 3 ? (
                     <AllDayEventPill
                       key={`${dayLine}.${dateRange[0]}`}
@@ -235,7 +249,7 @@ function _CalendarHeader<T>({
                       style={{
                         width: cellWidth * Number(eventCount) - 1,
                       }}
-                      backgroundColor={event?.color}
+                      backgroundColor={eventPillBackground}
                     >
                       {event?.fieldType === 'duedatefield' && (
                         <DueDateBadge
@@ -248,9 +262,12 @@ function _CalendarHeader<T>({
                         numberOfLines={
                           Platform.OS === 'android' ? 1 : undefined
                         }
+                        color={fontColor}
                       >
                         {event?.recordTitle} •{' '}
-                        <AllDayEventLabel>{event?.fieldLabel}</AllDayEventLabel>
+                        <AllDayEventLabel color={fontColor}>
+                          {event?.fieldLabel}
+                        </AllDayEventLabel>
                       </AllDayEventBoldLabel>
                     </AllDayEventPill>
                   ) : (

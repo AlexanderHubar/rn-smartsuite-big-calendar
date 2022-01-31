@@ -55,9 +55,9 @@ export const AllDayEventPill = styled.TouchableOpacity<{
   flex-direction: row;
 `;
 
-export const AllDayEventLabel = styled.Text`
+export const AllDayEventLabel = styled.Text<{ color?: string }>`
   font-size: ${({ theme }) => theme.typography.sm.fontSize}px;
-  color: white;
+  color: ${({ color }) => color ?? 'white'};
   font-weight: 400;
 `;
 

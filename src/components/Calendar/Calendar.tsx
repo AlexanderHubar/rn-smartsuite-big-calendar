@@ -17,7 +17,7 @@ import {
   CalendarContainer,
   CalendarContainerProps,
 } from '../CalendarContainer';
-import type { WeekNum } from 'rn-smartsuite-big-calendar';
+import type { SpotlightItems, WeekNum } from 'rn-smartsuite-big-calendar';
 import { CalendarContextProvider } from './CalendarContext';
 import type { CalendarRef } from 'rn-smartsuite-big-calendar';
 
@@ -66,6 +66,7 @@ export interface CalendarProps<T> extends CalendarContainerProps<T> {
   isRTL?: boolean;
   t: (key: string) => string;
   isLightMode?: boolean;
+  spotlightItems?: SpotlightItems[];
 }
 
 function _Calendar<T>(
@@ -75,6 +76,7 @@ function _Calendar<T>(
     isRTL,
     t,
     isLightMode = true,
+    spotlightItems = [],
     ...props
   }: CalendarProps<T>,
   ref?: React.Ref<CalendarRef> | null
@@ -90,7 +92,7 @@ function _Calendar<T>(
 
   return (
     <ThemeProvider theme={isLightMode ? lightTheme : darkTheme}>
-      <CalendarContextProvider value={{ t: t, isLightMode }}>
+      <CalendarContextProvider value={{ t: t, isLightMode, spotlightItems }}>
         <ThemeContext.Provider value={_theme}>
           <CalendarContainer
             ref={ref}

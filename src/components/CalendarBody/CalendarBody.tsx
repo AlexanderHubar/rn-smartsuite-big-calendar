@@ -12,7 +12,6 @@ import type {
   ICalendarEvent,
 } from '../../interfaces';
 import {
-  getCountOfEventsAtEvent,
   getOrderOfEvent,
   getRelativeTopInDay,
   hours,
@@ -123,7 +122,6 @@ function _CalendarBody<T>({
       onPressEvent={onPressEvent}
       eventCellStyle={eventCellStyle}
       showTime={showTime}
-      eventCount={getCountOfEventsAtEvent(event, events)}
       eventOrder={getOrderOfEvent(event, events)}
       overlapOffset={overlapOffset}
       renderEvent={renderEvent}
