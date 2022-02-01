@@ -128,6 +128,9 @@ function _CalendarBody<T>({
   const focusElementIndex = () => {
     new Promise((resolve) => setTimeout(resolve, 100)).then(() => {
       if (focusEvent && scrollView.current) {
+        if (!focusEvent.fromDate.include_time) {
+          return;
+        }
         const eventHours = dayjs(focusEvent.fromDate.date).hour();
         const scrollY = cellHeight * eventHours;
 

@@ -353,6 +353,7 @@ function _CalendarContainer<T>(
         mode={mode}
         onPressEvent={onPressEvent}
         onShowAllDayEvents={onShowAllDayEvents}
+        focusEvent={focusEvent}
       />
       <CalendarBody
         {...commonProps}

@@ -1,11 +1,18 @@
 import dayjs from 'dayjs';
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { find } from 'remeda';
-import { TouchableOpacity, View, ViewStyle, Platform } from 'react-native';
+import {
+  TouchableOpacity,
+  View,
+  ViewStyle,
+  Platform,
+  Animated,
+  Easing,
+} from 'react-native';
 
 import { u } from '../../commonStyles';
 import type { ICalendarEvent } from '../../interfaces';
-import { isToday, typedMemo } from '../../utils';
+import { isFocusElement, isToday, typedMemo } from '../../utils';
 import {
   ActiveDateCircle,
   AllDayEventBoldLabel,
@@ -27,6 +34,8 @@ import { DueDateBadge } from '../DueDateBadge';
 import { getOverdueDays } from '../../date-utils';
 import { useTheme } from 'styled-components';
 import { useSpotlight } from '../../hooks/useSpotlight';
+import { HighLightBox } from '../CalendarEventListItem/styled';
+import { CalendarContext } from '../Calendar/CalendarContext';
 
 export interface CalendarHeaderProps<T> {
   dateRange: dayjs.Dayjs[];
@@ -45,6 +54,7 @@ export interface CalendarHeaderProps<T> {
   mode: Mode;
   activeColor: string;
   onShowAllDayEvents: (date: Date) => void;
+  focusEvent?: ICalendarEvent<T> | any;
 }
 
 function _CalendarHeader<T>({
@@ -59,9 +69,11 @@ function _CalendarHeader<T>({
   activeColor,
   onShowAllDayEvents,
   showDaysHeader,
+  focusEvent,
 }: CalendarHeaderProps<T>) {
   const { color, font } = useSpotlight();
   const [cellWidth, setCellWidth] = useState(0);
+  const { isLightMode } = useContext(CalendarContext);
 
   const _onPress = React.useCallback(
     (date: Date) => {
@@ -92,6 +104,33 @@ function _CalendarHeader<T>({
   const weekTimeLine = getWeekTimeLine(eventsByRangeArray);
 
   const isDayMode = mode === 'timeGrid';
+
+  const highlightColor = isLightMode ? 'rgb(173,173,173)' : 'rgb(80,80,80)';
+
+  const animatedValue = new Animated.Value(0);
+
+  const highlightOpacity = animatedValue.interpolate({
+    inputRange: [0, 0.2, 1],
+    outputRange: [0, 1, 0],
+  });
+
+  const highlightItem = Animated.timing(animatedValue, {
+    toValue: 1,
+    duration: 1000,
+    easing: Easing.ease,
+    useNativeDriver: false,
+  });
+
+  const focusElementIndex = () => {
+    new Promise((resolve) => setTimeout(resolve, 100)).then(() => {
+      if (focusEvent) {
+        animatedValue.setValue(0);
+        setTimeout(() => highlightItem.start(), 300);
+      }
+    });
+  };
+
+  useEffect(() => focusElementIndex(), [focusEvent?.uniqueId]);
 
   const renderAllDayEvents = (date: any) => {
     const eventsArr = [];
@@ -147,6 +186,12 @@ function _CalendarHeader<T>({
             )}
             key={`${event.slug}.${event.recordId}.${event.recordId}.${opacity}`}
           >
+            {isFocusElement(event, focusEvent) && (
+              <HighLightBox
+                style={{ opacity: highlightOpacity }}
+                color={highlightColor}
+              />
+            )}
             {event?.fieldType === 'duedatefield' && (
               <DueDateBadge
                 overdueDays={getOverdueDays(event)}
@@ -251,6 +296,12 @@ function _CalendarHeader<T>({
                       }}
                       backgroundColor={eventPillBackground}
                     >
+                      {isFocusElement(event, focusEvent) && (
+                        <HighLightBox
+                          style={{ opacity: highlightOpacity }}
+                          color={highlightColor}
+                        />
+                      )}
                       {event?.fieldType === 'duedatefield' && (
                         <DueDateBadge
                           overdueDays={getOverdueDays(event)}
