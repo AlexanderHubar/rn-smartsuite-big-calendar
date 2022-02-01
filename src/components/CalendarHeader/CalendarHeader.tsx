@@ -174,16 +174,13 @@ function _CalendarHeader<T>({
       if (isDateBetweenEvent) {
         const opacity = isDayMode ? 1 : 0;
 
-        const fontColor = font(event.recordId + event.slug, event.color.font);
+        const fontColor = font(event);
 
         eventsArr.push(
           <AllDayEventPill
             onPress={() => onAllDayEventPress(event)}
             style={{ opacity }}
-            backgroundColor={color(
-              event.recordId + event.slug,
-              event.color.background
-            )}
+            backgroundColor={color(event)}
             key={`${event.slug}.${event.recordId}.${event.recordId}.${opacity}`}
           >
             {isFocusElement(event, focusEvent) && (
@@ -280,12 +277,7 @@ function _CalendarHeader<T>({
                       _event.recordId === recordId && _event.slug === fieldSlug
                   );
 
-                  const id = event ? event.recordId + event.slug : '';
-                  const eventPillBackground = color(
-                    id,
-                    event?.color.background
-                  );
-                  const fontColor = font(id, event?.color.font);
+                  const fontColor = font(event);
 
                   return dayLine && index < 3 ? (
                     <AllDayEventPill
@@ -294,7 +286,7 @@ function _CalendarHeader<T>({
                       style={{
                         width: cellWidth * Number(eventCount) - 1,
                       }}
-                      backgroundColor={eventPillBackground}
+                      backgroundColor={color(event)}
                     >
                       {isFocusElement(event, focusEvent) && (
                         <HighLightBox

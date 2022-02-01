@@ -137,24 +137,17 @@ function _CalendarList<T>({
         stickySectionHeadersEnabled={false}
         scrollEventThrottle={32}
         nestedScrollEnabled
-        renderItem={({ item: event }) => {
-          const eventItemColor = color(
-            event.recordId + event.slug,
-            event.color.background
-          );
-
-          return (
-            <CalendarEventItem
-              isLightMode={isLightMode}
-              event={event}
-              opacity={opacity}
-              isFocusElement={isFocusElement(event, focusEvent)}
-              onPress={onEventPress}
-              ampm={ampm}
-              color={eventItemColor}
-            />
-          );
-        }}
+        renderItem={({ item: event }) => (
+          <CalendarEventItem
+            isLightMode={isLightMode}
+            event={event}
+            opacity={opacity}
+            isFocusElement={isFocusElement(event, focusEvent)}
+            onPress={onEventPress}
+            ampm={ampm}
+            color={color(event)}
+          />
+        )}
         renderSectionHeader={({ section: { section } }) => (
           <ListHeader
             date={section}

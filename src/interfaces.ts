@@ -118,3 +118,8 @@ export interface SpotlightItems {
   value: string;
   color: string;
 }
+
+export enum ColorType {
+  hsv = 'hsv',
+  hsp = 'hsp',
+}
