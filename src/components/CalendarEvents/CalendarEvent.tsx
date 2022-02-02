@@ -78,10 +78,7 @@ function _CalendarEvent<T>({
       getStyleForOverlappingEvent(eventOrder, overlapOffset, palettes),
       u.absolute,
       {
-        backgroundColor: color(
-          event.recordId + event.slug,
-          event.color.background
-        ),
+        backgroundColor: color(event),
         borderRadius: 4,
         marginHorizontal: 4,
         borderWidth: 1,
@@ -94,8 +91,6 @@ function _CalendarEvent<T>({
     return renderEvent(event, touchableOpacityProps);
   }
 
-  const id = event.recordId + event.slug;
-
   const highlightColor = isLightMode ? 'rgb(173,173,173)' : 'rgb(80,80,80)';
 
   return (
@@ -107,7 +102,7 @@ function _CalendarEvent<T>({
         event={event}
         showTime={showTime}
         ampm={ampm}
-        textColor={font(id, event.color.font)}
+        textColor={font(event)}
       />
     </TouchableOpacity>
   );
