@@ -63,7 +63,8 @@
     "react-native-svg-transformer": "^0.14.3",
     "remeda": "^0.0.32",
     "styled-components": "^5.3.3",
-    "xdate": "^0.8.2"
+    "xdate": "^0.8.2",
+    "colord": "^2.9.1"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^11.0.0",

@@ -3,7 +3,7 @@ import type {
   ICalendarEvent,
   SpotlightItems,
 } from 'rn-smartsuite-big-calendar';
-import { ColorType, SpotlightType } from 'rn-smartsuite-big-calendar';
+import { SpotlightType } from 'rn-smartsuite-big-calendar';
 import { useTheme } from 'styled-components';
 import { CalendarContext } from '../components/Calendar/CalendarContext';
 import { fontColor } from '../theme/color-helper';
@@ -36,13 +36,9 @@ export function useSpotlight() {
       return theme.spotlightInactiveFont;
     }
     const item = getSpotlight(event.recordId, event.slug);
-    const spotlightColor = item
-      ? fontColor(item.color, ColorType.hsv)
-      : fontColor(theme.spotlightInactive, ColorType.hsp);
+    const spotlightColor = item ? item.color : theme.spotlightInactive;
 
-    return hasSpotlight
-      ? spotlightColor
-      : fontColor(event.color.background, ColorType.hsv);
+    return fontColor(hasSpotlight ? spotlightColor : event.color.background);
   };
 
   React.useEffect(
