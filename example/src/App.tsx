@@ -1,31 +1,35 @@
-import * as React from 'react';
+import React from 'react';
+import { Dimensions, SafeAreaView, StatusBar } from 'react-native';
 
-import { StyleSheet, View, Text } from 'react-native';
-import RnSmartsuiteBigCalendar from 'rn-smartsuite-big-calendar';
+import { Calendar } from 'rn-smartsuite-big-calendar';
+import { events } from './performanceCheckData';
 
-export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
-  React.useEffect(() => {
-    RnSmartsuiteBigCalendar.multiply(3, 7).then(setResult);
-  }, []);
-
+export const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Result: {result}</Text>
-    </View>
+    <React.Fragment>
+      <StatusBar barStyle="light-content" />
+      <SafeAreaView style={{ backgroundColor: '#38393B' }}>
+        <Calendar
+          t={(key) => key}
+          onShowAllDayEvents={(date) => console.log(date)}
+          events={events as any}
+          // mode={'timeGrid'}
+          // mode={'timeThreeDays'}
+          mode={'timeGridWeek'}
+          // mode={'listWeek'}
+          // mode={'dayGridMonth'}
+          activeColor={'#127ee8'}
+          isLightMode={false}
+          showDaysHeader={true}
+          locale={'en'}
+          ampm={true}
+          height={Dimensions.get('window').height}
+          spotlightItems={[]}
+          onViewModePress={(mode) => console.log(mode)}
+          onPressEvent={(event) => console.log(event)}
+          onAddEvent={(date) => console.log(date)}
+        />
+      </SafeAreaView>
+    </React.Fragment>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
-  },
-});
+};

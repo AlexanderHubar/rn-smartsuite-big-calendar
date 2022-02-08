@@ -1,0 +1,1 @@
+export { CalendarEventForMonthView } from './CalendarEventForMonthView';
