@@ -4,7 +4,6 @@ import type { TextStyle, ViewStyle } from 'react-native';
 
 import { OVERLAP_PADDING } from './commonStyles';
 import type { DateObject, ICalendarEvent, Mode, WeekNum } from './interfaces';
-import type { Palette } from './theme/ThemeInterface';
 
 export const typedMemo: <T>(c: T) => T = React.memo;
 
@@ -245,21 +244,16 @@ export function getOrderOfEvent(
 
 export function getStyleForOverlappingEvent(
   eventPosition: number,
-  overlapOffset: number,
-  palettes: Palette[]
+  overlapOffset: number
 ) {
-  let overlapStyle = {};
-  const offset = overlapOffset;
-  const start = eventPosition * offset;
+  const start = eventPosition * overlapOffset;
   const zIndex = 100 + eventPosition;
-  const bgColors = palettes.map((p) => p.main);
-  overlapStyle = {
+
+  return {
     start: start + OVERLAP_PADDING,
     end: OVERLAP_PADDING,
-    backgroundColor: bgColors[eventPosition % bgColors.length] || bgColors[0],
     zIndex,
   };
-  return overlapStyle;
 }
 
 export function getDatesInNextCustomDays(
