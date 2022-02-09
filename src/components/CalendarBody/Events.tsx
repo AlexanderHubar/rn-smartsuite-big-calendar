@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
-import type { ICalendarEvent } from '../../../lib/typescript';
+import type { ICalendarEvent } from 'rn-smartsuite-big-calendar';
 
 const Events: React.FC<{
   events: ICalendarEvent[];
