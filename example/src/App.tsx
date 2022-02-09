@@ -19,6 +19,7 @@ export const App = () => {
           // mode={'listWeek'}
           // mode={'dayGridMonth'}
           activeColor={'#127ee8'}
+          onPressCell={(date) => console.log(date)}
           isLightMode={false}
           showDaysHeader={true}
           locale={'en'}
