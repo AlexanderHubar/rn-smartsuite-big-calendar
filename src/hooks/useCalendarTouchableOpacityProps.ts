@@ -22,22 +22,16 @@ export function useCalendarTouchableOpacityProps<T>({
   injectedStyles = [],
   onPressEvent,
 }: UseCalendarTouchableOpacityPropsProps<T>) {
-  const getEventStyle = React.useMemo(
-    () =>
-      typeof eventCellStyle === 'function'
-        ? eventCellStyle
-        : () => eventCellStyle,
-    [eventCellStyle]
-  );
+  const getEventStyle =
+    typeof eventCellStyle === 'function'
+      ? eventCellStyle
+      : () => eventCellStyle;
 
-  const plainJsEvent = React.useMemo(
-    () => ({
-      ...event,
-      start: dayjs(event.fromDate.date).toDate(),
-      end: dayjs(event.toDate?.date).toDate(),
-    }),
-    [event]
-  );
+  const plainJsEvent = {
+    ...event,
+    start: dayjs(event.fromDate.date).toDate(),
+    end: dayjs(event.toDate?.date).toDate(),
+  };
 
   const _onPress = React.useCallback(() => {
     onPressEvent && onPressEvent(plainJsEvent);
@@ -45,7 +39,7 @@ export function useCalendarTouchableOpacityProps<T>({
 
   const touchableOpacityProps: CalendarTouchableOpacityProps = {
     delayPressIn: 20,
-    key: String(event.fromDate?.date),
+    key: String(event.fromDate?.date + event.recordId + event.slug),
     style: [eventCellCss.style, ...injectedStyles, getEventStyle(plainJsEvent)],
     onPress: _onPress,
     disabled: !onPressEvent,

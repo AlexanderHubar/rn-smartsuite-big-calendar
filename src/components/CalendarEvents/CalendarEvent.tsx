@@ -8,7 +8,6 @@ import type {
   EventRenderer,
   ICalendarEvent,
 } from '../../interfaces';
-import { useTheme } from '../../theme/ThemeContext';
 import {
   DAY_MINUTES,
   getRelativeTopInDay,
@@ -55,19 +54,12 @@ function _CalendarEvent<T>({
   showTime,
   eventOrder = 0,
   overlapOffset = OVERLAP_OFFSET,
-  renderEvent,
   ampm,
   opacity,
   isFocusElement,
 }: CalendarEventProps<T>) {
   const { isLightMode } = useContext(CalendarContext);
-  const theme = useTheme();
   const { color, font } = useSpotlight();
-
-  const palettes = React.useMemo(
-    () => [theme.palette.primary, ...theme.eventCellOverlappings],
-    [theme]
-  );
 
   const touchableOpacityProps = useCalendarTouchableOpacityProps({
     event,
@@ -75,7 +67,7 @@ function _CalendarEvent<T>({
     onPressEvent,
     injectedStyles: [
       getEventCellPositionStyle(event.fromDate.date, event.toDate?.date),
-      getStyleForOverlappingEvent(eventOrder, overlapOffset, palettes),
+      getStyleForOverlappingEvent(eventOrder, overlapOffset),
       u.absolute,
       {
         backgroundColor: color(event),
@@ -86,10 +78,6 @@ function _CalendarEvent<T>({
       },
     ],
   });
-
-  if (renderEvent) {
-    return renderEvent(event, touchableOpacityProps);
-  }
 
   const highlightColor = isLightMode ? 'rgb(173,173,173)' : 'rgb(80,80,80)';
 

@@ -28,12 +28,13 @@ import {
   typedMemo,
 } from '../../utils';
 import { CalendarEvent } from '../CalendarEvents';
-import { HourGuideCell } from '../HourGuideCell';
 import { HourGuideColumn } from '../HourGuideColumn';
 
 import { NowIndicatorTriangle, NowIndicator } from './styled';
 import { useTheme } from 'styled-components';
 import { useEffect } from 'react';
+import { Events } from './Events';
+import { Hours } from './HourGuide';
 
 interface CalendarBodyProps<T> {
   cellHeight: number;
@@ -189,49 +190,43 @@ function _CalendarBody<T>({
               />
             ))}
           </View>
-          {dateRange.map((date, dateIndex) => (
-            <View
-              style={[u['flex-1'], u['overflow-hidden']]}
-              key={date.toString()}
-            >
-              {hours.map((hour, index) => (
-                <HourGuideCell
-                  key={hour}
+          {dateRange.map((date, dateIndex) => {
+            return (
+              <View
+                style={[u['flex-1'], u['overflow-hidden']]}
+                key={date.toString()}
+              >
+                <Hours
+                  hours={hours}
                   cellHeight={cellHeight}
-                  index={index}
                   dateIndex={dateIndex}
                 />
-              ))}
 
-              {/* Render events of this date */}
-              {/* M  T  (W)  T  F  S  S */}
-              {/*       S-E             */}
-              {events
-                .filter((event) =>
-                  dayjs(event.fromDate.date).isBetween(
-                    date.startOf('day'),
-                    date.endOf('day'),
-                    null,
-                    '[)'
-                  )
-                )
-                .map(_renderMappedEvent)}
+                {/* Render events of this date */}
+                {/* M  T  (W)  T  F  S  S */}
+                {/*       S-E             */}
+                <Events
+                  events={events}
+                  _renderMappedEvent={_renderMappedEvent}
+                  date={date}
+                />
 
-              {isToday(date) && !hideNowIndicator && (
-                <NowIndicator top={getRelativeTopInDay(now)}>
-                  <NowIndicatorTriangle
-                    style={{
-                      transform: [
-                        { rotate: '135deg' },
-                        { translateX: 1 },
-                        { translateY: 6 },
-                      ],
-                    }}
-                  />
-                </NowIndicator>
-              )}
-            </View>
-          ))}
+                {isToday(date) && !hideNowIndicator && (
+                  <NowIndicator top={getRelativeTopInDay(now)}>
+                    <NowIndicatorTriangle
+                      style={{
+                        transform: [
+                          { rotate: '135deg' },
+                          { translateX: 1 },
+                          { translateY: 6 },
+                        ],
+                      }}
+                    />
+                  </NowIndicator>
+                )}
+              </View>
+            );
+          })}
         </View>
       </ScrollView>
     </React.Fragment>
