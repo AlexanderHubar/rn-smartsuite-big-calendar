@@ -73,6 +73,7 @@ function _CalendarBody<T>({
   hideNowIndicator,
   overlapOffset,
   renderEvent,
+  onPressCell,
   hourStyle = {},
   focusEvent,
 }: CalendarBodyProps<T>) {
@@ -115,6 +116,13 @@ function _CalendarBody<T>({
   const panResponder = usePanResponder({
     onSwipeHorizontal,
   });
+
+  const _onPressCell = React.useCallback(
+    (date: dayjs.Dayjs) => {
+      onPressCell && onPressCell(date.toDate());
+    },
+    [onPressCell]
+  );
 
   const focusElementIndex = () => {
     new Promise((resolve) => setTimeout(resolve, 100)).then(() => {
@@ -197,6 +205,8 @@ function _CalendarBody<T>({
                 key={date.toString()}
               >
                 <Hours
+                  date={date}
+                  onPress={_onPressCell}
                   hours={hours}
                   cellHeight={cellHeight}
                   dateIndex={dateIndex}

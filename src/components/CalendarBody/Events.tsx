@@ -20,7 +20,7 @@ const Events: React.FC<{
         )
       )
     );
-  }, []);
+  }, [events, date]);
 
   if (visibleEvents.length === 0) {
     return null;
