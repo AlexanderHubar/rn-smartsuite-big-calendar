@@ -4,6 +4,7 @@ export const CalendarContext = createContext({
   t: (key: string) => key,
   isLightMode: true,
   spotlightItems: [],
+  findItems: [],
 });
 
 export function CalendarContextProvider({

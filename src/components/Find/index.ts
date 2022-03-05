@@ -1,0 +1,1 @@
+export { HighlightWrapper } from './HighlightWrapper';

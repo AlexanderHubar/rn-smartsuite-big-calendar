@@ -26,6 +26,7 @@ export const App = () => {
           ampm={true}
           height={Dimensions.get('window').height}
           spotlightItems={[]}
+          findItems={[]}
           onViewModePress={(mode) => console.log(mode)}
           onPressEvent={(event) => console.log(event)}
           onAddEvent={(date) => console.log(date)}

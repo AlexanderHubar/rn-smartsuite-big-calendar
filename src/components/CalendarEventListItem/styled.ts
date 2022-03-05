@@ -59,10 +59,15 @@ export const FieldTitle = styled.Text<{ isLightMode: boolean }>`
     isLightMode ? theme.light.color : theme.dark.color};
 `;
 
-export const EventTitle = styled.Text<{ isLightMode: boolean }>`
+export const EventTitle = styled.Text<{
+  hasFind?: boolean;
+  isLightMode: boolean;
+}>`
   font-weight: 500;
   color: ${({ isLightMode }) =>
     isLightMode ? theme.light.color : theme.dark.color};
+  background-color: ${({ hasFind }) =>
+    hasFind ? 'rgba(110,166,255,0.30)' : 'transparent'};
 `;
 
 export const PeriodText = styled.Text<{ isLightMode: boolean }>`

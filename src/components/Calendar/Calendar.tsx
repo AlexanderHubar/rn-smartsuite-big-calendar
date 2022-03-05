@@ -64,6 +64,7 @@ export interface CalendarProps<T> extends CalendarContainerProps<T> {
   t: (key: string) => string;
   isLightMode?: boolean;
   spotlightItems?: SpotlightItems[];
+  findItems?: string[];
 }
 
 function _Calendar<T>(
@@ -73,6 +74,7 @@ function _Calendar<T>(
     t,
     isLightMode = true,
     spotlightItems = [],
+    findItems = [],
     ...props
   }: CalendarProps<T>,
   ref?: React.Ref<CalendarRef> | null
@@ -86,7 +88,9 @@ function _Calendar<T>(
 
   return (
     <ThemeProvider theme={isLightMode ? lightTheme : darkTheme}>
-      <CalendarContextProvider value={{ t: t, isLightMode, spotlightItems }}>
+      <CalendarContextProvider
+        value={{ t: t, isLightMode, spotlightItems, findItems }}
+      >
         <ThemeContext.Provider value={theme}>
           <CalendarContainer
             ref={ref}
