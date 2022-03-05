@@ -1,9 +1,6 @@
 import styled from 'styled-components/native';
 
-export const FindContainer = styled.View`
-  padding-right: 2px;
-  padding-left: 2px;
-`;
+export const FindContainer = styled.View``;
 
 export const Find = styled.View<{ color: string }>`
   background-color: ${({ color }) => color};
@@ -13,4 +10,5 @@ export const Find = styled.View<{ color: string }>`
   right: 0;
   top: 0;
   bottom: 0;
+  margin: -2px -4px;
 `;
