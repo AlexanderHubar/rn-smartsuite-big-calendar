@@ -36,6 +36,7 @@ import { useTheme } from 'styled-components';
 import { useSpotlight } from '../../hooks/useSpotlight';
 import { HighLightBox } from '../CalendarEventListItem/styled';
 import { CalendarContext } from '../Calendar/CalendarContext';
+import { HighlightWrapper } from '../Find';
 
 export interface CalendarHeaderProps<T> {
   dateRange: dayjs.Dayjs[];
@@ -195,8 +196,13 @@ function _CalendarHeader<T>({
                 isComplete={event.dueDateStatus?.isComplete || false}
               />
             )}
+            <HighlightWrapper slug="title" event={event}>
+              <AllDayEventLabel color={fontColor}>
+                {event?.recordTitle}
+              </AllDayEventLabel>
+            </HighlightWrapper>
             <AllDayEventBoldLabel color={fontColor}>
-              {event?.recordTitle} •{' '}
+              •{' '}
               <AllDayEventLabel color={fontColor}>
                 {event?.fieldLabel}
               </AllDayEventLabel>
@@ -300,14 +306,18 @@ function _CalendarHeader<T>({
                           isComplete={event.dueDateStatus?.isComplete || false}
                         />
                       )}
-
+                      <HighlightWrapper slug="title" event={event}>
+                        <AllDayEventLabel color={fontColor}>
+                          {event?.recordTitle}
+                        </AllDayEventLabel>
+                      </HighlightWrapper>
                       <AllDayEventBoldLabel
                         numberOfLines={
                           Platform.OS === 'android' ? 1 : undefined
                         }
                         color={fontColor}
                       >
-                        {event?.recordTitle} •{' '}
+                        •{' '}
                         <AllDayEventLabel color={fontColor}>
                           {event?.fieldLabel}
                         </AllDayEventLabel>

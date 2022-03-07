@@ -16,6 +16,7 @@ import {
 } from './styled';
 import { DueDateBadge } from '../DueDateBadge';
 import { getOverdueDays, getRecordTimeRange } from '../../date-utils';
+import { useFind } from '../../hooks/useFind';
 
 function CalendarEventItem<T>({
   event,
@@ -26,6 +27,8 @@ function CalendarEventItem<T>({
   isLightMode = false,
   color,
 }: CalendarEventItemProps<T>) {
+  const { hasFind } = useFind(event);
+
   const isDueDate = event.fieldType === FieldType.duedatefield;
 
   const highlightColor = isLightMode
@@ -44,7 +47,7 @@ function CalendarEventItem<T>({
       <DetailsContainer>
         <TitleContainer>
           <FieldTitle isLightMode={isLightMode}>
-            <EventTitle isLightMode={isLightMode}>
+            <EventTitle hasFind={hasFind('title')} isLightMode={isLightMode}>
               {event.recordTitle}{' '}
             </EventTitle>
             •

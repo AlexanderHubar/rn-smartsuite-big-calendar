@@ -6,5 +6,5 @@ export const fontColor = (background: string) => {
   return colorBrightness ? '#2E3538' : '#FFFFFF';
 };
 
-const textShouldBeDarker = (backgroundColor: string) =>
+export const textShouldBeDarker = (backgroundColor: string) =>
   colord(backgroundColor).brightness() >= 0.8;

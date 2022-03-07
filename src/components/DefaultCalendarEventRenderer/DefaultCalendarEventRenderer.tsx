@@ -1,11 +1,12 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 
 import type { ICalendarEvent } from '../../interfaces';
-import { useTheme } from '../../theme/ThemeContext';
 import { formatStartEnd } from '../../utils';
 import { DueDateBadge } from '../DueDateBadge';
 import { getOverdueDays } from '../../date-utils';
+
+import { Container, Title, Time, EventTitle } from './styled';
+import { HighlightWrapper } from '../Find';
 
 interface DefaultCalendarEventRendererProps<T> {
   event: ICalendarEvent<T>;
@@ -19,27 +20,32 @@ export function DefaultCalendarEventRenderer<T>({
   textColor,
   ampm,
 }: DefaultCalendarEventRendererProps<T>) {
-  const theme = useTheme();
-
-  const eventTitleStyle = {
-    fontSize: theme.typography.sm.fontSize,
-    color: textColor,
-  };
-
   const timeFormat = ampm ? 'h:mm a' : 'HH:mm';
 
+  const time = formatStartEnd(event, timeFormat);
+
   return (
-    <View style={{ flexDirection: 'row' }}>
+    <Container>
       {event?.fieldType === 'duedatefield' && (
         <DueDateBadge
           overdueDays={getOverdueDays(event)}
           isComplete={event.dueDateStatus?.isComplete || false}
         />
       )}
-      <Text style={eventTitleStyle} numberOfLines={1}>
-        {formatStartEnd(event, timeFormat)} {event.recordTitle} •{' '}
-        {event.fieldLabel}
-      </Text>
-    </View>
+      {Boolean(time) && (
+        <Time numberOfLines={1} color={textColor}>
+          {time}{' '}
+        </Time>
+      )}
+      <HighlightWrapper slug="title" event={event}>
+        <EventTitle numberOfLines={1} color={textColor}>
+          {event.recordTitle}
+        </EventTitle>
+      </HighlightWrapper>
+      <Title color={textColor} numberOfLines={1}>
+        {' '}
+        • {event.fieldLabel}
+      </Title>
+    </Container>
   );
 }

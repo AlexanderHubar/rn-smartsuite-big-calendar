@@ -4,6 +4,7 @@ import type { TextStyle, ViewStyle } from 'react-native';
 
 import { OVERLAP_PADDING } from './commonStyles';
 import type { DateObject, ICalendarEvent, Mode, WeekNum } from './interfaces';
+import { FieldType } from './interfaces';
 
 export const typedMemo: <T>(c: T) => T = React.memo;
 
@@ -119,9 +120,20 @@ export function modeToNum(mode: Mode, current?: dayjs.Dayjs | Date): number {
 
 export function formatStartEnd(event: ICalendarEvent, format: string) {
   if (event.fromDate.include_time && event.toDate?.include_time) {
-    return `${dayjs(event.fromDate.date).format(format)} - ${dayjs(
+    const timeRange = `${dayjs(event.fromDate.date).format(format)} - ${dayjs(
       event.toDate.date
     ).format(format)}`;
+    const startDate = dayjs(event.fromDate.date).format(format);
+
+    switch (event.fieldType as FieldType) {
+      case FieldType.datefield:
+      case FieldType.firstcreatedfield:
+      case FieldType.lastupdatedfield:
+        return startDate;
+      case FieldType.daterangefield:
+      case FieldType.duedatefield:
+        return timeRange;
+    }
   }
 
   if (event.fromDate.include_time) {
