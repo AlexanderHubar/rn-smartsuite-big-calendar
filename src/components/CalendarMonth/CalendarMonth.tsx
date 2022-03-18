@@ -67,23 +67,23 @@ function _CalendarMonth<T>({
   const monthEvents = dateRange
     .map((date) =>
       events.filter((event) =>
-        dayjs(event.fromDate?.date).isBetween(
-          date.startOf('day'),
-          date.endOf('day'),
-          null,
-          '[)'
+        dayjs(date).isBetween(
+          event.fromDate.date,
+          event.toDate?.date,
+          'day',
+          '[]'
         )
       )
     )
     .flat(2);
 
   const dayEvents = events.filter((event) =>
-    dayjs(getDateWithoutTime(event.fromDate?.date)).isSame(currentDate)
+    dayjs(getDateWithoutTime(event.toDate?.date)).isSame(currentDate)
   );
 
   const markedDotes: MarkedDatesType = monthEvents.reduce(
     (acc, curr: ICalendarEvent) => {
-      const date = getDateWithoutTime(curr.fromDate?.date)?.toString() ?? '';
+      const date = getDateWithoutTime(curr.toDate?.date)?.toString() ?? '';
       const isSelected = dayjs(date).isSame(currentDate);
 
       return {
@@ -119,8 +119,8 @@ function _CalendarMonth<T>({
     new Promise((resolve) => setTimeout(resolve, 100)).then(() => {
       if (focusEvent && eventsListRef.current) {
         const dEvents = events.filter((event) =>
-          dayjs(getDateWithoutTime(event.fromDate?.date)).isSame(
-            dayjs(getDateWithoutTime(focusEvent.fromDate?.date))
+          dayjs(getDateWithoutTime(event.toDate?.date)).isSame(
+            dayjs(getDateWithoutTime(focusEvent.toDate?.date))
           )
         );
         const eventIndex = dEvents.findIndex(
