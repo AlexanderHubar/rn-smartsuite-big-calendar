@@ -56,11 +56,11 @@ function _CalendarList<T>({
   const weekEvents = dateRange
     .map((date) =>
       events.filter((event) =>
-        dayjs(date).isBetween(
-          event.fromDate.date,
-          event.toDate?.date,
-          'day',
-          '[]'
+        dayjs(event.toDate?.date).isBetween(
+          date.startOf('day'),
+          date.endOf('day'),
+          null,
+          '[)'
         )
       )
     )
