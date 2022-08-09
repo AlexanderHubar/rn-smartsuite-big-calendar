@@ -1,6 +1,7 @@
-import dayjs from 'dayjs';
+import type dayjs from 'dayjs';
 import type { ICalendarEvent } from '../../interfaces';
 import { filter, reduce } from 'remeda';
+import { zonedDate } from 'rn-smartsuite-big-calendar';
 
 type WeekTimeLine = any[][];
 type DayTimeLine = any[];
@@ -11,7 +12,7 @@ export const getEventsByDay = <T>(
 ) =>
   allDayEvents.reduce((eventsObject, event) => {
     const eventsRange = dateRange.map((date, dateIndex) => {
-      const isDateBetweenEvent = dayjs(date).isBetween(
+      const isDateBetweenEvent = zonedDate(date).isBetween(
         event.fromDate.date,
         event.toDate?.date,
         'day',

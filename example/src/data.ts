@@ -3282,3 +3282,10 @@ export const spotlightFoundItems = [
     value: '61f111666735594ae83b6f13first_created',
   },
 ];
+
+export const timeZone = {
+  pacificKiritimati: { timezone: 'Pacific/Kiritimati', time: '+14' },
+  europeIstanbul: { timezone: 'Europe/Istanbul', time: '+3' },
+  america: { timezone: 'America/Los_Angeles', time: '-7' },
+  pacificPago: { timezone: 'Pacific/Pago_Pago', time: '-11' },
+};
