@@ -3,6 +3,7 @@ import {
   ICalendarEvent,
   isFocusElement,
   typedMemo,
+  zonedDate,
 } from 'rn-smartsuite-big-calendar';
 
 import type { CalendarListProps } from './types';
@@ -14,7 +15,6 @@ import { ListHeader } from './CalendarListHeader';
 
 import { styleSheet, ListContainer } from './styled';
 import { usePanResponder } from '../../hooks/usePanResponder';
-import dayjs from 'dayjs';
 import { EmptyEventList } from './EmptyList';
 import { CalendarContext } from '../Calendar/CalendarContext';
 import { useSpotlight } from '../../hooks/useSpotlight';
@@ -56,7 +56,7 @@ function _CalendarList<T>({
   const weekEvents = dateRange
     .map((date) =>
       events.filter((event) =>
-        dayjs(event.toDate?.date).isBetween(
+        zonedDate(event.toDate?.date).isBetween(
           date.startOf('day'),
           date.endOf('day'),
           null,
@@ -74,7 +74,7 @@ function _CalendarList<T>({
   }, []);
 
   const scrollToLocation = () => {
-    const currDate = getDateWithoutTime(dayjs().toISOString());
+    const currDate = getDateWithoutTime(zonedDate().toISOString());
     const index = sections.findIndex(
       (item: SectionListData<any>) => item.section === currDate
     );
@@ -95,7 +95,7 @@ function _CalendarList<T>({
     new Promise((resolve) => setTimeout(resolve, 100)).then(() => {
       if (focusEvent && sectionRef.current) {
         const eventDate = getDateWithoutTime(
-          dayjs(focusEvent.toDate?.date).toISOString()
+          zonedDate(focusEvent.toDate?.date).toISOString()
         );
         const sectionIndex = sections.findIndex(
           (item: SectionListData<any>) => item.section === eventDate

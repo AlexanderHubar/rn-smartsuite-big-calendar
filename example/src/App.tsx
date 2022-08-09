@@ -3,6 +3,7 @@ import { Dimensions, SafeAreaView, StatusBar } from 'react-native';
 
 import { Calendar } from 'rn-smartsuite-big-calendar';
 import { events } from './performanceCheckData';
+import { timeZone } from './data';
 
 export const App = () => {
   return (
@@ -15,14 +16,15 @@ export const App = () => {
           events={events as any}
           // mode={'timeGrid'}
           // mode={'timeThreeDays'}
-          mode={'timeGridWeek'}
-          // mode={'listWeek'}
+          // mode={'timeGridWeek'}
+          mode={'listWeek'}
           // mode={'dayGridMonth'}
           activeColor={'#127ee8'}
           onPressCell={(date) => console.log(date)}
           isLightMode={false}
           showDaysHeader={true}
           locale={'en'}
+          timeZone={timeZone.pacificPago.timezone}
           ampm={true}
           height={Dimensions.get('window').height}
           spotlightItems={[]}

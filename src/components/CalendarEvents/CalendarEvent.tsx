@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import * as React from 'react';
 
 import { OVERLAP_OFFSET, u } from '../../commonStyles';
@@ -13,6 +12,7 @@ import {
   getRelativeTopInDay,
   getStyleForOverlappingEvent,
   typedMemo,
+  zonedDate,
 } from '../../utils';
 import { DefaultCalendarEventRenderer } from '../DefaultCalendarEventRenderer';
 import { useSpotlight } from '../../hooks/useSpotlight';
@@ -26,8 +26,8 @@ const getEventCellPositionStyle = (
   end?: Date | string | null
 ) => {
   const relativeHeight =
-    100 * (1 / DAY_MINUTES) * dayjs(end).diff(start, 'minute');
-  const relativeTop = getRelativeTopInDay(dayjs(start));
+    100 * (1 / DAY_MINUTES) * zonedDate(end).diff(start, 'minute');
+  const relativeTop = getRelativeTopInDay(zonedDate(start));
   return {
     height: `${relativeHeight}%`,
     top: `${relativeTop}%`,

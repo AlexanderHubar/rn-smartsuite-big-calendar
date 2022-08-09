@@ -1,20 +1,35 @@
 import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
 import React from 'react';
 import type { TextStyle, ViewStyle } from 'react-native';
 
 import { OVERLAP_PADDING } from './commonStyles';
 import type { DateObject, ICalendarEvent, Mode, WeekNum } from './interfaces';
 import { FieldType } from './interfaces';
+import TimeInfo from './timezone';
+
+dayjs.extend(timezone);
 
 export const typedMemo: <T>(c: T) => T = React.memo;
 
 export const DAY_MINUTES = 1440;
 
+export const zonedDate = (
+  date?: string | Date | dayjs.Dayjs | null | undefined,
+  timeZone: string = TimeInfo.default().getUserTimezone()
+) => dayjs(date).tz(timeZone);
+
+export const zonedFormatDate = (
+  date?: string | Date | dayjs.Dayjs | null | undefined,
+  format?: string,
+  timeZone: string = TimeInfo.default().getUserTimezone()
+) => zonedDate(date, timeZone).format(format);
+
 export function getDatesInMonth(
   date: Date | dayjs.Dayjs = new Date(),
   locale = 'en'
 ) {
-  const subject = dayjs(date);
+  const subject = zonedDate(date);
   return Array(subject.daysInMonth() - 1)
     .fill(0)
     .map((_, i) => {
@@ -27,7 +42,7 @@ export function getDatesInWeek(
   weekStartsOn: WeekNum = 0,
   locale = 'en'
 ) {
-  const subject = dayjs(date);
+  const subject = zonedDate(date);
   const subjectDOW = subject.day();
   return Array(7)
     .fill(0)
@@ -47,7 +62,7 @@ export function getDatesInNextThreeDays(
   date: Date | dayjs.Dayjs = new Date(),
   locale = 'en'
 ) {
-  const subject = dayjs(date).locale(locale);
+  const subject = zonedDate(date).locale(locale);
   return Array(3)
     .fill(0)
     .map((_, i) => {
@@ -59,7 +74,7 @@ export function getDatesInNextOneDay(
   date: Date | dayjs.Dayjs = new Date(),
   locale = 'en'
 ) {
-  const subject = dayjs(date).locale(locale);
+  const subject = zonedDate(date).locale(locale);
   return Array(1)
     .fill(0)
     .map((_, i) => {
@@ -86,7 +101,11 @@ export function isToday(date: dayjs.Dayjs) {
 }
 
 export function getRelativeTopInDay(date: dayjs.Dayjs) {
-  return (100 * (date.hour() * 60 + date.minute())) / DAY_MINUTES;
+  const formattedDate = zonedDate(date);
+
+  return (
+    (100 * (formattedDate.hour() * 60 + formattedDate.minute())) / DAY_MINUTES
+  );
 }
 
 export function todayInMinutes() {
@@ -120,10 +139,11 @@ export function modeToNum(mode: Mode, current?: dayjs.Dayjs | Date): number {
 
 export function formatStartEnd(event: ICalendarEvent, format: string) {
   if (event.fromDate.include_time && event.toDate?.include_time) {
-    const timeRange = `${dayjs(event.fromDate.date).format(format)} - ${dayjs(
-      event.toDate.date
-    ).format(format)}`;
-    const startDate = dayjs(event.fromDate.date).format(format);
+    const timeRange = `${zonedFormatDate(
+      event.fromDate.date,
+      format
+    )} - ${zonedFormatDate(event.toDate.date, format)}`;
+    const startDate = zonedFormatDate(event.fromDate.date, format);
 
     switch (event.fieldType as FieldType) {
       case FieldType.datefield:
@@ -137,11 +157,11 @@ export function formatStartEnd(event: ICalendarEvent, format: string) {
   }
 
   if (event.fromDate.include_time) {
-    return dayjs(event.fromDate.date).format(format);
+    return zonedFormatDate(event.fromDate.date, format);
   }
 
   if (event.toDate?.include_time) {
-    return dayjs(event.toDate.date).format(format);
+    return zonedFormatDate(event.toDate.date, format);
   }
 
   return '';
@@ -152,8 +172,8 @@ export function isAllDayEvent(
   start?: DateObject | null,
   end?: DateObject | null
 ) {
-  const _start = dayjs(start?.date);
-  const _end = dayjs(end?.date);
+  const _start = zonedDate(start?.date);
+  const _end = zonedDate(end?.date);
 
   if (fieldType === 'firstcreatedfield' || fieldType === 'lastupdatedfield') {
     return !start?.include_time;
@@ -227,13 +247,13 @@ export function getOrderOfEvent(
   const events = eventList
     .filter(
       (e) =>
-        dayjs(event.fromDate.date).isBetween(
+        zonedDate(event.fromDate.date).isBetween(
           e.fromDate.date,
           e.toDate?.date,
           'minute',
           '[)'
         ) ||
-        dayjs(e.fromDate.date).isBetween(
+        zonedDate(e.fromDate.date).isBetween(
           event.fromDate.date,
           event.toDate?.date,
           'minute',
@@ -241,13 +261,13 @@ export function getOrderOfEvent(
         )
     )
     .sort((a, b) => {
-      if (dayjs(a.fromDate.date).isSame(b.fromDate.date)) {
-        return dayjs(a.fromDate.date).diff(a.toDate?.date) <
-          dayjs(b.fromDate.date).diff(b.toDate?.date)
+      if (zonedDate(a.fromDate.date).isSame(b.fromDate.date)) {
+        return zonedDate(a.fromDate.date).diff(a.toDate?.date) <
+          zonedDate(b.fromDate.date).diff(b.toDate?.date)
           ? -1
           : 1;
       } else {
-        return dayjs(a.fromDate.date).isBefore(b.fromDate.date) ? -1 : 1;
+        return zonedDate(a.fromDate.date).isBefore(b.fromDate.date) ? -1 : 1;
       }
     });
   const index = events.indexOf(event);
@@ -274,7 +294,7 @@ export function getDatesInNextCustomDays(
   weekEndsOn: WeekNum = 6,
   locale = 'en'
 ) {
-  const subject = dayjs(date);
+  const subject = zonedDate(date);
   const subjectDOW = subject.day();
   return Array(weekDaysCount(weekStartsOn, weekEndsOn))
     .fill(0)
