@@ -7,6 +7,7 @@ import { OVERLAP_PADDING } from './commonStyles';
 import type { DateObject, ICalendarEvent, Mode, WeekNum } from './interfaces';
 import { FieldType } from './interfaces';
 import TimeInfo from './timezone';
+import { Platform } from 'react-native';
 
 dayjs.extend(timezone);
 
@@ -14,10 +15,20 @@ export const typedMemo: <T>(c: T) => T = React.memo;
 
 export const DAY_MINUTES = 1440;
 
+/**
+ * Need to find solution for android to handle timezone.
+ * dayjs is not working with Hermes.
+ * */
 export const zonedDate = (
   date?: string | Date | dayjs.Dayjs | null | undefined,
   timeZone: string = TimeInfo.default().getUserTimezone()
-) => dayjs(date).tz(timeZone);
+) => {
+  if (Platform.OS === 'ios') {
+    return dayjs(date).tz(timeZone);
+  }
+
+  return dayjs(date);
+};
 
 export const zonedFormatDate = (
   date?: string | Date | dayjs.Dayjs | null | undefined,
