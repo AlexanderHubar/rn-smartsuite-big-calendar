@@ -1,26 +1,23 @@
-import { utcToZonedTime } from 'date-fns-tz';
+import { format, utcToZonedTime } from 'date-fns-tz';
 import differenceInDays from 'date-fns/differenceInCalendarDays';
 import type { DateData } from 'react-native-calendars/src/types';
 import dayjs from 'dayjs';
-import timezone from 'dayjs/plugin/timezone';
 import { FieldType } from './interfaces';
 import TimeInfo from './timezone';
 import { zonedDate } from './utils';
-
-dayjs.extend(timezone);
 
 export const getTime = (
   date: Date,
   ampm?: boolean,
   timeZone: string = TimeInfo.default().getUserTimezone()
 ) => {
-  const dateWithoutFormat = dayjs(date).tz(timeZone).locale('en');
+  const zonedTime = utcToZonedTime(date, timeZone);
 
   if (ampm) {
-    return dateWithoutFormat.format('h:mm A');
+    return format(zonedTime, 'h:mm a');
   }
 
-  return dateWithoutFormat.format('HH:mm');
+  return format(zonedTime, 'HH:mm');
 };
 
 export const getRecordTimeRange = (record: any, ampm?: boolean) => {
