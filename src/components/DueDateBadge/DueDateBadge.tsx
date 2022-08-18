@@ -14,7 +14,7 @@ import SmileIcon from '../../ui/assets/svg/icon_smile.svg';
 import { Spacer } from '../Spacer';
 import { Space } from '../Spacer/types';
 
-const iconSize = { width: 16, height: 16 };
+const iconSize = { width: 20, height: 20 };
 
 const EmotionIcon: React.FC<{ isOverdue: boolean }> = ({ isOverdue }) =>
   isOverdue ? (
