@@ -14,7 +14,7 @@ export const OverdueDaysContainer = styled.View<{ isOverdue?: boolean }>`
 `;
 
 export const OverdueDaysText = styled.Text`
-  font-weight: 700;
+  font-weight: 400;
   font-size: 14px;
   color: white;
   padding: 0 4px;
