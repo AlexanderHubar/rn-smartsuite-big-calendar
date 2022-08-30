@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { Platform } from 'react-native';
 
 export const DueDateContainer = styled.View`
   flex-direction: row;
@@ -14,7 +15,7 @@ export const OverdueDaysContainer = styled.View<{ isOverdue?: boolean }>`
 `;
 
 export const OverdueDaysText = styled.Text`
-  font-weight: 400;
+  font-weight: ${Platform.OS === 'ios' ? 700 : 400};
   font-size: 14px;
   color: white;
   padding: 0 4px;
