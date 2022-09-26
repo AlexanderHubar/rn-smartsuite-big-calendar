@@ -21,7 +21,7 @@ export const zonedDate = (
   timeZone: string = TimeInfo.default().getUserTimezone()
 ) => {
   if (Platform.OS === 'ios') {
-    return dayjs(date).tz(timeZone);
+    return dayjs(date).tz(timeZone).local();
   }
 
   return dayjs(date);
