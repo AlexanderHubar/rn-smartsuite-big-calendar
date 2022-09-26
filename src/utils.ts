@@ -1,5 +1,4 @@
 import dayjs from 'dayjs';
-import timezone from 'dayjs/plugin/timezone';
 import React from 'react';
 import type { TextStyle, ViewStyle } from 'react-native';
 
@@ -8,8 +7,6 @@ import type { DateObject, ICalendarEvent, Mode, WeekNum } from './interfaces';
 import { FieldType } from './interfaces';
 import TimeInfo from './timezone';
 import { Platform } from 'react-native';
-
-dayjs.extend(timezone);
 
 export const typedMemo: <T>(c: T) => T = React.memo;
 
