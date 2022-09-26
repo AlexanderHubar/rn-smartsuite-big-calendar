@@ -5,6 +5,7 @@ import isBetween from 'dayjs/plugin/isBetween';
 import utc from 'dayjs/plugin/utc';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import localeData from 'dayjs/plugin/localeData';
+import timezone from 'dayjs/plugin/timezone';
 import { ThemeProvider } from 'styled-components';
 
 import { lightTheme } from '../../theme/lightTheme';
@@ -36,6 +37,7 @@ require('dayjs/locale/zh-cn');
 
 dayjs.extend(isBetween);
 dayjs.extend(utc);
+dayjs.extend(timezone);
 dayjs.extend(localizedFormat);
 dayjs.extend(localeData);
 
