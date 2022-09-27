@@ -38,7 +38,6 @@ import XDate from 'xdate';
 import type { FocusEventData } from '../../interfaces';
 import type { CalendarRef } from '../../interfaces';
 import { noop } from '../noop';
-import TimeInfo from '../../timezone';
 
 export interface CalendarContainerProps<T> {
   /**
@@ -116,7 +115,6 @@ function _CalendarContainer<T>(
     date,
     eventCellStyle,
     locale = 'en',
-    timeZone = 'UTC',
     hideNowIndicator = false,
     mode = 'timeGridWeek',
     overlapOffset,
@@ -177,10 +175,6 @@ function _CalendarContainer<T>(
       updateTargetCalendarDate(dayjs(date));
     }
   }, [date]);
-
-  React.useEffect(() => {
-    TimeInfo.default().setUseTimezone(timeZone);
-  }, [timeZone]);
 
   const updateTargetCalendarDate = (_targetDay: Dayjs) => {
     setTargetDate(_targetDay);

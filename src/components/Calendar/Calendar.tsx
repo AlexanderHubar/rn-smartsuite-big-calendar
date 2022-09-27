@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useLayoutEffect } from 'react';
 
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
@@ -67,6 +67,7 @@ export interface CalendarProps<T> extends CalendarContainerProps<T> {
   isLightMode?: boolean;
   spotlightItems?: SpotlightItems[];
   findItems?: string[];
+  timeZone: string;
 }
 
 function _Calendar<T>(
@@ -77,6 +78,7 @@ function _Calendar<T>(
     isLightMode = true,
     spotlightItems = [],
     findItems = [],
+    timeZone,
     ...props
   }: CalendarProps<T>,
   ref?: React.Ref<CalendarRef> | null
@@ -84,6 +86,10 @@ function _Calendar<T>(
   const dayjsLocale = dayjsLocales[locale] || 'en';
 
   dayjs.locale(dayjsLocale);
+
+  useLayoutEffect(() => {
+    dayjs.tz.setDefault(timeZone);
+  }, [timeZone]);
 
   const globalLocaleData = dayjs.localeData();
   const firstDayOfWeek = globalLocaleData.firstDayOfWeek() as WeekNum;

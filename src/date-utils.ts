@@ -1,23 +1,16 @@
-import { format, utcToZonedTime } from 'date-fns-tz';
-import differenceInDays from 'date-fns/differenceInCalendarDays';
 import type { DateData } from 'react-native-calendars/src/types';
 import dayjs from 'dayjs';
 import { FieldType } from './interfaces';
-import TimeInfo from './timezone';
 import { zonedDate } from './utils';
 
-export const getTime = (
-  date: Date,
-  ampm?: boolean,
-  timeZone: string = TimeInfo.default().getUserTimezone()
-) => {
-  const zonedTime = utcToZonedTime(date, timeZone);
+export const getTime = (date: Date, ampm?: boolean) => {
+  const dateWithoutFormat = zonedDate(date);
 
   if (ampm) {
-    return format(zonedTime, 'h:mm a');
+    return dateWithoutFormat.format('h:mm A');
   }
 
-  return format(zonedTime, 'HH:mm');
+  return dateWithoutFormat.format('HH:mm');
 };
 
 export const getRecordTimeRange = (record: any, ampm?: boolean) => {
@@ -68,19 +61,14 @@ export const getOverdueDays = (record: any) => {
     ? statusUpdateDate
     : currentDate;
 
+  // TODO: handle include_time
   const endDate = record.toDate?.date
-    ? getUtcDate(record.toDate?.date, record.toDate?.include_time)
-    : getUtcDate(
-        record.fromDate?.date || new Date(),
-        record.fromDate?.include_time
-      );
-  return differenceInDays(endDate, dateStartPoint);
+    ? getUtcDate(record.toDate?.date)
+    : getUtcDate(record.fromDate?.date || new Date());
+  return dayjs(endDate).diff(dateStartPoint, 'day');
 };
 
-export const getUtcDate = (
-  date: string | Date,
-  timeZone: string = TimeInfo.default().getUserTimezone()
-) => utcToZonedTime(date, timeZone);
+export const getUtcDate = (date: string | Date) => zonedDate(date);
 
 export const getDateWithoutTime = (date?: string | null) =>
   zonedDate(date).format('YYYY-MM-DD');

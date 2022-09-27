@@ -139,7 +139,7 @@ function _CalendarHeader<T>({
     for (let i = 0; i < allDayEvents.length; i++) {
       const event = allDayEvents[i];
 
-      const isDateBetweenEvent = zonedDate(date).isBetween(
+      const isDateBetweenEvent = zonedDate(date, true).isBetween(
         event.fromDate.date,
         event.toDate?.date,
         'day',
