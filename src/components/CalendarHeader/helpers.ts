@@ -12,7 +12,7 @@ export const getEventsByDay = <T>(
 ) =>
   allDayEvents.reduce((eventsObject, event) => {
     const eventsRange = dateRange.map((date, dateIndex) => {
-      const isDateBetweenEvent = zonedDate(date).isBetween(
+      const isDateBetweenEvent = zonedDate(date, true).isBetween(
         event.fromDate.date,
         event.toDate?.date,
         'day',

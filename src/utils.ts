@@ -5,8 +5,6 @@ import type { TextStyle, ViewStyle } from 'react-native';
 import { OVERLAP_PADDING } from './commonStyles';
 import type { DateObject, ICalendarEvent, Mode, WeekNum } from './interfaces';
 import { FieldType } from './interfaces';
-import TimeInfo from './timezone';
-import { Platform } from 'react-native';
 
 export const typedMemo: <T>(c: T) => T = React.memo;
 
@@ -18,20 +16,21 @@ export const DAY_MINUTES = 1440;
  * */
 export const zonedDate = (
   date?: string | Date | dayjs.Dayjs | null | undefined,
-  timeZone: string = TimeInfo.default().getUserTimezone()
+  useLocal: boolean = false
 ) => {
-  if (Platform.OS === 'ios') {
-    return dayjs(date).tz(timeZone).local();
+  const result = dayjs.tz(dayjs(date));
+
+  if (useLocal) {
+    return result.local();
   }
 
-  return dayjs(date);
+  return result;
 };
 
 export const zonedFormatDate = (
   date?: string | Date | dayjs.Dayjs | null | undefined,
-  format?: string,
-  timeZone: string = TimeInfo.default().getUserTimezone()
-) => zonedDate(date, timeZone).format(format);
+  format?: string
+) => zonedDate(date).format(format);
 
 export function getDatesInMonth(
   date: Date | dayjs.Dayjs = new Date(),
