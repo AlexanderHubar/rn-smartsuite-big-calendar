@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import React from 'react';
-import type { TextStyle, ViewStyle } from 'react-native';
+import { Platform, TextStyle, ViewStyle } from 'react-native';
 
 import { OVERLAP_PADDING } from './commonStyles';
 import type { DateObject, ICalendarEvent, Mode, WeekNum } from './interfaces';
@@ -15,16 +15,13 @@ export const DAY_MINUTES = 1440;
  * dayjs is not working with Hermes.
  * */
 export const zonedDate = (
-  date?: string | Date | dayjs.Dayjs | null | undefined,
-  useLocal: boolean = false
+  date?: string | Date | dayjs.Dayjs | null | undefined
 ) => {
-  const result = dayjs.tz(dayjs(date));
-
-  if (useLocal) {
-    return result.local();
+  if (Platform.OS === 'ios') {
+    return dayjs.tz(dayjs(date));
   }
 
-  return result;
+  return dayjs(date);
 };
 
 export const zonedFormatDate = (
