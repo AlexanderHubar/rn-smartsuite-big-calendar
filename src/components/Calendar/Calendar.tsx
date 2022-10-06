@@ -19,6 +19,7 @@ import {
 import type { SpotlightItems, WeekNum } from 'rn-smartsuite-big-calendar';
 import { CalendarContextProvider } from './CalendarContext';
 import type { CalendarRef } from 'rn-smartsuite-big-calendar';
+import TimeInfo from '../../timezone';
 
 require('dayjs/locale/en');
 require('dayjs/locale/ru');
@@ -89,6 +90,7 @@ function _Calendar<T>(
 
   useLayoutEffect(() => {
     dayjs.tz.setDefault(timeZone);
+    TimeInfo.default().setUseTimezone(timeZone);
   }, [timeZone]);
 
   const globalLocaleData = dayjs.localeData();
