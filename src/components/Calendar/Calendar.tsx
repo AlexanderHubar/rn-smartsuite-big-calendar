@@ -1,4 +1,4 @@
-import React, { forwardRef, useLayoutEffect } from 'react';
+import React, { forwardRef, useLayoutEffect, useMemo } from 'react';
 
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
@@ -20,6 +20,8 @@ import type { SpotlightItems, WeekNum } from 'rn-smartsuite-big-calendar';
 import { CalendarContextProvider } from './CalendarContext';
 import type { CalendarRef } from 'rn-smartsuite-big-calendar';
 import TimeInfo from '../../timezone';
+
+import { toZonedEvent } from './helpers';
 
 require('dayjs/locale/en');
 require('dayjs/locale/ru');
@@ -80,6 +82,7 @@ function _Calendar<T>(
     spotlightItems = [],
     findItems = [],
     timeZone,
+    events,
     ...props
   }: CalendarProps<T>,
   ref?: React.Ref<CalendarRef> | null
@@ -93,6 +96,10 @@ function _Calendar<T>(
     TimeInfo.default().setUseTimezone(timeZone);
   }, [timeZone]);
 
+  const zonedEvents = useMemo(() => {
+    return events.map(toZonedEvent);
+  }, [events]);
+
   const globalLocaleData = dayjs.localeData();
   const firstDayOfWeek = globalLocaleData.firstDayOfWeek() as WeekNum;
 
@@ -104,6 +111,7 @@ function _Calendar<T>(
         <ThemeContext.Provider value={theme}>
           <CalendarContainer
             ref={ref}
+            events={zonedEvents}
             {...props}
             locale={dayjsLocale}
             weekStartsOn={firstDayOfWeek}

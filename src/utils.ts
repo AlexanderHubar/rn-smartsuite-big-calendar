@@ -5,6 +5,7 @@ import { Platform, TextStyle, ViewStyle } from 'react-native';
 import { OVERLAP_PADDING } from './commonStyles';
 import type { DateObject, ICalendarEvent, Mode, WeekNum } from './interfaces';
 import { FieldType } from './interfaces';
+import Timezone from './timezone';
 
 export const typedMemo: <T>(c: T) => T = React.memo;
 
@@ -18,7 +19,8 @@ export const zonedDate = (
   date?: string | Date | dayjs.Dayjs | null | undefined
 ) => {
   if (Platform.OS === 'ios') {
-    return dayjs.tz(dayjs(date));
+    const timeZone = Timezone.default().getUserTimezone();
+    return dayjs.utcToZoned(date, timeZone);
   }
 
   return dayjs(date);
@@ -33,7 +35,7 @@ export function getDatesInMonth(
   date: Date | dayjs.Dayjs = new Date(),
   locale = 'en'
 ) {
-  const subject = zonedDate(date);
+  const subject = dayjs.utc(date).startOf('day');
   return Array(subject.daysInMonth() - 1)
     .fill(0)
     .map((_, i) => {
@@ -46,7 +48,7 @@ export function getDatesInWeek(
   weekStartsOn: WeekNum = 0,
   locale = 'en'
 ) {
-  const subject = zonedDate(date);
+  const subject = dayjs.utc(date).startOf('day');
   const subjectDOW = subject.day();
   return Array(7)
     .fill(0)
@@ -66,7 +68,7 @@ export function getDatesInNextThreeDays(
   date: Date | dayjs.Dayjs = new Date(),
   locale = 'en'
 ) {
-  const subject = zonedDate(date).locale(locale);
+  const subject = dayjs.utc(date).startOf('day').locale(locale);
   return Array(3)
     .fill(0)
     .map((_, i) => {
@@ -78,7 +80,7 @@ export function getDatesInNextOneDay(
   date: Date | dayjs.Dayjs = new Date(),
   locale = 'en'
 ) {
-  const subject = zonedDate(date).locale(locale);
+  const subject = dayjs.utc(date).startOf('day').locale(locale);
   return Array(1)
     .fill(0)
     .map((_, i) => {
@@ -298,7 +300,7 @@ export function getDatesInNextCustomDays(
   weekEndsOn: WeekNum = 6,
   locale = 'en'
 ) {
-  const subject = zonedDate(date);
+  const subject = dayjs.utc(date).startOf('day').locale(locale);
   const subjectDOW = subject.day();
   return Array(weekDaysCount(weekStartsOn, weekEndsOn))
     .fill(0)
