@@ -3,6 +3,8 @@ import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import isBetween from 'dayjs/plugin/isBetween';
 
+import zoned from './plugins/dayjs-zoned/dayjs-zoned';
+
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 
@@ -20,6 +22,7 @@ if (Platform.OS === 'android') {
 
 export { Calendar } from './components/Calendar';
 
+dayjs.extend(zoned);
 dayjs.extend(duration);
 dayjs.extend(isBetween);
 
