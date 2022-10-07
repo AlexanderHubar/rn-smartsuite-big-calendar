@@ -102,7 +102,7 @@ export function formatHour(hour: number, ampm = false) {
 }
 
 export function isToday(date: dayjs.Dayjs) {
-  const today = dayjs();
+  const today = zonedDate();
   return today.isSame(date, 'day');
 }
 
