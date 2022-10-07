@@ -38,6 +38,7 @@ import XDate from 'xdate';
 import type { FocusEventData } from '../../interfaces';
 import type { CalendarRef } from '../../interfaces';
 import { noop } from '../noop';
+import { toZonedEvent } from '../Calendar/helpers';
 
 export interface CalendarContainerProps<T> {
   /**
@@ -189,7 +190,8 @@ function _CalendarContainer<T>(
 
   const allDayEvents = React.useMemo(
     () =>
-      events.filter((event) =>
+      events.map(toZonedEvent).filter((event) =>
+        // @ts-ignore
         isAllDayEvent(event.fieldType, event.fromDate, event.toDate)
       ),
     [events]
@@ -347,6 +349,7 @@ function _CalendarContainer<T>(
         onChangeMode={onViewModePress}
         onDateRangePress={onDateRangePress}
       />
+      {/* @ts-ignore */}
       <HeaderComponent
         {...headerProps}
         showDaysHeader={showDaysHeader}

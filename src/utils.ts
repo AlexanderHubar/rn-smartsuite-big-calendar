@@ -19,6 +19,16 @@ export const zonedDate = (
   date?: string | Date | dayjs.Dayjs | null | undefined
 ) => {
   if (Platform.OS === 'ios') {
+    return dayjs.tz(dayjs(date));
+  }
+
+  return dayjs(date);
+};
+
+export const utcToZoned = (
+  date?: string | Date | dayjs.Dayjs | null | undefined
+) => {
+  if (Platform.OS === 'ios') {
     const timeZone = Timezone.default().getUserTimezone();
     return dayjs.utcToZoned(date, timeZone);
   }
@@ -102,7 +112,7 @@ export function formatHour(hour: number, ampm = false) {
 }
 
 export function isToday(date: dayjs.Dayjs) {
-  const today = zonedDate();
+  const today = utcToZoned();
   return today.isSame(date, 'day');
 }
 
