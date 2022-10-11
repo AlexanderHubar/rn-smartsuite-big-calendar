@@ -36,7 +36,7 @@ export function getDatesInMonth(
   locale = 'en'
 ) {
   const subject = dayjs.utc(date).startOf('day');
-  return Array(subject.daysInMonth() - 1)
+  return Array(subject.daysInMonth())
     .fill(0)
     .map((_, i) => {
       return subject.date(i + 1).locale(locale);
