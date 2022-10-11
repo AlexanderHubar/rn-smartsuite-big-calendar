@@ -49,11 +49,11 @@ export const getRecordTimeRange = (record: any, ampm?: boolean) => {
 
   switch (record.fieldType as FieldType) {
     case FieldType.datefield:
-    case FieldType.firstcreatedfield:
-    case FieldType.lastupdatedfield:
       return startDate();
     case FieldType.daterangefield:
     case FieldType.duedatefield:
+    case FieldType.firstcreatedfield:
+    case FieldType.lastupdatedfield:
       return timeRange();
   }
 };
@@ -62,19 +62,22 @@ export const getOverdueDays = (record: any) => {
   const statusUpdateDate = dayjs.utc(
     record.dueDateStatus.statusResult?.updated_on
   );
-  const currentDate = dayjs().utc();
-  const dateStartPoint = record.dueDateStatus.isComplete
-    ? statusUpdateDate
-    : currentDate;
 
-  // TODO: handle include_time
+  const startDate = record.dueDateStatus.isComplete
+    ? statusUpdateDate
+    : dayjs().utc();
+
   const endDate = record.toDate?.date
     ? dayjs.utc(record.toDate?.date)
     : dayjs.utc(record.fromDate?.date);
-  return dayjs.utc(endDate).diff(dateStartPoint, 'day');
+
+  return dayjs(getDateWithoutTime(endDate)).diff(
+    getDateWithoutTime(startDate),
+    'day'
+  );
 };
 
-export const getDateWithoutTime = (date?: string | null) =>
+export const getDateWithoutTime = (date?: string | dayjs.Dayjs | null) =>
   dayjs.utc(date).format('YYYY-MM-DD');
 
 export const updateCurrentMonthDay = (date: Date) => {
