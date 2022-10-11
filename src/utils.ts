@@ -15,16 +15,6 @@ export const DAY_MINUTES = 1440;
  * Need to find solution for android to handle timezone.
  * dayjs is not working with Hermes.
  * */
-export const zonedDate = (
-  date?: string | Date | dayjs.Dayjs | null | undefined
-) => {
-  if (Platform.OS === 'ios') {
-    return dayjs.tz(dayjs(date));
-  }
-
-  return dayjs(date);
-};
-
 export const utcToZoned = (
   date?: string | Date | dayjs.Dayjs | null | undefined
 ) => {
@@ -33,13 +23,13 @@ export const utcToZoned = (
     return dayjs.utcToZoned(date, timeZone);
   }
 
-  return dayjs(date);
+  return dayjs.utc(date);
 };
 
 export const zonedFormatDate = (
   date?: string | Date | dayjs.Dayjs | null | undefined,
   format?: string
-) => zonedDate(date).format(format);
+) => dayjs.utc(date).format(format);
 
 export function getDatesInMonth(
   date: Date | dayjs.Dayjs = new Date(),
@@ -117,7 +107,7 @@ export function isToday(date: dayjs.Dayjs) {
 }
 
 export function getRelativeTopInDay(date: dayjs.Dayjs) {
-  const formattedDate = zonedDate(date);
+  const formattedDate = dayjs.utc(date);
 
   return (
     (100 * (formattedDate.hour() * 60 + formattedDate.minute())) / DAY_MINUTES
@@ -188,11 +178,11 @@ export function isAllDayEvent(
   start?: DateObject | null,
   end?: DateObject | null
 ) {
-  const _start = zonedDate(start?.date);
-  const _end = zonedDate(end?.date);
+  const _start = dayjs.utc(start?.date);
+  const _end = dayjs.utc(end?.date);
 
   if (fieldType === 'firstcreatedfield' || fieldType === 'lastupdatedfield') {
-    return !start?.include_time;
+    return true;
   }
 
   if (fieldType === 'datefield' && !end?.include_time) {
@@ -263,27 +253,21 @@ export function getOrderOfEvent(
   const events = eventList
     .filter(
       (e) =>
-        zonedDate(event.fromDate.date).isBetween(
-          e.fromDate.date,
-          e.toDate?.date,
-          'minute',
-          '[)'
-        ) ||
-        zonedDate(e.fromDate.date).isBetween(
-          event.fromDate.date,
-          event.toDate?.date,
-          'minute',
-          '[)'
-        )
+        dayjs
+          .utc(event.fromDate.date)
+          .isBetween(e.fromDate.date, e.toDate?.date, 'minute', '[)') ||
+        dayjs
+          .utc(e.fromDate.date)
+          .isBetween(event.fromDate.date, event.toDate?.date, 'minute', '[)')
     )
     .sort((a, b) => {
-      if (zonedDate(a.fromDate.date).isSame(b.fromDate.date)) {
-        return zonedDate(a.fromDate.date).diff(a.toDate?.date) <
-          zonedDate(b.fromDate.date).diff(b.toDate?.date)
+      if (dayjs.utc(a.fromDate.date).isSame(b.fromDate.date)) {
+        return dayjs.utc(a.fromDate.date).diff(a.toDate?.date) <
+          dayjs.utc(b.fromDate.date).diff(b.toDate?.date)
           ? -1
           : 1;
       } else {
-        return zonedDate(a.fromDate.date).isBefore(b.fromDate.date) ? -1 : 1;
+        return dayjs.utc(a.fromDate.date).isBefore(b.fromDate.date) ? -1 : 1;
       }
     });
   const index = events.indexOf(event);

@@ -1,10 +1,10 @@
 import type { DateData } from 'react-native-calendars/src/types';
 import dayjs from 'dayjs';
 import { FieldType } from './interfaces';
-import { zonedDate } from './utils';
+import { isAllDayEvent } from './utils';
 
 export const getTime = (date: Date, ampm?: boolean) => {
-  const dateWithoutFormat = zonedDate(date);
+  const dateWithoutFormat = dayjs.utc(date);
 
   if (ampm) {
     return dateWithoutFormat.format('h:mm A');
@@ -17,14 +17,20 @@ export const getRecordTimeRange = (record: any, ampm?: boolean) => {
   const fromDate =
     record.fromDate?.include_time &&
     record.fromDate?.date &&
-    new Date(record.fromDate?.date);
+    dayjs.utc(record.fromDate?.date);
   const toDate =
     record.toDate?.include_time &&
     record.toDate?.date &&
-    new Date(record.toDate?.date);
+    dayjs.utc(record.toDate?.date);
 
   const timeRange = () => {
     if (fromDate && toDate) {
+      const isAllDay = isAllDayEvent(record.fieldType, fromDate, toDate);
+
+      if (isAllDay) {
+        return 'All-day';
+      }
+
       return `${getTime(fromDate, ampm)} - ${getTime(toDate, ampm)}`;
     }
 
@@ -53,25 +59,23 @@ export const getRecordTimeRange = (record: any, ampm?: boolean) => {
 };
 
 export const getOverdueDays = (record: any) => {
-  const statusUpdateDate = getUtcDate(
-    record.dueDateStatus.statusResult?.updated_on || new Date()
+  const statusUpdateDate = dayjs.utc(
+    record.dueDateStatus.statusResult?.updated_on
   );
-  const currentDate = new Date();
+  const currentDate = dayjs().utc();
   const dateStartPoint = record.dueDateStatus.isComplete
     ? statusUpdateDate
     : currentDate;
 
   // TODO: handle include_time
   const endDate = record.toDate?.date
-    ? getUtcDate(record.toDate?.date)
-    : getUtcDate(record.fromDate?.date || new Date());
-  return dayjs(endDate).diff(dateStartPoint, 'day');
+    ? dayjs.utc(record.toDate?.date)
+    : dayjs.utc(record.fromDate?.date);
+  return dayjs.utc(endDate).diff(dateStartPoint, 'day');
 };
 
-export const getUtcDate = (date: string | Date) => zonedDate(date);
-
 export const getDateWithoutTime = (date?: string | null) =>
-  zonedDate(date).format('YYYY-MM-DD');
+  dayjs.utc(date).format('YYYY-MM-DD');
 
 export const updateCurrentMonthDay = (date: Date) => {
   const currentDate = new Date();
@@ -84,4 +88,4 @@ export const updateCurrentMonthDay = (date: Date) => {
 };
 
 export const scrollDirection = (date: DateData, currentDate?: string) =>
-  dayjs(date.dateString).isBefore(currentDate) ? 'RIGHT' : 'LEFT';
+  dayjs.utc(date.dateString).isBefore(currentDate) ? 'RIGHT' : 'LEFT';

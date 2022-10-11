@@ -25,7 +25,6 @@ import {
   isFocusElement,
   isToday,
   typedMemo,
-  zonedDate,
 } from '../../utils';
 import { CalendarEvent } from '../CalendarEvents';
 import { HourGuideColumn } from '../HourGuideColumn';
@@ -35,7 +34,7 @@ import { useTheme } from 'styled-components';
 import { useEffect } from 'react';
 import { Events } from './Events';
 import { Hours } from './HourGuide';
-import type dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 interface CalendarBodyProps<T> {
   cellHeight: number;
@@ -131,7 +130,7 @@ function _CalendarBody<T>({
         if (!focusEvent.fromDate.include_time) {
           return;
         }
-        const eventHours = zonedDate(focusEvent.fromDate.date).hour();
+        const eventHours = dayjs.utc(focusEvent.fromDate.date).hour();
         const scrollY = cellHeight * eventHours;
 
         scrollView?.current.scrollTo({ x: 0, y: scrollY, animated: true });

@@ -29,8 +29,8 @@ export function useCalendarTouchableOpacityProps<T>({
 
   const plainJsEvent = {
     ...event,
-    start: dayjs(event.fromDate.date).toDate(),
-    end: dayjs(event.toDate?.date).toDate(),
+    start: dayjs.utc(event.fromDate.date).toDate(),
+    end: dayjs.utc(event.toDate?.date).toDate(),
   };
 
   const _onPress = React.useCallback(() => {

@@ -1,4 +1,4 @@
-import type dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import React, { useContext, useEffect, useState } from 'react';
 import { find } from 'remeda';
 import {
@@ -12,7 +12,7 @@ import {
 
 import { u } from '../../commonStyles';
 import type { ICalendarEvent } from '../../interfaces';
-import { isFocusElement, isToday, typedMemo, zonedDate } from '../../utils';
+import { isFocusElement, isToday, typedMemo } from '../../utils';
 import {
   ActiveDateCircle,
   AllDayEventBoldLabel,
@@ -139,21 +139,15 @@ function _CalendarHeader<T>({
     for (let i = 0; i < allDayEvents.length; i++) {
       const event = allDayEvents[i];
 
-      const isDateBetweenEvent = zonedDate(date).isBetween(
-        event.fromDate.date,
-        event.toDate?.date,
-        'day',
-        '[]'
-      );
+      const isDateBetweenEvent = dayjs
+        .utc(date)
+        .isBetween(event.fromDate.date, event.toDate?.date, 'day', '[]');
 
       if (eventsArr.length > 2) {
         const countOfEventPerDay = allDayEvents.filter((_event) =>
-          zonedDate(date).isBetween(
-            _event.fromDate.date,
-            _event.toDate?.date,
-            'day',
-            '[]'
-          )
+          dayjs
+            .utc(date)
+            .isBetween(_event.fromDate.date, _event.toDate?.date, 'day', '[]')
         ).length;
 
         const eventsLeft = countOfEventPerDay - 3;

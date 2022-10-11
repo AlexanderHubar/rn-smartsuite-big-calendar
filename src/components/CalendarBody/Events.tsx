@@ -12,12 +12,9 @@ const Events: React.FC<{
   useEffect(() => {
     setVisibleEvents(
       events.filter((event: any) =>
-        dayjs(event.fromDate.date).isBetween(
-          date.startOf('day'),
-          date.endOf('day'),
-          null,
-          '[)'
-        )
+        dayjs
+          .utc(event.fromDate.date)
+          .isBetween(date.startOf('day'), date.endOf('day'), null, '[)')
       )
     );
   }, [events, date]);
