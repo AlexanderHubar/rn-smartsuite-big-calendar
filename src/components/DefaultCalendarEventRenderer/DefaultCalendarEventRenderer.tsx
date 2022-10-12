@@ -20,7 +20,7 @@ export function DefaultCalendarEventRenderer<T>({
   textColor,
   ampm,
 }: DefaultCalendarEventRendererProps<T>) {
-  const timeFormat = ampm ? 'h:mm a' : 'HH:mm';
+  const timeFormat = ampm ? 'h:mmA' : 'HH:mm';
 
   const time = formatStartEnd(event, timeFormat);
 

@@ -12,7 +12,6 @@ import {
   getRelativeTopInDay,
   getStyleForOverlappingEvent,
   typedMemo,
-  zonedDate,
 } from '../../utils';
 import { DefaultCalendarEventRenderer } from '../DefaultCalendarEventRenderer';
 import { useSpotlight } from '../../hooks/useSpotlight';
@@ -20,16 +19,24 @@ import { useContext } from 'react';
 import { CalendarContext } from '../Calendar/CalendarContext';
 import { TouchableOpacity } from 'react-native';
 import { HighLightBox } from '../CalendarEventListItem/styled';
+import dayjs from 'dayjs';
+
+const DEFAULT_RELATIVE_HEIGHT = 4;
 
 const getEventCellPositionStyle = (
   start?: Date | string | null,
   end?: Date | string | null
 ) => {
+  const startDate = dayjs.utc(start);
+  const endDate = dayjs.utc(end);
+
   const relativeHeight =
-    100 * (1 / DAY_MINUTES) * zonedDate(end).diff(start, 'minute');
-  const relativeTop = getRelativeTopInDay(zonedDate(start));
+    100 * (1 / DAY_MINUTES) * endDate.diff(startDate, 'minute');
+  const relativeTop = getRelativeTopInDay(startDate);
   return {
-    height: `${relativeHeight}%`,
+    height: `${
+      relativeHeight <= 0 ? DEFAULT_RELATIVE_HEIGHT : relativeHeight
+    }%`,
     top: `${relativeTop}%`,
   };
 };
