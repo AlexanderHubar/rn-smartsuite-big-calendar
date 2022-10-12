@@ -7,7 +7,7 @@ export const getTime = (date: Date, ampm?: boolean) => {
   const dateWithoutFormat = dayjs.utc(date);
 
   if (ampm) {
-    return dateWithoutFormat.format('h:mm A');
+    return dateWithoutFormat.format('h:mmA');
   }
 
   return dateWithoutFormat.format('HH:mm');

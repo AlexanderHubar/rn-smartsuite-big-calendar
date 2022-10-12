@@ -58,13 +58,11 @@ export const AllDayEventPill = styled.TouchableOpacity<{
 export const AllDayEventLabel = styled.Text<{ color?: string }>`
   font-size: ${({ theme }) => theme.typography.sm.fontSize}px;
   color: ${({ color }) => color ?? 'white'};
-  font-weight: 400;
-`;
-
-export const AllDayEventBoldLabel = styled(AllDayEventLabel)`
   font-weight: 500;
   line-height: 14px;
 `;
+
+export const AllDayEventBoldLabel = styled(AllDayEventLabel)``;
 
 export const WeekTimeLine = styled.View`
   top: 53.4px;

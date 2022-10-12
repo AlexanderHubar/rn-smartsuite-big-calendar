@@ -196,7 +196,7 @@ function _CalendarHeader<T>({
               </AllDayEventLabel>
             </HighlightWrapper>
             <AllDayEventBoldLabel color={fontColor}>
-              •{' '}
+              {' • '}
               <AllDayEventLabel color={fontColor}>
                 {event?.fieldLabel}
               </AllDayEventLabel>
