@@ -109,7 +109,10 @@ function _CalendarMonth<T>({
   };
 
   const handleOnDayPress = (date: DateData) => {
-    if (dayjs(date.dateString).month() !== dayjs(currentDate).month()) {
+    const selectedDateMonth = dayjs.utc(date.dateString).month();
+    const rangeMonth = dayjs.utc(dateRange[0]).month();
+
+    if (selectedDateMonth !== rangeMonth) {
       changeDirection(date);
     }
     setCurrentDate(date.dateString);
@@ -143,6 +146,14 @@ function _CalendarMonth<T>({
   };
 
   useEffect(() => {
+    const today = dayjs.utc(todayDate);
+    const range = dayjs.utc(dateRange[0]);
+
+    if (today.month() !== range.month()) {
+      setCurrentDate(getDateWithoutTime(range.toISOString()));
+      return;
+    }
+
     setCurrentDate(getDateWithoutTime(todayDate.toISOString()));
   }, [todayDate]);
 
