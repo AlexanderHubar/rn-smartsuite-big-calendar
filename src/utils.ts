@@ -119,7 +119,11 @@ export function todayInMinutes() {
   return today.diff(dayjs().startOf('day'), 'minute');
 }
 
-export function modeToNum(mode: Mode, current?: dayjs.Dayjs | Date, swipeDirection?: string): number {
+export function modeToNum(
+  mode: Mode,
+  current?: dayjs.Dayjs | Date,
+  swipeDirection?: string
+): number {
   if (mode === 'dayGridMonth') {
     if (!current) {
       throw new Error('You must specify current date if mode is month');
@@ -127,13 +131,13 @@ export function modeToNum(mode: Mode, current?: dayjs.Dayjs | Date, swipeDirecti
     if (current instanceof Date) {
       current = dayjs(current);
     }
-    if(swipeDirection) {
+    if (swipeDirection) {
       const currentDate = dayjs.utc(current).date();
       const startOfMonth = dayjs.utc(current).startOf('month').date();
       const endOfMonth = current.endOf('month').date();
-      if(currentDate === startOfMonth && swipeDirection === 'RIGHT') {
+      if (currentDate === startOfMonth && swipeDirection === 'RIGHT') {
         return current.set('month', current.month() - 1).daysInMonth();
-      } else if(currentDate === endOfMonth && swipeDirection ==='LEFT') {
+      } else if (currentDate === endOfMonth && swipeDirection === 'LEFT') {
         return current.set('month', current.month() + 1).daysInMonth();
       }
     }

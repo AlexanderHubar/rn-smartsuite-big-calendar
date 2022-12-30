@@ -253,10 +253,14 @@ function _CalendarContainer<T>(
         (direction === 'LEFT' && !theme.isRTL) ||
         (direction === 'RIGHT' && theme.isRTL)
       ) {
-        setTargetDate(targetDate.add(modeToNum(mode, targetDate, direction), 'day'));
+        setTargetDate(
+          targetDate.add(modeToNum(mode, targetDate, direction), 'day')
+        );
         calendarRef.current?.onSwipeLeft();
       } else {
-        setTargetDate(targetDate.add(-modeToNum(mode, targetDate, direction), 'day'));
+        setTargetDate(
+          targetDate.add(-modeToNum(mode, targetDate, direction), 'day')
+        );
         calendarRef.current?.onSwipeRight();
       }
     },
