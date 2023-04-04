@@ -1,6 +1,6 @@
 {
   "name": "rn-smartsuite-big-calendar",
-  "version": "0.15.4",
+  "version": "0.15.5",
   "description": "Big calendar",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
