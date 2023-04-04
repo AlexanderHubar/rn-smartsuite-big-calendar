@@ -1,5 +1,6 @@
 import type { DateData } from 'react-native-calendars/src/types';
 import dayjs from 'dayjs';
+import { format, utcToZonedTime } from 'date-fns-tz';
 import { FieldType } from './interfaces';
 import { isAllDayEvent } from './utils';
 
@@ -92,3 +93,17 @@ export const updateCurrentMonthDay = (date: Date) => {
 
 export const scrollDirection = (date: DateData, currentDate?: string) =>
   dayjs.utc(date.dateString).isBefore(currentDate) ? 'RIGHT' : 'LEFT';
+
+// NOTE: date-fns-tz@1.3.7 crash build on android for new users (Invalid date)
+// SOURCE: https://github.com/marnusw/date-fns-tz#formatintimezone
+export const formatInTimeZone = (
+  date: Date | string | number,
+  timeZone: string,
+  formatStr: string
+) => {
+  const extendedOptions = {
+    timeZone,
+  };
+
+  return format(utcToZonedTime(date, timeZone), formatStr, extendedOptions);
+};

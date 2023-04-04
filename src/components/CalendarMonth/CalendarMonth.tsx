@@ -3,7 +3,6 @@ import {
   ICalendarEvent,
   isFocusElement,
   typedMemo,
-  utcToZoned,
 } from 'rn-smartsuite-big-calendar';
 
 import { Calendar } from 'react-native-calendars';
@@ -14,6 +13,7 @@ import {
   getDateWithoutTime,
   updateCurrentMonthDay,
   scrollDirection,
+  formatInTimeZone,
 } from '../../date-utils';
 
 import { Container, styles, CalendarContainer } from './styled';
@@ -24,6 +24,7 @@ import type { DateData } from 'react-native-calendars/src/types';
 import { useTheme } from 'styled-components';
 import { CalendarContext } from '../Calendar/CalendarContext';
 import { useSpotlight } from '../../hooks/useSpotlight';
+import TimeInfo from '../../timezone';
 
 function _CalendarMonth<T>({
   ampm,
@@ -160,7 +161,11 @@ function _CalendarMonth<T>({
 
   useEffect(() => focusElementIndex(), [focusEvent?.uniqueId]);
 
-  const formattedToday = getDateWithoutTime(utcToZoned().toISOString());
+  const formattedToday = formatInTimeZone(
+    new Date(),
+    TimeInfo.default().getUserTimezone(),
+    'yyyy-MM-dd'
+  );
 
   return (
     <Container>
