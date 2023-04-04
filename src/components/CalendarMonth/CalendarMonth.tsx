@@ -3,6 +3,7 @@ import {
   ICalendarEvent,
   isFocusElement,
   typedMemo,
+  utcToZoned,
 } from 'rn-smartsuite-big-calendar';
 
 import { Calendar } from 'react-native-calendars';
@@ -159,6 +160,8 @@ function _CalendarMonth<T>({
 
   useEffect(() => focusElementIndex(), [focusEvent?.uniqueId]);
 
+  const formattedToday = getDateWithoutTime(utcToZoned().toISOString());
+
   return (
     <Container>
       <CalendarContainer {...panResponder.panHandlers}>
@@ -173,6 +176,13 @@ function _CalendarMonth<T>({
           renderHeader={() => <View />}
           markedDates={{
             ...markedDotes,
+            // NOTE: library do not supported timezone, so we add custom mark
+            // SOURCE: https://github.com/wix/react-native-calendars/issues/1992
+            [formattedToday]: {
+              selected: true,
+              selectedTextColor: activeColor,
+              selectedColor: 'transparent',
+            },
             [`${currentDate}`]: {
               ...markedDotes[`${currentDate}`],
               selected: true,
@@ -181,7 +191,7 @@ function _CalendarMonth<T>({
           }}
           theme={{
             ...theme.monthCalendar,
-            todayTextColor: activeColor,
+            todayTextColor: theme.monthCalendar.dayTextColor,
           }}
           style={{
             ...styles.calendar,
