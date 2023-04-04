@@ -28,6 +28,7 @@ import {
   getDatesInWeek,
   isAllDayEvent,
   modeToNum,
+  utcToZoned,
 } from '../../utils';
 import { CalendarBody } from '../CalendarBody';
 import { CalendarHeader } from '../CalendarHeader';
@@ -149,8 +150,8 @@ function _CalendarContainer<T>(
   }: CalendarContainerProps<T>,
   ref?: React.Ref<CalendarRef> | null
 ) {
-  const [targetDate, setTargetDate] = React.useState(dayjs(date));
-  const [todayDate, setTodayDate] = React.useState(dayjs(date));
+  const [targetDate, setTargetDate] = React.useState(utcToZoned(date));
+  const [todayDate, setTodayDate] = React.useState(utcToZoned(date));
   const [focusEvent, setFocusEvent] = useState<ICalendarEvent<T> | null>(null);
   const calendarRef = useRef<any | null>(null);
 
@@ -178,11 +179,16 @@ function _CalendarContainer<T>(
   }, [date]);
 
   const updateTargetCalendarDate = (_targetDay: Dayjs) => {
-    setTargetDate(_targetDay);
-    setTodayDate(_targetDay);
+    const zonedTargetDate = utcToZoned(_targetDay);
+    setTargetDate(zonedTargetDate);
+    setTodayDate(zonedTargetDate);
     if (calendarRef.current) {
       calendarRef.current.updateMonth(
-        new XDate(_targetDay.year(), _targetDay.month(), _targetDay.day()),
+        new XDate(
+          zonedTargetDate.year(),
+          zonedTargetDate.month(),
+          zonedTargetDate.day()
+        ),
         true
       );
     }
